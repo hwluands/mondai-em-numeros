@@ -7,9 +7,25 @@
 .topo nav { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: none; }
 .topo nav a { color: var(--suave); text-decoration: none; font-size: 0.88rem; padding: 6px 10px; white-space: nowrap; }
 .topo nav a:hover { color: var(--tinta); }
-.acess { display: flex; gap: 4px; }
-.acess button { min-height: 34px; padding: 4px 10px; font-size: 0.8rem; background: transparent; border-color: var(--linha); color: var(--tinta); }
-.acess button[aria-pressed=true] { border-color: var(--c1); color: var(--c1); }
+/* Controles de leitura: tamanho da letra (segmentado), contraste e tema, com ícones em SVG */
+.acess { display: flex; align-items: center; gap: 6px; }
+.acess button { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 10px; font-size: 0.8rem; font-weight: 600;
+  background: transparent; border: 1px solid var(--linha); color: var(--tinta); }
+.acess button:hover { border-color: var(--tinta); }
+.acess button:disabled { opacity: 0.35; cursor: default; border-color: var(--linha); }
+.segmento { display: flex; }
+.segmento button { width: 36px; justify-content: center; padding: 0; }
+.segmento button + button { margin-left: -1px; }
+.a-menor, .a-maior { font-weight: 700; line-height: 1; }
+.a-menor { font-size: 0.78rem; }
+.a-maior { font-size: 1.08rem; }
+.icone { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.icone .cheio { fill: currentColor; stroke: none; }
+.icone-lua { fill: currentColor; stroke: none; }
+.icone-sol { display: none; }
+html[data-tema="escuro"] .icone-lua { display: none; }
+html[data-tema="escuro"] .icone-sol { display: block; }
+#contraste[aria-pressed=true] { background: var(--c1); border-color: var(--c1); color: var(--sobre-c1); }
 
 /* Abertura: manchete grande e o ranking das 295 cidades */
 .abertura { padding: 56px 0 44px; border-bottom: 1px solid var(--linha); }
@@ -163,8 +179,10 @@ body.travado { overflow: hidden; }
   .topo nav { display: none; }
   .topo .largura { justify-content: space-between; gap: 8px; }
   .marca { font-size: 0.85rem; }
-  .acess { gap: 3px; }
-  .acess button { padding: 3px 7px; font-size: 0.74rem; }
+  .acess { gap: 4px; }
+  .acess .rotulo { display: none; }
+  .acess button { padding: 0 8px; }
+  .segmento button { width: 32px; }
   .abertura { padding: 36px 0 32px; }
   .ficha { grid-template-columns: 1fr; }
   .ficha div, .ficha div + div { padding: 12px 0; border-left: 0; }
