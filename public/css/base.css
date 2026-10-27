@@ -1,7 +1,7 @@
 /* Tokens e estilos comuns às páginas do Mondaí em Números.
    Identidade: publicação estatística. Regra de cor: Mondaí (c1) é a única cor forte;
    referências (SC, medianas, outras cidades) ficam em tons neutros.
-   Tema escuro é o padrão; html[data-tema="claro"] troca a página inteira para o claro. */
+   Tema claro é o padrão; html[data-tema="escuro"] troca a página inteira para o escuro. */
 
 @font-face {
   font-family: "Archivo";
@@ -22,27 +22,8 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0;
 }
 
-/* Escuro (padrão) */
+/* Claro (padrão) */
 :root {
-  --papel: #0e0f0e;
-  --card: #161816;
-  --tinta: #f1f2ee;
-  --texto: #d4d6d0;
-  --suave: #9a9d96;
-  --linha: #2e312d;
-  --trilho: #222521;
-  /* c1 é sempre Mondaí. c3 e c5 são tons do mesmo verde para séries da própria cidade;
-     c2, c4, c6 e c7 são neutros, do mais forte ao mais fraco, para referências. */
-  --c1: #3fcf7e;
-  --c2: #b4b7af;
-  --c3: #2a8a56;
-  --c4: #7d817a;
-  --c5: #1d4a31;
-  --c6: #4f534c;
-  --c7: #363a34;
-  --sobre-c1: #0e0f0e;
-}
-html[data-tema="claro"] {
   --papel: #fbfbf9;
   --card: #ffffff;
   --tinta: #0d0d0d;
@@ -50,6 +31,8 @@ html[data-tema="claro"] {
   --suave: #5a5a57;
   --linha: #d7d7d3;
   --trilho: #ebebe7;
+  /* c1 é sempre Mondaí. c3 e c5 são tons do mesmo verde para séries da própria cidade;
+     c2, c4, c6 e c7 são neutros, do mais forte ao mais fraco, para referências. */
   --c1: #16663a;
   --c2: #55554f;
   --c3: #5c9c76;
@@ -58,6 +41,23 @@ html[data-tema="claro"] {
   --c6: #c4c5c0;
   --c7: #dededa;
   --sobre-c1: #ffffff;
+}
+html[data-tema="escuro"] {
+  --papel: #0e0f0e;
+  --card: #161816;
+  --tinta: #f1f2ee;
+  --texto: #d4d6d0;
+  --suave: #9a9d96;
+  --linha: #2e312d;
+  --trilho: #222521;
+  --c1: #3fcf7e;
+  --c2: #b4b7af;
+  --c3: #2a8a56;
+  --c4: #7d817a;
+  --c5: #1d4a31;
+  --c6: #4f534c;
+  --c7: #363a34;
+  --sobre-c1: #0e0f0e;
 }
 :root {
   --fonte: "Archivo", "Arial Narrow", Arial, sans-serif;
@@ -70,8 +70,8 @@ body.contraste {
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { font-size: var(--base); scroll-behavior: smooth; color-scheme: dark; }
-html[data-tema="claro"] { color-scheme: light; }
+html { font-size: var(--base); scroll-behavior: smooth; color-scheme: light; }
+html[data-tema="escuro"] { color-scheme: dark; }
 body {
   margin: 0; background: var(--papel); color: var(--texto);
   font-family: var(--fonte); font-stretch: 100%; line-height: 1.5;

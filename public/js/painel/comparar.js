@@ -19,7 +19,9 @@ export function duelo(outra, intro) {
   const O = MUN[outra];
   document.getElementById("selCidade").value = outra;
   document.getElementById("nomeOutra").textContent = O.nome;
-  document.getElementById("introDuelo").textContent = intro + " Fora a população, os indicadores são por habitante ou em porcentagem, para comparar cidades de tamanhos diferentes.";
+  const el = document.getElementById("introDuelo");
+  el.textContent = intro;
+  el.hidden = !intro;
   document.getElementById("duelo").innerHTML = DUELO.map(k => {
     const a = M[k], b = O[k];
     const max = Math.max(a || 0, b || 0) || 1;
@@ -38,7 +40,6 @@ export function duelo(outra, intro) {
     return '<div class="card linha-duelo"><h3>' + I[k].rotulo + ' <span class="ano">· ' + I[k].ano + "</span></h3>" +
       linha("Mondaí", a, "c1") + linha(O.nome, b, "c4") + '<p class="veredito">' + veredito + "</p></div>";
   }).join("");
-  document.getElementById("chamadaCidade").textContent = "Ver Mondaí × " + O.nome;
 }
 
 // Redesenha com as cores atuais (ao trocar o contraste).
@@ -54,5 +55,5 @@ export function personalizar(cidade) {
 }
 
 export function iniciarComparacao() {
-  document.getElementById("selCidade").addEventListener("change", e => duelo(e.target.value, "Comparação escolhida por você."));
+  document.getElementById("selCidade").addEventListener("change", e => duelo(e.target.value, ""));
 }

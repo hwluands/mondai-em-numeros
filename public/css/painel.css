@@ -17,13 +17,12 @@
 .abertura h1 .m { color: var(--c1); }
 .lide { font-size: clamp(1.05rem, 1.7vw, 1.25rem); max-width: 58ch; margin: 20px 0 32px; }
 .assinatura { margin: 0 0 32px; }
-.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 28px; border-top: 1px solid var(--tinta); }
+.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--linha); }
 .ficha div { display: flex; flex-direction: column; padding: 14px 20px 16px 0; }
 .ficha div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
 .ficha dd { margin: 0; color: var(--tinta); font-weight: 750; font-stretch: 75%; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; }
 .ficha dt { order: 2; font-size: 0.85rem; color: var(--suave); }
-.chamadas { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
-.contador { font-size: 0.85rem; color: var(--suave); }
+.contador { font-size: 0.85rem; color: var(--suave); margin: 14px 0 0; }
 
 /* Ranking de 295 traços (js/painel/ranking.js) */
 .ranking-titulo { font-size: 0.85rem; color: var(--suave); margin: 0; }
@@ -56,7 +55,10 @@ section.bloco:first-of-type { border-top: 0; }
 /* Sua cidade: lista de indicadores com fios, Mondaí na cor e a outra cidade em neutro */
 .duelo-topo { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: end; justify-content: space-between; margin-bottom: 8px; }
 .duelo-topo .intro { margin-bottom: 0; }
+#sua-cidade > .largura > .nota { margin-top: 14px; }
 .duelo-topo label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 4px; min-width: 240px; color: var(--tinta); }
+/* O seletor fica sempre destacado, para a pessoa perceber que pode trocar a cidade */
+#selCidade { border: 2px solid var(--c1); font-weight: 650; }
 .duelo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; border-top: 1px solid var(--tinta); }
 .linha-duelo { padding: 16px 0 14px; border-bottom: 1px solid var(--linha); }
 .linha-duelo h3 { font-size: 1.02rem; font-stretch: 85%; font-weight: 700; margin-bottom: 4px; }

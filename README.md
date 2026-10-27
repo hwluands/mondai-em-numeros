@@ -81,6 +81,13 @@ A [`auditoria.py`](pipeline/auditoria.py) refaz cada porcentagem a partir das co
 
 Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plansab), adotado pelo IBGE na divulgação do Censo 2022: rede geral e fossa séptica, ligada ou não à rede.
 
+## Como os textos são escritos
+
+- Todo número de título ou texto é calculado dos dados na hora, nunca escrito à mão; se os dados forem atualizados, os textos acompanham.
+- Cada fato vem com os dois lados quando os dados mostram os dois: por exemplo, o esgoto adequado fica abaixo de Santa Catarina, mas é o 2º melhor da região.
+- O texto só afirma o que os dados mostram. Interpretações sem base nos números (causas, intenções, quem ganha ou perde) ficam de fora.
+- Posições no ranking vêm acompanhadas do valor quando a diferença real é pequena: no meio da fila, cem posições podem separar poucas centenas de reais.
+
 ## Fontes
 
 | Tema | Fonte | Tabela ou serviço |
@@ -140,7 +147,7 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 | Princípio | Como foi atendido |
 |---|---|
 | Igualitário | Gratuito e funciona em qualquer navegador; a entrada pede só nome e cidade |
-| Adaptável | Letra A−/A+, tema escuro (padrão) ou claro e modo de alto contraste |
+| Adaptável | Letra A−/A+, tema claro (padrão) ou escuro e modo de alto contraste |
 | Intuitivo | Posições escritas como "8º maior de SC"; cada indicador mostra as 295 cidades em traços, com Mondaí em destaque |
 | Informação perceptível | Cada gráfico tem tabela equivalente e descrição para leitores de tela |
 | Tolerância ao erro | Indicadores sem dado aparecem como "sem dado"; o script para em vez de publicar dado errado |
