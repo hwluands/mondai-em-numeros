@@ -144,6 +144,7 @@ for chave, formula, desc in (
     ("suinos_hab", m["suinos"] / POP[2025], "suínos ÷ população 2025"),
     ("leite_hab", m["leite"] * 1000 / POP[2025], "leite (mil litros × 1000) ÷ população 2025"),
     ("ocupados_100", m["ocupados"] / POP[2024] * 100, "pessoal ocupado ÷ população 2024 × 100"),
+    ("empresas_mil", m["empresas"] / POP[2024] * 1000, "empresas ÷ população 2024 × 1000"),
 ):
     confere(f"{I[chave]['rotulo']} ({desc})", I[chave]["mondai"], formula)
 confere("Peso da indústria + agro + serviços + adm. pública = 100%",

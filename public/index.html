@@ -136,8 +136,8 @@
 
   /* Explorar */
   .kpis { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 28px; }
-  .kpi .rotulo { font-size: 0.8rem; color: var(--suave); display: flex; justify-content: space-between; gap: 8px; }
-  .kpi .ano { font-size: 0.7rem; border: 1px solid var(--linha); border-radius: 999px; padding: 0 7px; white-space: nowrap; }
+  .kpi .rotulo { font-size: 0.8rem; color: var(--suave); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .kpi .ano { flex: none; align-self: flex-start; font-size: 0.7rem; line-height: 1.5; border: 1px solid var(--linha); border-radius: 999px; padding: 0 7px; white-space: nowrap; }
   .kpi .valor { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; margin: 4px 0 10px; }
   .faixa { position: relative; height: 8px; background: var(--trilho); border-radius: 4px; margin: 0 6px; }
   .faixa .mediana { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--suave); left: 50%; }
@@ -326,7 +326,7 @@
           </ul>
         </div>
         <div>
-          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo. Esgoto adequado segue o Plano Nacional de Saneamento Básico (Plansab): rede geral e fossa séptica, ligada ou não à rede.</p>
+          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo. Esgoto adequado segue o Plano Nacional de Saneamento Básico (Plansab): rede geral e fossa séptica, ligada ou não à rede. Os rebanhos são os animais existentes no município em 31 de dezembro, e a Pesquisa da Pecuária Municipal os estima por consulta a informantes do setor.</p>
           <p><b>Auditoria.</b> Um segundo script refaz cada porcentagem a partir das contagens absolutas do IBGE, confere somas, rankings e indicadores por habitante e compara com o IBGE Cidades. <a href="dados/auditoria.txt">Ver o resultado</a>.</p>
           <p><b>Privacidade.</b> O nome e a cidade informados na entrada ficam registrados com a data e a hora do acesso e servem apenas para medir o alcance do projeto. Nenhum outro dado é coletado.</p>
           <p><a href="dados/municipios_sc.csv" download>Baixar os dados das 295 cidades (CSV)</a><br><a href="dados/validacao.txt">Ver a conferência das fontes</a><span id="itemCodigo"><br><a href="#" id="linkCodigo">Código-fonte</a></span></p>
@@ -458,9 +458,17 @@
         meta.data.forEach((el, i) => {
           const v = ds.data[i];
           if (v === null || v === undefined) return;
+          const t = op.formatar(v, i, di);
+          const x = horizontal ? el.x + 6 : el.x, y = horizontal ? el.y : el.y - 4;
+          const w = ctx.measureText(t).width;
+          // Fundo da cor do cartão atrás do texto, para linhas de referência e grade não o encobrirem.
+          ctx.fillStyle = cor("card");
+          if (horizontal) ctx.fillRect(x - 3, y - 9, w + 6, 18);
+          else ctx.fillRect(x - w / 2 - 3, y - 16, w + 6, 16);
+          ctx.fillStyle = cor("tinta");
           ctx.textAlign = horizontal ? "left" : "center";
           ctx.textBaseline = horizontal ? "middle" : "bottom";
-          ctx.fillText(op.formatar(v, i, di), horizontal ? el.x + 6 : el.x, horizontal ? el.y : el.y - 4);
+          ctx.fillText(t, x, y);
         });
       });
       ctx.restore();
@@ -604,7 +612,8 @@
   }
 
   // ---------------------------------------------------------------- sua cidade
-  const DUELO = ["pop2026", "pib_pc", "salario_rs", "empresas", "superior", "esgoto_adequado", "idade_mediana", "suinos"];
+  // Fora a população, tudo é por habitante ou porcentagem, para comparar cidades de tamanhos diferentes.
+  const DUELO = ["pop2026", "pib_pc", "salario_rs", "empresas_mil", "ocupados_100", "superior", "esgoto_adequado", "suinos_hab"];
 
   function preencherCidades() {
     const opcoes = Object.entries(MUN).filter(([id]) => id !== P.mondai).sort((a, b) => a[1].nome.localeCompare(b[1].nome, "pt-BR"));
@@ -613,18 +622,24 @@
       .sort((a, b) => a.localeCompare(b, "pt-BR")).map(n => '<option value="' + n + '">').join("");
   }
 
+  let introAtual = "";
   function duelo(outra, intro) {
+    introAtual = intro;
     const O = MUN[outra];
     document.getElementById("selCidade").value = outra;
     document.getElementById("nomeOutra").textContent = O.nome;
-    document.getElementById("introDuelo").textContent = intro;
+    document.getElementById("introDuelo").textContent = intro + " Fora a população, os indicadores são por habitante ou em porcentagem, para comparar cidades de tamanhos diferentes.";
     document.getElementById("duelo").innerHTML = DUELO.map(k => {
       const a = M[k], b = O[k];
       const max = Math.max(a || 0, b || 0) || 1;
       const linha = (nome, v, c) => '<div class="par"><span class="nome">' + nome + '</span><span class="barra"><i style="width:' +
         ((v || 0) / max * 100) + "%;background:" + cor(c) + '"></i></span><b>' + fmt(k, v) + "</b></div>";
       let veredito = "";
-      if (a && b) {
+      if (I[k].unidade === "%" && a !== null && b !== null) {
+        // Porcentagens se comparam pela diferença em pontos, não pela razão.
+        const dif = a - b;
+        veredito = Math.abs(dif) < 0.5 ? "Praticamente iguais." : (dif > 0 ? "Mondaí" : O.nome) + " tem " + d1.format(Math.abs(dif)) + " pontos percentuais a mais.";
+      } else if (a && b) {
         const r = a / b;
         veredito = Math.abs(r - 1) < 0.05 ? "Praticamente iguais." : r > 1 ? "Mondaí tem " + d1.format(r) + "× o valor de " + O.nome + "."
           : O.nome + " tem " + d1.format(1 / r) + "× o valor de Mondaí.";
@@ -807,7 +822,7 @@
 
   // ---------------------------------------------------------------- explorar
   function kpis() {
-    const lista = ["pop2026", "pib", "pib_pc", "empresas", "ocupados", "salario_rs", "alfabetizacao", "agua_rede"];
+    const lista = ["pop2026", "pib", "pib_pc", "empresas_mil", "ocupados_100", "salario_rs", "alfabetizacao", "esgoto_adequado"];
     document.getElementById("kpis").innerHTML = lista.map(k => {
       const i = IND[k];
       const p = percentil(k, i.mondai);
@@ -1232,7 +1247,7 @@
     abrirPortao();
   }
   document.getElementById("selCidade").addEventListener("change", e =>
-    duelo(e.target.value, "Comparação escolhida por você. Troque a cidade quando quiser."));
+    duelo(e.target.value, "Comparação escolhida por você."));
 
   fetch("/api/resumo").then(r => r.ok ? r.json() : null).then(r => {
     if (!r || !r.pessoas) return;
@@ -1260,7 +1275,7 @@
     const ativo = document.body.classList.toggle("contraste");
     e.currentTarget.setAttribute("aria-pressed", String(ativo));
     GRAFICOS.filter(g => g.chart).forEach(desenhar);
-    duelo(document.getElementById("selCidade").value, document.getElementById("introDuelo").textContent);
+    duelo(document.getElementById("selCidade").value, introAtual);
   });
 
   if (LINK_CODIGO === "#") document.getElementById("itemCodigo").remove();

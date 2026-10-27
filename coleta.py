@@ -290,6 +290,8 @@ DERIVADOS = [
      lambda m: m["obitos"] / m["pop2024"] * 1000),
     ("ocupados_100", "Trabalho", "Pessoal ocupado em empresas por 100 habitantes", "por 100", 2024,
      "IBGE, Cadastro Central de Empresas e Estimativas", lambda m: m["ocupados"] / m["pop2024"] * 100),
+    ("empresas_mil", "Trabalho", "Empresas e organizações por mil habitantes", "por mil", 2024,
+     "IBGE, Cadastro Central de Empresas e Estimativas", lambda m: m["empresas"] / m["pop2024"] * 1000),
     ("pct_ind", "Economia", "Peso da indústria na economia", "%", 2021, "IBGE, PIB dos Municípios",
      lambda m: m["va_ind"] / m["va_total"] * 100),
     ("pct_agro", "Economia", "Peso da agropecuária na economia", "%", 2021, "IBGE, PIB dos Municípios",

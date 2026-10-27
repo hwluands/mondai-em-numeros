@@ -30,7 +30,7 @@ Os dados públicos sobre o município existem, mas estão espalhados em dezenas 
 ## O que o site mostra
 
 1. **Abertura:** a manchete e os números que mais chamam atenção, calculados a partir dos dados.
-2. **Sua cidade:** na entrada, a pessoa informa nome e cidade. O site compara Mondaí com a cidade dela em 8 indicadores, e ela pode trocar por qualquer outra cidade de SC.
+2. **Sua cidade:** na entrada, a pessoa informa nome e cidade. O site compara Mondaí com a cidade dela em 8 indicadores, e ela pode trocar por qualquer outra cidade de SC. Fora a população, os indicadores são por habitante ou em porcentagem (porcentagens comparadas em pontos percentuais), para a comparação ser justa entre cidades de tamanhos diferentes.
 3. **6 histórias:** riqueza e salário, trabalho, campo, população, esgoto e prefeitura. Cada uma tem título, contexto, gráfico anotado e botão de compartilhar. Os números dos textos são calculados dos dados, nunca escritos à mão.
 4. **Explorar:** 8 indicadores com a posição de Mondaí entre as 295 cidades e 25 gráficos em abas:
 

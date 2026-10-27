@@ -1,4 +1,4 @@
-Auditoria de 26/10/2026: 103 itens conferidos, 0 falha(s).
+Auditoria de 26/10/2026: 105 itens conferidos, 0 falha(s).
 
 ## 1. Porcentagens refeitas a partir das contagens absolutas do Censo 2022
 [ok] Esgoto, Mondaí, Rede geral ou fossa ligada à rede: painel 2.06 | conferência 2.0591
@@ -60,6 +60,7 @@ Auditoria de 26/10/2026: 103 itens conferidos, 0 falha(s).
 [ok] Suínos por habitante (suínos ÷ população 2025): painel 9.52 | conferência 9.5172
 [ok] Leite produzido por habitante (leite (mil litros × 1000) ÷ população 2025): painel 2699.88 | conferência 2699.8824
 [ok] Pessoal ocupado em empresas por 100 habitantes (pessoal ocupado ÷ população 2024 × 100): painel 36.17 | conferência 36.1688
+[ok] Empresas e organizações por mil habitantes (empresas ÷ população 2024 × 1000): painel 63.92 | conferência 63.9193
 [ok] Peso da indústria + agro + serviços + adm. pública = 100%: painel 100 | conferência 100.0
 
 ## 4. Posições no ranking recalculadas a partir dos 295 municípios
@@ -92,6 +93,7 @@ Auditoria de 26/10/2026: 103 itens conferidos, 0 falha(s).
 [ok] Nascimentos por mil habitantes (2024): posição do maior para o menor: painel 227 | conferência 227
 [ok] Óbitos por mil habitantes (2024): posição do maior para o menor: painel 87 | conferência 87
 [ok] Pessoal ocupado em empresas por 100 habitantes (2024): posição do maior para o menor: painel 112 | conferência 112
+[ok] Empresas e organizações por mil habitantes (2024): posição do maior para o menor: painel 144 | conferência 144
 [ok] Peso da indústria na economia (2021): posição do maior para o menor: painel 7 | conferência 7
 [ok] Peso da agropecuária na economia (2021): posição do maior para o menor: painel 219 | conferência 219
 [ok] Peso dos serviços na economia (2021): posição do maior para o menor: painel 192 | conferência 192
