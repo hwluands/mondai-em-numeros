@@ -1,4 +1,8 @@
 // POST /api/registro: grava um acesso, retorno ou opinião vindo do painel.
+import { bloqueado, contar, muitasTentativas } from "../../lib/limite.js";
+
+// Folga para uma turma inteira na mesma rede: cada visita manda dois ou três registros.
+export const LIMITE = { maximo: 60, janela: 10 * 60 };
 
 const TIPOS = new Set(["acesso", "retorno", "opiniao"]);
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -47,6 +51,9 @@ export async function onRequestPost({ request, env }) {
   if (!mesmoSite(request.headers.get("Origin"), request.url)) {
     return resposta({ erro: "origem não permitida" }, 403);
   }
+  const espera = await bloqueado(request, env, "registro", LIMITE);
+  if (espera) return muitasTentativas(espera);
+  await contar(request, env, "registro");
   if (!(request.headers.get("Content-Type") || "").includes("application/json")) {
     return resposta({ erro: "envie JSON" }, 415);
   }
