@@ -129,25 +129,9 @@
   <section class="bloco" id="sobre" aria-labelledby="t-sobre">
     <div class="largura">
       <h2 id="t-sobre">De onde vêm os números</h2>
-      <div class="sobre-grade">
-        <div>
-          <ul class="fontes">
-            <li><b>IBGE, Censo Demográfico 2022:</b> população, idade, situação urbana e rural, alfabetização, instrução, rendimento do trabalho e saneamento (tabelas SIDRA 4709, 4714, 9397, 9514, 9541, 9543, 9605, 9756, 9850, 9923, 10061 e 10289).</li>
-            <li><b>IBGE, Estimativas de População 2024 a 2026</b> (tabela 6579).</li>
-            <li><b>IBGE, Registro Civil 2003 a 2024:</b> nascidos vivos por residência da mãe e óbitos por residência do falecido (tabelas 2612 e 2654).</li>
-            <li><b>IBGE, PIB dos Municípios 2002 a 2023</b> (tabela 5938) e <b>PIB per capita</b> oficial (IBGE Cidades, indicador 47001). A divisão por setor mais recente publicada é a de 2021.</li>
-            <li><b>IBGE, Cadastro Central de Empresas 2022 a 2024</b> (tabelas 9509 e 9528).</li>
-            <li><b>IBGE, Pesquisa da Pecuária Municipal 2025</b> (tabelas 3939 e 74) e <b>Produção Agrícola Municipal 2025</b> (tabela 5457).</li>
-            <li><b>Tesouro Nacional, Siconfi:</b> Declaração de Contas Anuais 2025, Anexo I-E, despesas liquidadas por função.</li>
-          </ul>
-        </div>
-        <div>
-          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo. Esgoto adequado segue o Plano Nacional de Saneamento Básico (Plansab): rede geral e fossa séptica, ligada ou não à rede. Os rebanhos são os animais existentes no município em 31 de dezembro, e a Pesquisa da Pecuária Municipal os estima por consulta a informantes do setor.</p>
-          <p><b>Auditoria.</b> Um segundo script refaz cada porcentagem a partir das contagens absolutas do IBGE, confere somas, rankings e indicadores por habitante e compara com o IBGE Cidades. <a href="dados/auditoria.txt">Ver o resultado</a>.</p>
-          <p><b>Privacidade.</b> O nome e a cidade informados na entrada ficam registrados com a data e a hora do acesso e servem apenas para medir o alcance do projeto. Nenhum outro dado é coletado.</p>
-          <p><a href="dados/municipios_sc.csv" download>Baixar os dados das 295 cidades (CSV)</a><br><a href="dados/validacao.txt">Ver a conferência das fontes</a><br><a href="#" id="linkCodigo">Código-fonte no GitHub</a></p>
-        </div>
-      </div>
+      <p class="intro">Todos os números são oficiais e públicos: vêm do IBGE (Censo 2022, estimativas de população, nascimentos e óbitos, PIB, empresas, lavouras e rebanhos) e do Tesouro Nacional (gastos da prefeitura). Antes de ir para o site, cada um é conferido automaticamente com a fonte.</p>
+      <p class="sobre-links"><a href="dados/municipios_sc.csv" download>Baixar os dados das 295 cidades (CSV)</a> · <a href="#" id="linkCodigo">Como foi feito, no GitHub</a></p>
+      <p class="nota">O nome e a cidade informados na entrada servem só para medir o alcance do projeto.</p>
     </div>
   </section>
 </main>

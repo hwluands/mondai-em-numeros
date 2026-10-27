@@ -147,11 +147,7 @@ tr.destaque td { font-weight: 700; color: var(--c1); }
 #op-ok { color: var(--c1); font-weight: 650; }
 
 /* Sobre */
-.sobre-grade { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 24px; }
-.fontes { padding-left: 18px; margin: 0; }
-.fontes li { margin-bottom: 8px; font-size: 0.92rem; }
-.fontes b, .sobre-grade p b { color: var(--tinta); }
-.sobre-grade p { font-size: 0.92rem; margin: 0 0 14px; }
+.sobre-links { margin: 0 0 16px; font-weight: 600; }
 footer { border-top: 1px solid var(--tinta); padding: 20px 0 40px; font-size: 0.85rem; color: var(--suave); }
 footer .largura { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 footer b { color: var(--tinta); }
@@ -175,7 +171,6 @@ body.travado { overflow: hidden; }
   .grade { grid-template-columns: minmax(0, 1fr); }
   .grade .card, .grade .card.l4, .grade .card.l8, .grade .card.l12 { grid-column: auto; }
   .duelo { grid-template-columns: 1fr; }
-  .sobre-grade { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .topo nav { display: none; }
