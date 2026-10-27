@@ -19,3 +19,25 @@ jobs:
           python-version: "3.12"
       - name: Lint do pipeline
         run: pipx run ruff check pipeline/
+
+  # Publica no Cloudflare Pages a cada push na main, só se os testes passarem.
+  # O projeto foi criado por envio direto, então o Cloudflare não puxa do GitHub sozinho.
+  publicar:
+    needs: testes
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: publicar
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Deploy no Cloudflare Pages
+        run: npx wrangler pages deploy public --project-name mondai-em-numeros --branch main --commit-hash "$GITHUB_SHA"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a233122b85a64f88ea7b98e267edc3c2
