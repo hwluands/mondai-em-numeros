@@ -1,8 +1,10 @@
 # Mondaí em Números
 
-Painel com dados oficiais sobre **Mondaí (SC)**, comparados com as 295 cidades de Santa Catarina e com a região imediata de Chapecó. Projeto da **Atividade Extensionista II** do CST em Ciência de Dados (Uninter).
+O que os dados oficiais contam sobre **Mondaí (SC)**, e como a sua cidade se compara. Dados do IBGE e do Tesouro Nacional, comparados com as 295 cidades de Santa Catarina e com a região imediata de Chapecó.
 
-**Acessar:** `https://mondai-em-numeros.pages.dev` (endereço confirmado na publicação)
+**Acessar:** https://mondai-em-numeros.pages.dev
+
+Projeto de Luan Henrique Weber.
 
 ## Estrutura
 
@@ -24,21 +26,25 @@ wrangler.toml      configuração do Cloudflare Pages e do banco
 
 Os dados públicos sobre o município existem, mas estão espalhados em dezenas de tabelas do IBGE e nos balanços do Tesouro Nacional, difíceis de achar e de ler para quem não é da área. O painel reúne esses números em gráficos que qualquer pessoa abre pelo celular, com a posição de Mondaí no estado e na região.
 
-## O que o painel mostra
+## O que o site mostra
 
-| Seção | Gráficos | Ano mais recente publicado |
+1. **Abertura:** a manchete e os números que mais chamam atenção, calculados a partir dos dados.
+2. **Sua cidade:** na entrada, a pessoa informa nome e cidade. O site compara Mondaí com a cidade dela em 8 indicadores, e ela pode trocar por qualquer outra cidade de SC.
+3. **6 histórias:** riqueza e salário, trabalho, campo, população, esgoto e prefeitura. Cada uma tem título, contexto, gráfico anotado e botão de compartilhar. Os números dos textos são calculados dos dados, nunca escritos à mão.
+4. **Explorar:** 8 indicadores com a posição de Mondaí entre as 295 cidades e 25 gráficos em abas:
+
+| Aba | Gráficos | Ano mais recente publicado |
 |---|---|---|
-| Visão geral | 8 indicadores com a posição de Mondaí entre as 295 cidades | 2022 a 2026 |
-| Pessoas | Pirâmide etária, população, nascimentos e óbitos, urbana e rural | Censo 2022, estimativa 2026, Registro Civil 2024 |
+| Pessoas | Pirâmide etária, população, urbana e rural | Censo 2022, estimativa 2026 |
 | Educação e renda | Escolaridade, rendimento do trabalho, alfabetização | Censo 2022 |
 | Economia | PIB, PIB por habitante, composição por setor, riqueza × salário | PIB 2023; setores 2021 |
 | Trabalho | Empregos por setor, empresas e pessoal ocupado | Cadastro Central de Empresas 2024 |
 | Campo | Suínos, galináceos, bovinos, leite, lavouras | Pecuária e Agrícola Municipal 2025 |
 | Saneamento | Água, esgoto, lixo | Censo 2022 |
 | Prefeitura | Despesa por área e por habitante | Siconfi 2025 |
-| Comparar | Qualquer indicador contra as vizinhas; Mondaí lado a lado com qualquer cidade de SC | — |
+| Mondaí e as vizinhas | Qualquer indicador contra as vizinhas, com ranking de SC | — |
 
-Cada gráfico tem uma tabela equivalente ("Ver em tabela").
+Cada gráfico tem uma tabela equivalente ("Ver em tabela"). O link tem prévia própria (Open Graph) para WhatsApp, Instagram e LinkedIn.
 
 ## Como os dados são tratados
 
@@ -104,7 +110,7 @@ python coleta.py
 
 ## Requisitos não funcionais
 
-1. Funcionar no celular e no computador, sem instalação. Na entrada, pedir só nome e cidade, com a opção de entrar sem se identificar.
+1. Funcionar no celular e no computador, sem instalação. Na entrada, pedir só nome e cidade, explicando para que servem.
 2. Usar apenas dados oficiais, com fonte e ano indicados em cada gráfico.
 3. Conferir automaticamente os códigos das fontes antes de cada atualização.
 4. Site estático e API sem servidor próprio, publicados no Cloudflare Pages a partir deste repositório.
@@ -115,17 +121,17 @@ python coleta.py
 
 | Princípio | Como foi atendido |
 |---|---|
-| Igualitário | Gratuito, funciona em qualquer navegador; a identificação na entrada é opcional |
+| Igualitário | Gratuito e funciona em qualquer navegador; a entrada pede só nome e cidade |
 | Adaptável | Letra A−/A+ e modo de alto contraste |
 | Intuitivo | Posições escritas como "8º maior de SC"; indicadores com um ponto numa régua do menor ao maior |
 | Informação perceptível | Cada gráfico tem tabela equivalente e descrição para leitores de tela |
 | Tolerância ao erro | Indicadores sem dado aparecem como "sem dado"; o script para em vez de publicar dado errado |
-| Baixo esforço físico | Só leitura, menu de seções e duas listas de escolha |
+| Baixo esforço físico | Leitura, menu de seções, abas e listas de escolha; nada precisa ser digitado além da entrada |
 | Dimensão e espaço | Botões e listas com no mínimo 40 px para toque |
 
 ## Registro de acessos e privacidade
 
-Na primeira visita, o painel pede nome e cidade e envia para a rota `/api/registro`, que valida os campos e grava no banco D1 com a data e a hora do servidor. A cidade digitada é padronizada para o nome oficial (por exemplo, "mondai" vira "Mondaí"). Quem prefere pode entrar sem se identificar: o acesso é contado, sem nome. O navegador guarda um código aleatório, o nome e a cidade, para não pedir de novo e para contar pessoas sem depender do nome digitado. Nenhum outro dado é coletado, e os registros são usados só no relatório da atividade de extensão.
+Na primeira visita, o painel pede nome e cidade e envia para a rota `/api/registro`, que valida os campos e grava no banco D1 com a data e a hora do servidor. A cidade digitada é padronizada para o nome oficial (por exemplo, "mondai" vira "Mondaí") e passa a personalizar a comparação do site. O navegador guarda um código aleatório, o nome e a cidade, para não pedir de novo e para contar pessoas sem depender do nome digitado. Nenhum outro dado é coletado, e os registros servem apenas para medir o alcance do projeto, como a tela de entrada informa.
 
 ## Rodar localmente
 

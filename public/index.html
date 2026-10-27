@@ -4,289 +4,292 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mondaí em Números</title>
-<meta name="description" content="Painel com dados oficiais do IBGE e do Tesouro Nacional sobre Mondaí (SC), comparados com as 295 cidades de Santa Catarina.">
+<meta name="description" content="O que os dados oficiais contam sobre Mondaí (SC), e como a sua cidade se compara. População, economia, trabalho, campo, saneamento e prefeitura, com dados do IBGE e do Tesouro Nacional.">
+<meta name="author" content="Luan Henrique Weber">
+<meta name="theme-color" content="#1b6b46">
+<!-- Prévia do link no WhatsApp, Instagram e LinkedIn. O texto vem dos dados de 26/10/2026. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Mondaí em Números">
+<meta property="og:title" content="Mondaí em Números">
+<meta property="og:description" content="Mondaí produz mais riqueza por habitante que 287 das 295 cidades de SC. Veja o que mais os números oficiais contam, e como a sua cidade se compara.">
+<meta property="og:url" content="https://mondai-em-numeros.pages.dev/">
+<meta property="og:image" content="https://mondai-em-numeros.pages.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f4f5f3;
-    --card: #ffffff;
-    --text: #18201b;
-    --muted: #56605a;
-    --line: #dde2de;
-    --track: #e7ebe8;
-    --c1: #1f6f43;
-    --c2: #c06a1b;
-    --c3: #2f5d9e;
-    --c4: #7a4f9e;
-    --c5: #2a8f84;
-    --c6: #b39a3c;
-    --c7: #929ca1;
+    --papel: #f7f4ee;
+    --card: #fffdf9;
+    --tinta: #16201a;
+    --suave: #5b635d;
+    --linha: #e3ded3;
+    --trilho: #ebe6dc;
+    /* Paleta dos gráficos: c1 é sempre Mondaí */
+    --c1: #1b6b46;
+    --c2: #c25e28;
+    --c3: #2f5b8c;
+    --c4: #6c5294;
+    --c5: #2a8a80;
+    --c6: #c4a043;
+    --c7: #a3a9a4;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --base: 16px;
+    --raio: 14px;
   }
   body.contraste {
-    --bg: #000;
-    --card: #000;
-    --text: #fff;
-    --muted: #fff;
-    --line: #fff;
-    --track: #444;
-    --c1: #ffd400;
-    --c2: #ff9e5e;
-    --c3: #66b3ff;
-    --c4: #d4a5ff;
-    --c5: #5ef0dc;
-    --c6: #f5e27a;
-    --c7: #c8c8c8;
+    --papel: #000; --card: #000; --tinta: #fff; --suave: #fff; --linha: #fff; --trilho: #444;
+    --c1: #ffd400; --c2: #ff9e5e; --c3: #66b3ff; --c4: #d4a5ff; --c5: #5ef0dc; --c6: #f5e27a; --c7: #c8c8c8;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html { font-size: var(--base); scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    line-height: 1.45;
+    margin: 0; background: var(--papel); color: var(--tinta);
+    font-family: var(--sans); line-height: 1.5; font-feature-settings: "tnum" 1;
+    -webkit-font-smoothing: antialiased;
   }
   a { color: var(--c1); }
-  .largura { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
-  header { padding: 28px 0 8px; }
-  h1 { font-size: 2.1rem; margin: 0; line-height: 1.1; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin: 6px 0 14px; max-width: 760px; }
-  .topo-linha { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
-  .selo { font-size: 0.8rem; color: var(--muted); display: block; }
-  .contador { font-size: 0.85rem; font-weight: 650; color: var(--c1); display: block; margin-top: 2px; }
-  .contador[hidden] { display: none; }
-  .acess { display: flex; gap: 6px; }
-  button, select {
-    font: inherit;
-    font-size: 0.88rem;
-    min-height: 40px;
-    border-radius: 8px;
-    border: 1.5px solid var(--line);
-    background: var(--card);
-    color: var(--text);
-    padding: 6px 12px;
+  .largura { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  .pular { position: absolute; left: -999px; top: 8px; background: var(--card); padding: 8px 12px; border-radius: 8px; z-index: 30; }
+  .pular:focus { left: 8px; }
+  button, select, input[type=text], textarea {
+    font: inherit; font-size: 0.92rem; min-height: 44px; border-radius: 10px;
+    border: 1.5px solid var(--linha); background: var(--card); color: var(--tinta); padding: 8px 14px;
   }
-  button { cursor: pointer; border-color: var(--c1); color: var(--c1); }
-  select { width: 100%; max-width: 440px; }
-  button:focus-visible, select:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--c2); outline-offset: 2px; }
+  textarea { width: 100%; min-height: 88px; }
+  input[type=text] { width: 100%; }
+  select { width: 100%; max-width: 420px; }
+  button { cursor: pointer; }
+  .botao { border-color: var(--tinta); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; color: var(--tinta); }
+  .botao.principal { background: var(--c1); border-color: var(--c1); color: #fff; }
+  body.contraste .botao.principal { color: #000; }
+  .botao.leve { border-color: var(--linha); }
+  button:focus-visible, select:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [role=tab]:focus-visible {
+    outline: 3px solid var(--c2); outline-offset: 2px;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.015em; margin: 0; }
+  .rotulo-secao { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c2); margin: 0 0 8px; }
 
-  nav {
-    position: sticky; top: 0; z-index: 5;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 20px;
-  }
-  nav .largura { display: flex; gap: 4px; overflow-x: auto; padding-top: 8px; padding-bottom: 8px; scrollbar-width: thin; }
-  nav a {
-    white-space: nowrap; text-decoration: none; color: var(--muted);
-    font-size: 0.88rem; padding: 6px 10px; border-radius: 999px;
-  }
-  nav a:hover { color: var(--text); background: var(--track); }
+  /* Barra do topo */
+  .topo { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--papel) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--linha); }
+  .topo .largura { display: flex; align-items: center; gap: 16px; min-height: 56px; }
+  .marca { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--tinta); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .marca svg { flex: none; }
+  .topo nav { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+  .topo nav a { color: var(--suave); text-decoration: none; font-size: 0.88rem; padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+  .topo nav a:hover { color: var(--tinta); background: var(--trilho); }
+  .acess { display: flex; gap: 4px; }
+  .acess button { min-height: 36px; padding: 4px 10px; font-size: 0.8rem; border-radius: 999px; }
 
-  section { margin-bottom: 34px; scroll-margin-top: 64px; }
-  h2 { font-size: 1.35rem; margin: 0 0 2px; }
-  .secao-sub { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
+  /* Abertura */
+  .abertura { padding: 56px 0 40px; }
+  .abertura h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height: 1.08; max-width: 20ch; }
+  .abertura h1 em { font-style: normal; color: var(--c1); }
+  .abertura .lide { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--suave); max-width: 60ch; margin: 18px 0 28px; }
+  .numeros-topo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); margin-bottom: 28px; }
+  .numeros-topo div { padding: 18px 16px 18px 0; }
+  .numeros-topo div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
+  .numeros-topo strong { display: block; font-family: var(--serif); font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.1; }
+  .numeros-topo span { font-size: 0.85rem; color: var(--suave); }
+  .chamadas { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .contador { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--suave); margin-top: 18px; }
+  .contador::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c1); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c1) 22%, transparent); }
 
-  .grade { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 16px;
-    grid-column: span 6;
-    min-width: 0;
-  }
-  .card.l4 { grid-column: span 4; }
-  .card.l8 { grid-column: span 8; }
-  .card.l12 { grid-column: span 12; }
-  .card h3 { font-size: 1rem; margin: 0; }
-  .card .nota { font-size: 0.78rem; color: var(--muted); margin: 2px 0 10px; }
+  section.bloco { padding: 48px 0; border-top: 1px solid var(--linha); scroll-margin-top: 64px; }
+  .bloco h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.15; max-width: 28ch; }
+  .bloco .intro { color: var(--suave); max-width: 62ch; margin: 10px 0 24px; }
+  .card { background: var(--card); border: 1px solid var(--linha); border-radius: var(--raio); padding: 18px; min-width: 0; }
+  .nota { font-size: 0.78rem; color: var(--suave); margin: 4px 0 10px; }
+
+  /* Sua cidade: comparação lado a lado */
+  .duelo-topo { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; margin-bottom: 18px; }
+  .duelo-topo label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 4px; min-width: 240px; }
+  .duelo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .linha-duelo h3 { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+  .linha-duelo .ano { font-size: 0.75rem; color: var(--suave); font-weight: 400; }
+  .par { display: grid; grid-template-columns: 110px 1fr auto; gap: 8px; align-items: center; margin-top: 8px; font-size: 0.85rem; }
+  .par .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--suave); }
+  .par .barra { height: 10px; background: var(--trilho); border-radius: 5px; overflow: hidden; }
+  .par .barra i { display: block; height: 100%; border-radius: 5px; }
+  .par b { font-weight: 650; white-space: nowrap; }
+  .veredito { font-size: 0.8rem; color: var(--suave); margin-top: 8px; }
+
+  /* Histórias */
+  .capitulo { display: grid; grid-template-columns: 5fr 7fr; gap: 32px; align-items: center; padding: 36px 0; scroll-margin-top: 64px; }
+  .capitulo + .capitulo { border-top: 1px dashed var(--linha); }
+  .capitulo.invertido .texto { order: 2; }
+  .capitulo .num { font-family: var(--serif); font-size: 0.95rem; color: var(--c2); font-weight: 700; }
+  .capitulo h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.2; margin: 6px 0 12px; }
+  .capitulo p { color: var(--suave); margin: 0 0 16px; max-width: 52ch; }
+  .capitulo .fonte { font-size: 0.75rem; color: var(--suave); }
+  .compartilhar { margin-top: 14px; font-size: 0.85rem; padding: 8px 14px; }
   .grafico { position: relative; height: 300px; }
-  .grafico.baixo { height: 210px; }
-  .grafico.alto { height: 420px; }
+  .grafico.alto { height: 400px; }
+  .grafico.baixo { height: 220px; }
+
+  /* Explorar */
+  .kpis { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 28px; }
+  .kpi .rotulo { font-size: 0.8rem; color: var(--suave); display: flex; justify-content: space-between; gap: 8px; }
+  .kpi .ano { font-size: 0.7rem; border: 1px solid var(--linha); border-radius: 999px; padding: 0 7px; white-space: nowrap; }
+  .kpi .valor { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; margin: 4px 0 10px; }
+  .faixa { position: relative; height: 8px; background: var(--trilho); border-radius: 4px; margin: 0 6px; }
+  .faixa .mediana { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--suave); left: 50%; }
+  .faixa .ponto { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: var(--c1); border: 2px solid var(--card); transform: translate(-50%, -50%); }
+  .faixa-legenda { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--suave); margin-top: 6px; }
+  .kpi .pos { font-size: 0.82rem; font-weight: 650; color: var(--c1); margin-top: 6px; }
+  .abas { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; scrollbar-width: thin; }
+  .abas [role=tab] { white-space: nowrap; border-radius: 999px; min-height: 38px; padding: 6px 14px; font-size: 0.88rem; }
+  .abas [role=tab][aria-selected=true] { background: var(--tinta); border-color: var(--tinta); color: var(--papel); }
+  .grade { display: grid; gap: 14px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .grade .card { grid-column: span 6; }
+  .grade .card.l4 { grid-column: span 4; }
+  .grade .card.l8 { grid-column: span 8; }
+  .grade .card.l12 { grid-column: span 12; }
+  .grade h3 { font-family: var(--sans); font-size: 1rem; font-weight: 650; letter-spacing: 0; }
+  .controle { display: grid; gap: 4px; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600; }
   details { margin-top: 8px; }
-  summary { cursor: pointer; color: var(--c1); font-size: 0.85rem; }
-  .tabela-rolagem { overflow-x: auto; max-height: 360px; overflow-y: auto; }
+  summary { cursor: pointer; color: var(--c1); font-size: 0.84rem; }
+  .tabela-rolagem { overflow: auto; max-height: 360px; }
   table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-  th, td { text-align: left; padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th, td { text-align: left; padding: 6px; border-bottom: 1px solid var(--linha); vertical-align: top; }
   th { position: sticky; top: 0; background: var(--card); }
   td.n, th.n { text-align: right; white-space: nowrap; }
   tr.destaque td { font-weight: 700; color: var(--c1); }
-  .controle { margin-bottom: 12px; display: grid; gap: 4px; }
-  .controle label { font-weight: 600; font-size: 0.85rem; }
 
-  /* Cartões de indicador com a posição de Mondaí entre as 295 cidades */
-  .kpis { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); }
-  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px; }
-  .kpi .rotulo { font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
-  .kpi .ano { font-size: 0.72rem; border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; white-space: nowrap; }
-  .kpi .valor { font-size: 1.7rem; font-weight: 750; margin: 4px 0 10px; letter-spacing: -0.01em; }
-  .faixa { position: relative; height: 8px; background: var(--track); border-radius: 4px; margin: 0 6px; }
-  .faixa .mediana { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--muted); left: 50%; }
-  .faixa .ponto { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: var(--c1); border: 2px solid var(--card); transform: translate(-50%, -50%); }
-  .faixa-legenda { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); margin-top: 6px; }
-  .kpi .pos { font-size: 0.85rem; font-weight: 650; color: var(--c1); margin-top: 6px; }
-
-  /* Tela de entrada e avaliação */
-  input[type=text], textarea {
-    font: inherit; width: 100%; padding: 10px 12px; min-height: 44px;
-    border: 1.5px solid var(--line); border-radius: 8px; background: var(--card); color: var(--text);
-  }
-  input:focus-visible, textarea:focus-visible { outline: 3px solid var(--c2); outline-offset: 1px; }
-  button.principal { background: var(--c1); color: var(--card); border-color: var(--c1); font-weight: 650; }
-  button.link { border: 0; background: none; color: var(--muted); text-decoration: underline; padding: 6px 0; min-height: 0; }
-  body.travado { overflow: hidden; }
-  .portao {
-    position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 16px;
-    background: rgba(10, 20, 14, 0.55); backdrop-filter: blur(3px);
-  }
-  .portao[hidden] { display: none; }
-  .portao-caixa {
-    width: 100%; max-width: 420px; background: var(--card); color: var(--text);
-    border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 10px;
-  }
-  .portao-caixa h2 { font-size: 1.4rem; }
-  .portao-caixa p { margin: 0; }
-  .portao-caixa label, .opiniao label, .opiniao legend { font-weight: 600; font-size: 0.88rem; }
-  .portao-caixa .nota, .opiniao .nota { font-size: 0.78rem; color: var(--muted); }
-  .opiniao form { display: grid; gap: 10px; max-width: 560px; }
+  /* Opinião */
+  .opiniao form { display: grid; gap: 12px; max-width: 560px; }
   .opiniao fieldset { border: 0; padding: 0; margin: 0; }
-  .notas { display: flex; gap: 6px; margin-top: 6px; }
+  .opiniao legend { font-weight: 600; font-size: 0.9rem; }
+  .notas { display: flex; gap: 6px; margin-top: 8px; }
   .notas label { position: relative; }
   .notas input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-  .notas span {
-    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
-    border: 1.5px solid var(--line); font-weight: 650;
-  }
-  .notas input:checked + span { background: var(--c1); color: var(--card); border-color: var(--c1); }
+  .notas span { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--linha); background: var(--card); font-weight: 650; }
+  .notas input:checked + span { background: var(--c1); color: #fff; border-color: var(--c1); }
   .notas input:focus-visible + span { outline: 3px solid var(--c2); outline-offset: 2px; }
 
-  .fontes li { margin-bottom: 4px; font-size: 0.88rem; }
-  footer { color: var(--muted); font-size: 0.82rem; padding: 8px 0 40px; }
-  .aviso { padding: 12px; border: 1px solid var(--c2); border-radius: 8px; }
+  /* Sobre */
+  .sobre-grade { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+  .fontes { padding-left: 18px; margin: 0; }
+  .fontes li { margin-bottom: 6px; font-size: 0.9rem; }
+  .sobre-grade p { font-size: 0.92rem; }
+  footer { border-top: 1px solid var(--linha); padding: 24px 0 40px; font-size: 0.85rem; color: var(--suave); }
+  footer .largura { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer b { color: var(--tinta); }
 
-  @media (max-width: 980px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    .card, .card.l4, .card.l8 { grid-column: span 12; }
+  /* Entrada */
+  body.travado { overflow: hidden; }
+  .portao { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 16px; background: rgba(18, 26, 20, 0.6); backdrop-filter: blur(4px); }
+  .portao-caixa { width: 100%; max-width: 440px; background: var(--card); color: var(--tinta); border-radius: 18px; padding: 28px; display: grid; gap: 12px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25); }
+  .portao-caixa h2 { font-size: 1.6rem; line-height: 1.15; }
+  .portao-caixa p { margin: 0; color: var(--suave); }
+  .portao-caixa label { font-weight: 600; font-size: 0.88rem; }
+  .portao-caixa .privacidade { font-size: 0.78rem; }
+  .portao-caixa .botao { justify-content: center; margin-top: 4px; }
+
+  @media (max-width: 960px) {
+    .capitulo, .capitulo.invertido { grid-template-columns: 1fr; gap: 16px; }
+    .capitulo.invertido .texto { order: 0; }
+    .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grade .card, .grade .card.l4, .grade .card.l8 { grid-column: span 12; }
+    .duelo { grid-template-columns: 1fr; }
+    .sobre-grade { grid-template-columns: 1fr; }
   }
-  @media (max-width: 520px) {
-    h1 { font-size: 1.7rem; }
-    .kpi .valor { font-size: 1.4rem; }
-    .grafico { height: 280px; }
-    .grafico.alto { height: 380px; }
+  @media (max-width: 640px) {
+    .topo nav { display: none; }
+    .topo .largura { justify-content: space-between; }
+    .abertura { padding: 36px 0 28px; }
+    .numeros-topo { grid-template-columns: 1fr; }
+    .numeros-topo div, .numeros-topo div + div { padding: 12px 0; border-left: 0; }
+    .numeros-topo div + div { border-top: 1px solid var(--linha); }
+    .par { grid-template-columns: 84px 1fr auto; }
+    .grafico { height: 270px; }
+    .grafico.alto { height: 360px; }
   }
 </style>
 </head>
 <body>
-<header class="largura">
-  <h1>Mondaí em Números</h1>
-  <p class="sub">Dados oficiais sobre Mondaí (SC), comparados com as 295 cidades de Santa Catarina e com a região de Chapecó.</p>
-  <div class="topo-linha">
-    <div>
-      <span class="selo" id="selo"></span>
-      <span class="contador" id="contador" role="status" hidden></span>
-    </div>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="largura">
+    <a class="marca" href="#">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--c1)"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#fff"/><rect x="14" y="11" width="4" height="14" rx="1" fill="#fff"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#fff"/></svg>
+      Mondaí em Números
+    </a>
+    <nav aria-label="Seções">
+      <a href="#sua-cidade">Sua cidade</a>
+      <a href="#historias">Histórias</a>
+      <a href="#explorar">Explorar</a>
+      <a href="#sobre">Sobre os dados</a>
+    </nav>
     <div class="acess" role="group" aria-label="Acessibilidade">
       <button type="button" id="fonteMenos" aria-label="Diminuir letra">A−</button>
       <button type="button" id="fonteMais" aria-label="Aumentar letra">A+</button>
-      <button type="button" id="contraste" aria-pressed="false">Alto contraste</button>
+      <button type="button" id="contraste" aria-pressed="false" aria-label="Alto contraste">◐</button>
     </div>
   </div>
 </header>
 
-<nav aria-label="Seções do painel">
-  <div class="largura">
-    <a href="#visao">Visão geral</a>
-    <a href="#pessoas">Pessoas</a>
-    <a href="#educacao">Educação e renda</a>
-    <a href="#economia">Economia</a>
-    <a href="#trabalho">Trabalho</a>
-    <a href="#campo">Campo</a>
-    <a href="#saneamento">Saneamento</a>
-    <a href="#prefeitura">Prefeitura</a>
-    <a href="#comparar">Comparar</a>
-    <a href="#fontes">Fontes</a>
-  </div>
-</nav>
-
-<main class="largura">
-  <section id="visao" aria-labelledby="t-visao">
-    <h2 id="t-visao">Visão geral</h2>
-    <p class="secao-sub">O ponto mostra onde Mondaí fica entre as 295 cidades de SC, do menor ao maior valor. O traço é a mediana do estado.</p>
-    <div class="kpis" id="kpis"></div>
+<main id="conteudo">
+  <section class="abertura largura" aria-labelledby="manchete">
+    <p class="rotulo-secao">Mondaí, Santa Catarina · dados oficiais</p>
+    <h1 id="manchete"></h1>
+    <p class="lide" id="lide"></p>
+    <div class="numeros-topo" id="numerosTopo"></div>
+    <div class="chamadas">
+      <a class="botao principal" href="#sua-cidade" id="chamadaCidade">Comparar com a minha cidade</a>
+      <a class="botao leve" href="#historias">Ver as 6 histórias</a>
+    </div>
+    <div><span class="contador" id="contador" role="status" hidden></span></div>
   </section>
 
-  <section id="pessoas" aria-labelledby="t-pessoas">
-    <h2 id="t-pessoas">Pessoas</h2>
-    <p class="secao-sub">Censo Demográfico 2022, Estimativas de População e Registro Civil.</p>
-    <div class="grade" id="g-pessoas"></div>
-  </section>
-
-  <section id="educacao" aria-labelledby="t-educacao">
-    <h2 id="t-educacao">Educação e renda</h2>
-    <p class="secao-sub">Censo Demográfico 2022, o levantamento mais recente para estes temas.</p>
-    <div class="grade" id="g-educacao"></div>
-  </section>
-
-  <section id="economia" aria-labelledby="t-economia">
-    <h2 id="t-economia">Economia</h2>
-    <p class="secao-sub">PIB dos Municípios. Valores correntes, sem correção pela inflação.</p>
-    <div class="grade" id="g-economia"></div>
-  </section>
-
-  <section id="trabalho" aria-labelledby="t-trabalho">
-    <h2 id="t-trabalho">Trabalho e empresas</h2>
-    <p class="secao-sub">Cadastro Central de Empresas 2024: empresas e organizações com CNPJ, incluindo a administração pública.</p>
-    <div class="grade" id="g-trabalho"></div>
-  </section>
-
-  <section id="campo" aria-labelledby="t-campo">
-    <h2 id="t-campo">Campo</h2>
-    <p class="secao-sub">Pesquisa da Pecuária Municipal e Produção Agrícola Municipal 2025.</p>
-    <div class="grade" id="g-campo"></div>
-  </section>
-
-  <section id="saneamento" aria-labelledby="t-saneamento">
-    <h2 id="t-saneamento">Saneamento</h2>
-    <p class="secao-sub">Censo Demográfico 2022: moradores de domicílios particulares permanentes ocupados.</p>
-    <div class="grade" id="g-saneamento"></div>
-  </section>
-
-  <section id="prefeitura" aria-labelledby="t-prefeitura">
-    <h2 id="t-prefeitura">Prefeitura</h2>
-    <p class="secao-sub">Tesouro Nacional, Siconfi: despesas liquidadas declaradas pela prefeitura no balanço anual.</p>
-    <div class="grade" id="g-prefeitura"></div>
-  </section>
-
-  <section id="comparar" aria-labelledby="t-comparar">
-    <h2 id="t-comparar">Comparar</h2>
-    <p class="secao-sub">Escolha um indicador ou uma cidade para comparar com Mondaí.</p>
-    <div class="grade" id="g-comparar"></div>
-  </section>
-
-  <section id="fontes" aria-labelledby="t-fontes">
-    <h2 id="t-fontes">Fontes e método</h2>
-    <div class="card l12">
-      <ul class="fontes">
-        <li><b>IBGE, Censo Demográfico 2022:</b> população, idade, situação urbana e rural, alfabetização, instrução, rendimento do trabalho e saneamento (tabelas SIDRA 4709, 4714, 9397, 9514, 9541, 9543, 9605, 9756, 9850, 9923, 10061 e 10289).</li>
-        <li><b>IBGE, Estimativas de População 2024 a 2026</b> (tabela 6579).</li>
-        <li><b>IBGE, Registro Civil 2003 a 2024:</b> nascidos vivos por residência da mãe e óbitos por residência do falecido (tabelas 2612 e 2654).</li>
-        <li><b>IBGE, PIB dos Municípios 2002 a 2023</b> (tabela 5938) e <b>PIB per capita</b> oficial (IBGE Cidades, indicador 47001). A divisão por setor mais recente publicada é a de 2021.</li>
-        <li><b>IBGE, Cadastro Central de Empresas 2022 a 2024</b> (tabelas 9509 e 9528).</li>
-        <li><b>IBGE, Pesquisa da Pecuária Municipal 2025</b> (tabelas 3939 e 74) e <b>Produção Agrícola Municipal 2025</b> (tabela 5457).</li>
-        <li><b>Tesouro Nacional, Siconfi:</b> Declaração de Contas Anuais 2025, Anexo I-E, despesas liquidadas por função.</li>
-      </ul>
-      <p>Os dados são baixados pelas APIs oficiais com um script em Python. Antes de cada download, o script confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados, e para com erro se algo não bater. Indicadores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo.</p>
-      <p><b>Privacidade:</b> na entrada, o painel pede só nome e cidade, que ficam registrados com a data e a hora do acesso e são usados apenas no relatório da atividade de extensão. Dá para entrar sem se identificar. Nenhum outro dado é coletado.</p>
-      <p style="margin-bottom:0"><a href="dados/municipios_sc.csv" download>Baixar os indicadores das 295 cidades (CSV)</a> · <a href="dados/validacao.txt">Ver a conferência das fontes</a> · <a href="https://github.com/" id="linkCodigo">Código-fonte</a></p>
+  <section class="bloco" id="sua-cidade" aria-labelledby="t-cidade">
+    <div class="largura">
+      <p class="rotulo-secao">Sua cidade</p>
+      <div class="duelo-topo">
+        <div>
+          <h2 id="t-cidade">Mondaí × <span id="nomeOutra"></span></h2>
+          <p class="intro" id="introDuelo" style="margin-bottom:0"></p>
+        </div>
+        <label>Comparar com
+          <select id="selCidade"></select>
+        </label>
+      </div>
+      <div class="duelo" id="duelo"></div>
     </div>
   </section>
 
-  <section id="opiniao" class="opiniao" aria-labelledby="t-opiniao">
-    <div class="card l12">
-      <h3 id="t-opiniao">O que achou do painel?</h3>
-      <p class="nota">Leva 10 segundos e ajuda no meu projeto de extensão.</p>
+  <section class="bloco" id="historias" aria-labelledby="t-historias">
+    <div class="largura">
+      <p class="rotulo-secao">Histórias</p>
+      <h2 id="t-historias">6 coisas que os números contam sobre Mondaí</h2>
+      <div id="capitulos"></div>
+    </div>
+  </section>
+
+  <section class="bloco" id="explorar" aria-labelledby="t-explorar">
+    <div class="largura">
+      <p class="rotulo-secao">Explorar</p>
+      <h2 id="t-explorar">Todos os dados, tema por tema</h2>
+      <p class="intro">O ponto mostra onde Mondaí fica entre as 295 cidades de Santa Catarina, do menor ao maior valor. O traço é a mediana do estado.</p>
+      <div class="kpis" id="kpis"></div>
+      <div class="abas" role="tablist" aria-label="Temas" id="abas"></div>
+      <div id="paineis"></div>
+    </div>
+  </section>
+
+  <section class="bloco opiniao" id="opiniao" aria-labelledby="t-opiniao">
+    <div class="largura">
+      <p class="rotulo-secao">Sua opinião</p>
+      <h2 id="t-opiniao">O que achou do Mondaí em Números?</h2>
+      <p class="intro">Leva 10 segundos.</p>
       <form id="opForm">
         <fieldset>
           <legend>Nota de 1 a 5</legend>
@@ -298,31 +301,59 @@
             <label><input type="radio" name="nota" value="5"><span>5</span></label>
           </div>
         </fieldset>
-        <label for="op-com">Comentário (opcional)</label>
-        <textarea id="op-com" rows="3" maxlength="500" placeholder="O que chamou sua atenção? O que faltou?"></textarea>
-        <div><button type="submit" class="principal">Enviar</button></div>
+        <label for="op-com"><b>Comentário</b> (opcional)</label>
+        <textarea id="op-com" maxlength="500" placeholder="O que chamou sua atenção? O que faltou?"></textarea>
+        <div><button type="submit" class="botao principal">Enviar opinião</button></div>
         <p id="op-ok" role="status" hidden>Obrigado pela opinião!</p>
       </form>
     </div>
   </section>
+
+  <section class="bloco" id="sobre" aria-labelledby="t-sobre">
+    <div class="largura">
+      <p class="rotulo-secao">Sobre os dados</p>
+      <h2 id="t-sobre">De onde vêm os números</h2>
+      <div class="sobre-grade" style="margin-top:20px">
+        <div>
+          <ul class="fontes">
+            <li><b>IBGE, Censo Demográfico 2022:</b> população, idade, situação urbana e rural, alfabetização, instrução, rendimento do trabalho e saneamento (tabelas SIDRA 4709, 4714, 9397, 9514, 9541, 9543, 9605, 9756, 9850, 9923, 10061 e 10289).</li>
+            <li><b>IBGE, Estimativas de População 2024 a 2026</b> (tabela 6579).</li>
+            <li><b>IBGE, Registro Civil 2003 a 2024:</b> nascidos vivos por residência da mãe e óbitos por residência do falecido (tabelas 2612 e 2654).</li>
+            <li><b>IBGE, PIB dos Municípios 2002 a 2023</b> (tabela 5938) e <b>PIB per capita</b> oficial (IBGE Cidades, indicador 47001). A divisão por setor mais recente publicada é a de 2021.</li>
+            <li><b>IBGE, Cadastro Central de Empresas 2022 a 2024</b> (tabelas 9509 e 9528).</li>
+            <li><b>IBGE, Pesquisa da Pecuária Municipal 2025</b> (tabelas 3939 e 74) e <b>Produção Agrícola Municipal 2025</b> (tabela 5457).</li>
+            <li><b>Tesouro Nacional, Siconfi:</b> Declaração de Contas Anuais 2025, Anexo I-E, despesas liquidadas por função.</li>
+          </ul>
+        </div>
+        <div>
+          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo.</p>
+          <p><b>Privacidade.</b> O nome e a cidade informados na entrada ficam registrados com a data e a hora do acesso e servem apenas para medir o alcance do projeto. Nenhum outro dado é coletado.</p>
+          <p><a href="dados/municipios_sc.csv" download>Baixar os dados das 295 cidades (CSV)</a><br><a href="dados/validacao.txt">Ver a conferência das fontes</a><span id="itemCodigo"><br><a href="#" id="linkCodigo">Código-fonte</a></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="largura">
-  Atividade Extensionista II, CST em Ciência de Dados, Uninter. Desenvolvido por Luan Henrique Weber.
+<footer>
+  <div class="largura">
+    <span><b>Mondaí em Números</b> · Projeto de Luan Henrique Weber</span>
+    <span id="selo"></span>
+  </div>
 </footer>
 
 <div id="portao" class="portao" role="dialog" aria-modal="true" aria-labelledby="p-titulo" hidden>
   <form class="portao-caixa" id="portaoForm">
-    <h2 id="p-titulo">Mondaí em Números</h2>
-    <p>Este painel faz parte do meu projeto de extensão na faculdade. Antes de entrar, conte quem é você.</p>
+    <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1b6b46"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#fff"/><rect x="14" y="11" width="4" height="14" rx="1" fill="#fff"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#fff"/></svg>
+    <h2 id="p-titulo">Compare Mondaí com a sua cidade</h2>
+    <p>Diga quem é você e onde mora. Em seguida, mostramos como a sua cidade se compara com Mondaí.</p>
     <label for="p-nome">Seu nome</label>
     <input type="text" id="p-nome" autocomplete="name" maxlength="80" required>
     <label for="p-cidade">Cidade onde você mora</label>
     <input type="text" id="p-cidade" list="lista-cidades" autocomplete="address-level2" maxlength="80" required>
     <datalist id="lista-cidades"></datalist>
-    <button type="submit" class="principal">Ver o painel</button>
-    <p class="nota">Ficam registrados só o nome, a cidade, a data e a hora do acesso, usados apenas no relatório acadêmico.</p>
-    <button type="button" class="link" id="p-pular">Entrar sem me identificar</button>
+    <button type="submit" class="botao principal">Ver os números</button>
+    <p class="privacidade">Pedimos seu nome e sua cidade apenas para medir o alcance do projeto. Nenhum outro dado é coletado.</p>
   </form>
 </div>
 
@@ -349,6 +380,7 @@
     if (a >= 1e6) return "R$ " + d1.format(v / 1e6) + " mi";
     return "R$ " + int.format(v);
   }
+  const milReais = v => "R$ " + int.format(Math.round(v / 1000)) + " mil";
 
   function fmt(chave, v) {
     if (v === null || v === undefined) return "sem dado";
@@ -365,8 +397,7 @@
       case "mil litros": return v >= 1000 ? d1.format(v / 1000) + " mi de litros" : int.format(v) + " mil litros";
       case "litros": return int.format(v) + " litros";
       case "cabeças": return v < 100 ? d1.format(v) : int.format(v);
-      case "por mil": case "por 100": return d1.format(v);
-      case "índice": return d1.format(v);
+      case "por mil": case "por 100": case "índice": return d1.format(v);
       default: return int.format(v);
     }
   }
@@ -388,6 +419,7 @@
 
   function cor(n) { return getComputedStyle(document.body).getPropertyValue("--" + n).trim(); }
   const nomeDe = id => MUN[id].nome;
+  const idDe = nome => Object.keys(MUN).find(id => MUN[id].nome === nome);
   const mediana = arr => {
     const a = arr.filter(x => x !== null && x !== undefined).sort((x, y) => x - y);
     if (!a.length) return null;
@@ -404,43 +436,95 @@
     return h + "</tbody></table>";
   }
 
-  // ---------------------------------------------------------------- cartões de gráfico
-  const GRAFICOS = [];
+  // ---------------------------------------------------------------- gráficos: base
+  // Opções originais do plugin. As resolvidas pelo Chart.js chamariam "formatar" como opção calculada.
+  const opcaoBruta = (chart, id) => ((chart.config.options || {}).plugins || {})[id];
 
-  function cartao(secao, op, montar) {
-    const card = document.createElement("div");
-    card.className = "card " + (op.largura || "");
-    let html = "<h3>" + op.titulo + "</h3><p class=\"nota\">" + op.nota + "</p>";
-    if (op.controle) html += '<div class="controle">' + op.controle + "</div>";
-    html += '<div class="grafico ' + (op.altura || "") + '"><canvas role="img"></canvas></div>' +
-      "<details><summary>" + (op.resumoTabela || "Ver em tabela") + '</summary><div class="tabela-rolagem"></div></details>';
-    card.innerHTML = html;
-    document.getElementById(secao).appendChild(card);
-    const g = { canvas: card.querySelector("canvas"), tabela: card.querySelector(".tabela-rolagem"), montar, card };
-    GRAFICOS.push(g);
-    return g;
-  }
-
-  function desenhar(g) {
-    if (g.chart) g.chart.destroy();
-    const r = g.montar();
-    g.chart = new Chart(g.canvas, r.config);
-    g.canvas.setAttribute("aria-label", r.descricao);
-    if (r.tabela) g.tabela.innerHTML = tabelaHtml(...r.tabela);
-  }
+  // Rótulos de valor escritos na ponta das barras, para não depender de legenda.
+  const pluginRotulos = {
+    id: "rotulos",
+    afterDatasetsDraw(chart) {
+      const op = opcaoBruta(chart, "rotulos");
+      if (!op || !op.formatar) return;
+      const { ctx } = chart;
+      const horizontal = chart.options.indexAxis === "y";
+      ctx.save();
+      ctx.font = "600 12px " + getComputedStyle(document.body).fontFamily;
+      ctx.fillStyle = cor("tinta");
+      chart.data.datasets.forEach((ds, di) => {
+        const meta = chart.getDatasetMeta(di);
+        if (meta.hidden || ds.semRotulo) return;
+        meta.data.forEach((el, i) => {
+          const v = ds.data[i];
+          if (v === null || v === undefined) return;
+          ctx.textAlign = horizontal ? "left" : "center";
+          ctx.textBaseline = horizontal ? "middle" : "bottom";
+          ctx.fillText(op.formatar(v, i, di), horizontal ? el.x + 6 : el.x, horizontal ? el.y : el.y - 4);
+        });
+      });
+      ctx.restore();
+    }
+  };
+  // Linha vertical de referência (ex.: mediana de SC = 100).
+  const pluginReferencia = {
+    id: "referencia",
+    afterDatasetsDraw(chart) {
+      const op = opcaoBruta(chart, "referencia");
+      if (!op) return;
+      const { ctx, chartArea } = chart;
+      const x = chart.scales.x.getPixelForValue(op.valor);
+      ctx.save();
+      ctx.strokeStyle = cor("suave");
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(x, chartArea.top); ctx.lineTo(x, chartArea.bottom); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = cor("suave");
+      ctx.font = "12px " + getComputedStyle(document.body).fontFamily;
+      ctx.textAlign = "left";
+      ctx.fillText(op.rotulo, x + 6, chartArea.top + 12);
+      ctx.restore();
+    }
+  };
+  if (window.Chart) Chart.register(pluginRotulos, pluginReferencia);
 
   function opcoes(extra) {
-    Chart.defaults.color = cor("text");
-    Chart.defaults.borderColor = cor("line");
+    Chart.defaults.color = cor("suave");
+    Chart.defaults.borderColor = cor("linha");
     Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
     Chart.defaults.font.size = 12;
     return Object.assign({ responsive: true, maintainAspectRatio: false, animation: { duration: 400 } }, extra);
   }
 
+  // Em telas estreitas, nomes longos viram duas ou mais linhas para não serem cortados no eixo.
+  function quebrar(texto, max) {
+    if (texto.length <= max) return texto;
+    const linhas = [];
+    let atual = "";
+    texto.split(" ").forEach(p => {
+      if ((atual + " " + p).trim().length > max && atual) { linhas.push(atual); atual = p; }
+      else atual = (atual + " " + p).trim();
+    });
+    if (atual) linhas.push(atual);
+    return linhas;
+  }
+
+  function barrasH(rotulos, valores, cores, formatar, extra) {
+    const estreito = window.innerWidth < 640;
+    return {
+      type: "bar",
+      data: { labels: estreito ? rotulos.map(r => quebrar(r, 16)) : rotulos, datasets: [{ data: valores, backgroundColor: cores, borderRadius: 4 }] },
+      options: opcoes(Object.assign({
+        indexAxis: "y",
+        layout: { padding: { right: 64 } },
+        plugins: { legend: { display: false }, rotulos: { formatar }, tooltip: { callbacks: { label: c => formatar(c.parsed.x) } } },
+        scales: { x: { display: false, beginAtZero: true }, y: { grid: { display: false }, border: { display: false }, ticks: { autoSkip: false, color: cor("tinta") } } }
+      }, extra))
+    };
+  }
+
   // Barras 100% empilhadas comparando Mondaí e Santa Catarina.
   function composicao(dist, cores, juntar) {
     const locais = Object.keys(dist);
-    let categorias = Object.keys(dist[locais[0]]);
     const valores = {};
     locais.forEach(l => {
       const bruto = Object.assign({}, dist[l]);
@@ -451,7 +535,7 @@
       const total = Object.values(bruto).reduce((s, v) => s + (v || 0), 0);
       valores[l] = Object.fromEntries(Object.entries(bruto).map(([k, v]) => [k, (v || 0) / total * 100]));
     });
-    categorias = Object.keys(valores[locais[0]]);
+    const categorias = Object.keys(valores[locais[0]]);
     return {
       config: {
         type: "bar",
@@ -461,9 +545,9 @@
         },
         options: opcoes({
           indexAxis: "y",
-          plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } },
+          plugins: { legend: { position: "bottom", labels: { boxWidth: 12, color: cor("tinta") } },
             tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
-          scales: { x: { stacked: true, max: 100, ticks: { callback: v => v + "%" } }, y: { stacked: true } }
+          scales: { x: { stacked: true, max: 100, ticks: { callback: v => v + "%" } }, y: { stacked: true, grid: { display: false }, ticks: { color: cor("tinta") } } }
         })
       },
       descricao: locais.map(l => l + ": " + categorias.map(c => c + " " + d1.format(valores[l][c]) + "%").join(", ")).join(". "),
@@ -471,66 +555,315 @@
     };
   }
 
-  function barrasH(rotulos, valores, cores, formatar, extra) {
-    return {
-      type: "bar",
-      data: { labels: rotulos, datasets: [{ data: valores, backgroundColor: cores }] },
-      options: opcoes(Object.assign({
-        indexAxis: "y",
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => formatar(c.parsed.x) } } },
-        scales: { x: { ticks: { callback: v => formatar(v) } }, y: { ticks: { autoSkip: false } } }
-      }, extra))
-    };
+  // Cada gráfico guarda a função que o monta; é redesenhado ao trocar o contraste.
+  const GRAFICOS = [];
+  function desenhar(g) {
+    if (g.chart) g.chart.destroy();
+    const r = g.montar();
+    g.chart = new Chart(g.canvas, r.config);
+    g.canvas.setAttribute("aria-label", r.descricao);
+    if (r.tabela && g.tabela) g.tabela.innerHTML = tabelaHtml(...r.tabela);
   }
 
-  // ---------------------------------------------------------------- visão geral
+  // ---------------------------------------------------------------- abertura
+  const I = IND;
+  const esgotoSC = S.esgoto["Santa Catarina"]["Rede geral ou fossa ligada à rede"];
+
+  function abertura() {
+    const pc = I.pib_pc;
+    document.getElementById("manchete").innerHTML =
+      "Mondaí produz mais riqueza por habitante que <em>" + int.format(pc.menor_sc - 1) + " das " + int.format(pc.total_sc) + "</em> cidades de Santa Catarina.";
+    document.getElementById("lide").textContent =
+      "Mas só " + Math.round(I.esgoto_rede.mondai) + " em cada 100 moradores têm esgoto ligado à rede, contra " + Math.round(esgotoSC) +
+      " no estado. Veja o que mais os números oficiais contam sobre a cidade, e como a sua se compara.";
+    const numeros = [
+      [int.format(I.pop2026.mondai), "habitantes, estimativa oficial de " + I.pop2026.ano],
+      [milReais(pc.mondai), "de PIB por habitante em " + pc.ano + ", o " + pc.maior_sc + "º de SC"],
+      [int.format(I.empresas.mondai), "empresas e organizações ativas em " + I.empresas.ano]
+    ];
+    document.getElementById("numerosTopo").innerHTML = numeros.map(([n, t]) => "<div><strong>" + n + "</strong><span>" + t + "</span></div>").join("");
+    document.getElementById("selo").textContent = "Dados do IBGE e do Tesouro Nacional, baixados em " + P.gerado_em;
+  }
+
+  // ---------------------------------------------------------------- sua cidade
+  const DUELO = ["pop2026", "pib_pc", "salario_rs", "empresas", "superior", "esgoto_rede", "idade_mediana", "suinos"];
+
+  function preencherCidades() {
+    const opcoes = Object.entries(MUN).filter(([id]) => id !== P.mondai).sort((a, b) => a[1].nome.localeCompare(b[1].nome, "pt-BR"));
+    document.getElementById("selCidade").innerHTML = opcoes.map(([id, m]) => '<option value="' + id + '">' + m.nome + "</option>").join("");
+    document.getElementById("lista-cidades").innerHTML = Object.values(MUN).map(m => m.nome)
+      .sort((a, b) => a.localeCompare(b, "pt-BR")).map(n => '<option value="' + n + '">').join("");
+  }
+
+  function duelo(outra, intro) {
+    const O = MUN[outra];
+    document.getElementById("selCidade").value = outra;
+    document.getElementById("nomeOutra").textContent = O.nome;
+    document.getElementById("introDuelo").textContent = intro;
+    document.getElementById("duelo").innerHTML = DUELO.map(k => {
+      const a = M[k], b = O[k];
+      const max = Math.max(a || 0, b || 0) || 1;
+      const linha = (nome, v, c) => '<div class="par"><span class="nome">' + nome + '</span><span class="barra"><i style="width:' +
+        ((v || 0) / max * 100) + "%;background:" + cor(c) + '"></i></span><b>' + fmt(k, v) + "</b></div>";
+      let veredito = "";
+      if (a && b) {
+        const r = a / b;
+        veredito = Math.abs(r - 1) < 0.05 ? "Praticamente iguais." : r > 1 ? "Mondaí tem " + d1.format(r) + "× o valor de " + O.nome + "."
+          : O.nome + " tem " + d1.format(1 / r) + "× o valor de Mondaí.";
+      }
+      return '<div class="card linha-duelo"><h3>' + I[k].rotulo + ' <span class="ano">· ' + I[k].ano + "</span></h3>" +
+        linha("Mondaí", a, "c1") + linha(O.nome, b, "c3") + '<p class="veredito">' + veredito + "</p></div>";
+    }).join("");
+    document.getElementById("chamadaCidade").textContent = "Ver Mondaí × " + O.nome;
+  }
+
+  function personalizar(cidade) {
+    const chapeco = idDe("Chapecó");
+    const id = cidade ? idDe(cidade) : null;
+    if (id && id !== P.mondai) duelo(id, "Você mora em " + cidade + ". Veja como a sua cidade e Mondaí se comparam, ou escolha outra cidade.");
+    else if (id === P.mondai) duelo(chapeco, "Você mora em Mondaí. Veja como a cidade se compara com Chapecó, o centro da região, ou escolha outra.");
+    else if (cidade) duelo(chapeco, "Não encontramos " + cidade + " entre as cidades de Santa Catarina. Escolha uma cidade catarinense para comparar.");
+    else duelo(chapeco, "Escolha uma cidade de Santa Catarina para comparar com Mondaí.");
+  }
+
+  // ---------------------------------------------------------------- histórias
+  function compartilhar(texto, ancora) {
+    const url = location.origin + location.pathname + "#" + ancora;
+    if (navigator.share) navigator.share({ title: "Mondaí em Números", text: texto, url }).catch(() => {});
+    else window.open("https://wa.me/?text=" + encodeURIComponent(texto + " " + url), "_blank", "noopener");
+  }
+
+  function capitulo(n, op, montar) {
+    const id = "historia-" + n;
+    const art = document.createElement("article");
+    art.className = "capitulo" + (n % 2 === 0 ? " invertido" : "");
+    art.id = id;
+    art.setAttribute("aria-labelledby", id + "-t");
+    art.innerHTML =
+      '<div class="texto"><span class="num">' + String(n).padStart(2, "0") + " · " + op.tema + "</span>" +
+      '<h3 id="' + id + '-t">' + op.titulo + "</h3><p>" + op.texto + '</p><span class="fonte">Fonte: ' + op.fonte + "</span><br>" +
+      '<button type="button" class="botao leve compartilhar">Compartilhar</button></div>' +
+      '<div class="card"><div class="grafico"><canvas role="img"></canvas></div>' +
+      '<details><summary>Ver em tabela</summary><div class="tabela-rolagem"></div></details></div>';
+    document.getElementById("capitulos").appendChild(art);
+    art.querySelector(".compartilhar").addEventListener("click", () => compartilhar(op.titulo.replace(/<[^>]+>/g, ""), id));
+    GRAFICOS.push({ canvas: art.querySelector("canvas"), tabela: art.querySelector(".tabela-rolagem"), montar, painel: null });
+  }
+
+  function historias() {
+    // 1. Riqueza e salário
+    const rPib = I.pib_pc.mondai / I.pib_pc.mediana_sc * 100;
+    const rSal = I.salario_rs.mondai / I.salario_rs.mediana_sc * 100;
+    capitulo(1, {
+      tema: "Riqueza",
+      titulo: "A riqueza por habitante é " + d1.format(rPib / 100) + " vezes a mediana de SC. O salário, não.",
+      texto: "Em " + I.pib_pc.ano + ", o PIB por habitante de Mondaí foi de " + reais(I.pib_pc.mondai) + ", o " + I.pib_pc.maior_sc +
+        "º maior do estado. Já o salário médio de quem trabalha em empresas, " + reais(I.salario_rs.mondai) + " em " + I.salario_rs.ano +
+        ", fica perto da mediana catarinense, de " + reais(I.salario_rs.mediana_sc) + ".",
+      fonte: "IBGE, PIB dos Municípios e Cadastro Central de Empresas"
+    }, () => ({
+      config: barrasH(["PIB por habitante (" + I.pib_pc.ano + ")", "Salário médio (" + I.salario_rs.ano + ")"], [rPib, rSal],
+        [cor("c1"), cor("c3")], v => int.format(v), {
+          plugins: { legend: { display: false }, rotulos: { formatar: v => int.format(v) },
+            referencia: { valor: 100, rotulo: "Mediana de SC = 100" }, tooltip: { callbacks: { label: c => int.format(c.parsed.x) + " (mediana de SC = 100)" } } },
+          scales: { x: { display: false, beginAtZero: true, max: Math.ceil(rPib / 50) * 50 + 20 }, y: { grid: { display: false }, border: { display: false }, ticks: { color: cor("tinta") } } }
+        }),
+      descricao: "Mondaí em relação à mediana de SC, igual a 100: PIB por habitante " + int.format(rPib) + ", salário médio " + int.format(rSal),
+      tabela: [["Indicador", "Mondaí", "Mediana de SC"], [
+        ["PIB por habitante (" + I.pib_pc.ano + ")", reais(I.pib_pc.mondai), reais(I.pib_pc.mediana_sc)],
+        ["Salário médio (" + I.salario_rs.ano + ")", reais(I.salario_rs.mondai), reais(I.salario_rs.mediana_sc)]]]
+    }));
+
+    // 2. Trabalho
+    const setores = S.setores.filter(x => x.pessoas > 0);
+    const totalOc = setores.reduce((s, x) => s + x.pessoas, 0);
+    const ind = setores.find(x => x.secao === "Indústrias de transformação");
+    capitulo(2, {
+      tema: "Trabalho",
+      titulo: "Quase metade de quem trabalha em empresas está na indústria",
+      texto: "Em " + I.ocupados.ano + ", " + int.format(ind.pessoas) + " das " + int.format(totalOc) + " pessoas ocupadas em empresas e organizações de Mondaí estavam na indústria de transformação: " +
+        Math.round(ind.pessoas / totalOc * 100) + " em cada 100. Na economia, a indústria respondia por " + Math.round(I.pct_ind.mondai) + "% do valor produzido em " +
+        I.pct_ind.ano + ", o " + I.pct_ind.maior_sc + "º maior peso de Santa Catarina.",
+      fonte: "IBGE, Cadastro Central de Empresas e PIB dos Municípios"
+    }, () => {
+      const top = setores.slice(0, 5), resto = setores.slice(5).reduce((s, x) => s + x.pessoas, 0);
+      const curto = s => s.replace("; reparação de veículos automotores e motocicletas", "").replace(", defesa e seguridade social", "").replace(", armazenagem e correio", " e armazenagem").replace("Saúde humana e serviços sociais", "Saúde e assistência social");
+      const rot = top.map(x => curto(x.secao)).concat(["Outros setores"]);
+      const val = top.map(x => x.pessoas).concat([resto]);
+      return {
+        config: barrasH(rot, val, val.map((_, i) => i === 0 ? cor("c1") : cor("c7")), v => int.format(v) + " (" + Math.round(v / totalOc * 100) + "%)"),
+        descricao: rot.map((r, i) => r + ": " + val[i]).join("; "),
+        tabela: [["Setor", "Pessoas"], setores.map(x => [x.secao, int.format(x.pessoas)])]
+      };
+    });
+
+    // 3. Campo
+    const vizMais = VIZ.filter(id => MUN[id].suinos_hab > M.suinos_hab).length;
+    const fraseViz = vizMais === VIZ.length ? "E as " + VIZ.length + " cidades vizinhas têm proporção ainda maior."
+      : vizMais ? vizMais + " das " + VIZ.length + " cidades vizinhas têm proporção ainda maior." : "Nenhuma das cidades vizinhas chega a essa proporção.";
+    capitulo(3, {
+      tema: "Campo",
+      titulo: "São " + d1.format(I.suinos_hab.mondai) + " porcos para cada morador",
+      texto: "O rebanho de suínos de Mondaí chegou a " + int.format(Math.round(I.suinos.mondai / 1000)) + " mil cabeças em " + I.suinos.ano + ", o " + I.suinos.maior_sc +
+        "º maior de Santa Catarina. Na mediana das cidades catarinenses, há " + (I.suinos_hab.mediana_sc < 1 ? "menos de um porco" : d1.format(I.suinos_hab.mediana_sc) + " porcos") +
+        " por morador. " + fraseViz,
+      fonte: "IBGE, Pesquisa da Pecuária Municipal e Estimativas de População"
+    }, () => {
+      const itens = [P.mondai, ...VIZ].map(id => ({ nome: nomeDe(id), v: MUN[id].suinos_hab, c: id === P.mondai ? "c1" : "c7" }));
+      itens.push({ nome: "Mediana de SC", v: I.suinos_hab.mediana_sc, c: "c2" });
+      itens.sort((a, b) => b.v - a.v);
+      return {
+        config: barrasH(itens.map(x => x.nome), itens.map(x => x.v), itens.map(x => cor(x.c)), v => d1.format(v)),
+        descricao: "Suínos por habitante: " + itens.map(x => x.nome + " " + d1.format(x.v)).join("; "),
+        tabela: [["Cidade", "Suínos por habitante"], itens.map(x => [x.nome, d1.format(x.v)])]
+      };
+    });
+
+    // 4. População
+    const v0 = S.vitais[0], v1 = S.vitais[S.vitais.length - 1];
+    const censos = S.populacao.filter(x => x.tipo === "Censo");
+    capitulo(4, {
+      tema: "População",
+      titulo: "Em " + v0.ano + ", nasciam " + d1.format(v0.nascimentos / v0.obitos) + " bebês para cada morte. Em " + v1.ano + ", " + d1.format(v1.nascimentos / v1.obitos) + ".",
+      texto: "Entre os Censos de " + censos[0].ano + " e " + censos[censos.length - 1].ano + ", a população foi de " + int.format(censos[0].valor) + " para " +
+        int.format(censos[censos.length - 1].valor) + " pessoas. Com menos nascimentos e mais óbitos, a distância entre as duas linhas encolheu.",
+      fonte: "IBGE, Registro Civil e Censos Demográficos"
+    }, () => ({
+      config: {
+        type: "line",
+        data: {
+          labels: S.vitais.map(x => x.ano),
+          datasets: [
+            { label: "Nascimentos", data: S.vitais.map(x => x.nascimentos), borderColor: cor("c1"), backgroundColor: cor("c1"), pointRadius: 0, borderWidth: 3, tension: 0.25 },
+            { label: "Óbitos", data: S.vitais.map(x => x.obitos), borderColor: cor("c2"), backgroundColor: cor("c2"), pointRadius: 0, borderWidth: 3, tension: 0.25 }
+          ]
+        },
+        options: opcoes({
+          interaction: { mode: "index", intersect: false },
+          plugins: { legend: { position: "top", align: "start", labels: { boxWidth: 12, color: cor("tinta") } } },
+          scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 8 } }, y: { beginAtZero: true } }
+        })
+      },
+      descricao: "Nascimentos e óbitos por ano de " + v0.ano + " a " + v1.ano,
+      tabela: [["Ano", "Nascimentos", "Óbitos"], S.vitais.map(x => [x.ano, x.nascimentos, x.obitos])]
+    }));
+
+    // 5. Esgoto
+    const e = S.esgoto["Mondaí"];
+    capitulo(5, {
+      tema: "Saneamento",
+      titulo: "Só " + Math.round(I.esgoto_rede.mondai) + " em cada 100 moradores têm esgoto ligado à rede",
+      texto: "Em Santa Catarina, são " + Math.round(esgotoSC) + " em cada 100. Em Mondaí, " + Math.round(e["Fossa séptica não ligada à rede"]) +
+        "% dos moradores usam fossa séptica e " + Math.round(e["Fossa rudimentar ou buraco"]) + "%, fossa rudimentar ou buraco.",
+      fonte: "IBGE, Censo Demográfico 2022"
+    }, () => composicao(S.esgoto, ["c3", "c5", "c2", "c7"],
+      { nome: "Outras formas", itens: ["Vala", "Rio, lago ou córrego", "Outra forma", "Sem banheiro nem sanitário"] }));
+
+    // 6. Prefeitura
+    const pf = P.prefeitura;
+    const desp = Object.entries(pf.mondai).sort((a, b) => b[1] - a[1]);
+    const totalDesp = desp.reduce((s, x) => s + x[1], 0);
+    const edu = pf.mondai["Educação"], sau = pf.mondai["Saúde"];
+    capitulo(6, {
+      tema: "Prefeitura",
+      titulo: "De cada R$ 10 que a prefeitura gasta, quase R$ 5 vão para educação e saúde",
+      texto: "Em " + pf.ano + ", a prefeitura de Mondaí liquidou " + reais(totalDesp) + " em despesas, " + reais(pf.por_habitante[P.mondai].total) +
+        " por habitante. Educação (" + reais(edu) + ") e saúde (" + reais(sau) + ") somam " + Math.round((edu + sau) / totalDesp * 100) + "% do total.",
+      fonte: "Tesouro Nacional, Siconfi"
+    }, () => {
+      const top = desp.slice(0, 6), resto = desp.slice(6).reduce((s, x) => s + x[1], 0);
+      const rot = top.map(x => x[0]).concat(["Outras áreas"]);
+      const val = top.map(x => x[1]).concat([resto]);
+      return {
+        config: barrasH(rot, val, val.map((_, i) => i < 2 ? cor("c1") : cor("c7")), reais),
+        descricao: rot.map((r, i) => r + ": " + reais(val[i])).join("; "),
+        tabela: [["Área", "Despesa liquidada"], desp.map(x => [x[0], reais(x[1])])]
+      };
+    });
+  }
+
+  // ---------------------------------------------------------------- explorar
   function kpis() {
     const lista = ["pop2026", "pib", "pib_pc", "empresas", "ocupados", "salario_rs", "alfabetizacao", "agua_rede"];
-    const box = document.getElementById("kpis");
-    box.innerHTML = "";
-    lista.forEach(k => {
+    document.getElementById("kpis").innerHTML = lista.map(k => {
       const i = IND[k];
       const p = percentil(k, i.mondai);
-      const el = document.createElement("div");
-      el.className = "kpi";
-      el.innerHTML =
-        '<div class="rotulo"><span>' + i.rotulo + '</span><span class="ano">' + i.ano + "</span></div>" +
+      return '<div class="card kpi"><div class="rotulo"><span>' + i.rotulo + '</span><span class="ano">' + i.ano + "</span></div>" +
         '<div class="valor">' + fmt(k, i.mondai) + "</div>" +
         '<div class="faixa" role="img" aria-label="' + posicao(i, "sc") + " de " + i.total_sc + ' cidades de SC">' +
         '<span class="mediana"></span><span class="ponto" style="left:' + (p === null ? 50 : p) + '%"></span></div>' +
         '<div class="faixa-legenda"><span>menor de SC</span><span>maior</span></div>' +
-        '<div class="pos">' + posicao(i, "sc") + " de SC · " + posicao(i, "regiao") + " da região</div>";
-      box.appendChild(el);
+        '<div class="pos">' + posicao(i, "sc") + " de SC · " + posicao(i, "regiao") + " da região</div></div>";
+    }).join("");
+  }
+
+  const TEMAS = [["pessoas", "Pessoas"], ["educacao", "Educação e renda"], ["economia", "Economia"], ["trabalho", "Trabalho"],
+    ["campo", "Campo"], ["saneamento", "Saneamento"], ["prefeitura", "Prefeitura"], ["vizinhas", "Mondaí e as vizinhas"]];
+
+  function montarAbas() {
+    const abas = document.getElementById("abas"), paineis = document.getElementById("paineis");
+    TEMAS.forEach(([id, nome], i) => {
+      abas.insertAdjacentHTML("beforeend", '<button type="button" role="tab" id="aba-' + id + '" aria-controls="painel-' + id + '" aria-selected="' + (i === 0) + '"' + (i ? ' tabindex="-1"' : "") + ">" + nome + "</button>");
+      paineis.insertAdjacentHTML("beforeend", '<div class="grade" role="tabpanel" id="painel-' + id + '" aria-labelledby="aba-' + id + '"' + (i ? " hidden" : "") + "></div>");
+    });
+    abas.addEventListener("click", e => { const b = e.target.closest("[role=tab]"); if (b) abrirAba(b.id.replace("aba-", "")); });
+    abas.addEventListener("keydown", e => {
+      if (!["ArrowRight", "ArrowLeft"].includes(e.key)) return;
+      const ids = TEMAS.map(t => t[0]);
+      const atual = ids.indexOf(document.activeElement.id.replace("aba-", ""));
+      const prox = ids[(atual + (e.key === "ArrowRight" ? 1 : -1) + ids.length) % ids.length];
+      abrirAba(prox); document.getElementById("aba-" + prox).focus();
     });
   }
 
-  // ---------------------------------------------------------------- pessoas
-  function graficosPessoas() {
-    cartao("g-pessoas", { titulo: "Pirâmide etária", nota: "Censo 2022 · % da população em cada faixa · contorno: Santa Catarina", altura: "alto" }, () => {
+  // Os gráficos de uma aba só são desenhados quando ela aparece (o Chart.js precisa do tamanho visível).
+  function abrirAba(id) {
+    TEMAS.forEach(([t]) => {
+      const ativo = t === id;
+      document.getElementById("aba-" + t).setAttribute("aria-selected", ativo);
+      document.getElementById("aba-" + t).tabIndex = ativo ? 0 : -1;
+      document.getElementById("painel-" + t).hidden = !ativo;
+    });
+    GRAFICOS.filter(g => g.painel === id && !g.chart).forEach(desenhar);
+  }
+
+  function cartao(painel, op, montar) {
+    const card = document.createElement("div");
+    card.className = "card " + (op.largura || "");
+    let html = "<h3>" + op.titulo + '</h3><p class="nota">' + op.nota + "</p>";
+    if (op.controle) html += '<div class="controle">' + op.controle + "</div>";
+    html += '<div class="grafico ' + (op.altura || "") + '"><canvas role="img"></canvas></div>' +
+      "<details><summary>" + (op.resumoTabela || "Ver em tabela") + '</summary><div class="tabela-rolagem"></div></details>';
+    card.innerHTML = html;
+    document.getElementById("painel-" + painel).appendChild(card);
+    const g = { canvas: card.querySelector("canvas"), tabela: card.querySelector(".tabela-rolagem"), montar, painel };
+    GRAFICOS.push(g);
+    return g;
+  }
+
+  const legendaBaixo = () => ({ position: "bottom", labels: { boxWidth: 12, color: cor("tinta") } });
+
+  function graficosExplorar() {
+    // Pessoas
+    cartao("pessoas", { titulo: "Pirâmide etária", nota: "Censo 2022 · % da população em cada faixa · contorno: Santa Catarina", altura: "alto" }, () => {
       const m = S.piramide["Mondaí"], e = S.piramide["Santa Catarina"];
       const soma = x => x.homens.concat(x.mulheres).reduce((a, b) => a + b, 0);
       const tm = soma(m), te = soma(e);
       const rot = m.faixas.slice().reverse().map(f => f.replace(" anos", "").replace(" ou mais", "+"));
       const inv = arr => arr.slice().reverse();
-      const sc = { backgroundColor: "transparent", borderColor: cor("text"), borderWidth: 1.2, grouped: false };
+      const sc = { backgroundColor: "transparent", borderColor: cor("tinta"), borderWidth: 1.2, grouped: false };
       return {
         config: {
           type: "bar",
-          data: {
-            labels: rot,
-            datasets: [
-              { label: "Homens", data: inv(m.homens).map(v => -v / tm * 100), backgroundColor: cor("c3"), grouped: false },
-              { label: "Mulheres", data: inv(m.mulheres).map(v => v / tm * 100), backgroundColor: cor("c2"), grouped: false },
-              Object.assign({ label: "Santa Catarina", data: inv(e.homens).map(v => -v / te * 100) }, sc),
-              Object.assign({ label: "_sc", data: inv(e.mulheres).map(v => v / te * 100) }, sc)
-            ]
-          },
+          data: { labels: rot, datasets: [
+            { label: "Homens", data: inv(m.homens).map(v => -v / tm * 100), backgroundColor: cor("c3"), grouped: false },
+            { label: "Mulheres", data: inv(m.mulheres).map(v => v / tm * 100), backgroundColor: cor("c2"), grouped: false },
+            Object.assign({ label: "Santa Catarina", data: inv(e.homens).map(v => -v / te * 100) }, sc),
+            Object.assign({ label: "_sc", data: inv(e.mulheres).map(v => v / te * 100) }, sc)] },
           options: opcoes({
             indexAxis: "y",
-            plugins: {
-              legend: { position: "bottom", labels: { boxWidth: 12, filter: it => it.text !== "_sc" } },
-              tooltip: { callbacks: { label: c => (c.dataset.label === "_sc" ? "Santa Catarina" : c.dataset.label) + ": " + d1.format(Math.abs(c.parsed.x)) + "%" } }
-            },
+            plugins: { legend: { position: "bottom", labels: { boxWidth: 12, color: cor("tinta"), filter: it => it.text !== "_sc" } },
+              tooltip: { callbacks: { label: c => (c.dataset.label === "_sc" ? "Santa Catarina" : c.dataset.label) + ": " + d1.format(Math.abs(c.parsed.x)) + "%" } } },
             scales: { x: { ticks: { callback: v => Math.abs(v) + "%" } }, y: { ticks: { autoSkip: false, font: { size: 10 } } } }
           })
         },
@@ -538,171 +871,114 @@
         tabela: [["Faixa", "Homens", "Mulheres"], m.faixas.map((f, i) => [f, int.format(m.homens[i]), int.format(m.mulheres[i])])]
       };
     });
-
-    cartao("g-pessoas", { titulo: "População", nota: "Censos 2010 e 2022 · estimativas oficiais 2024 a 2026" }, () => {
+    cartao("pessoas", { titulo: "População", nota: "Censos 2010 e 2022 · estimativas oficiais 2024 a 2026" }, () => {
       const d = S.populacao;
       return {
         config: {
           type: "bar",
-          data: {
-            labels: d.map(x => x.ano),
-            datasets: [
-              { label: "Censo", data: d.map(x => x.tipo === "Censo" ? x.valor : null), backgroundColor: cor("c1"), skipNull: true },
-              { label: "Estimativa", data: d.map(x => x.tipo === "Estimativa" ? x.valor : null), backgroundColor: cor("c7"), skipNull: true }
-            ]
-          },
-          options: opcoes({
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => int.format(c.parsed.y) + " pessoas" } } },
-            scales: { x: { stacked: true }, y: { beginAtZero: true, ticks: { callback: v => int.format(v) } } }
-          })
+          data: { labels: d.map(x => x.ano), datasets: [
+            { label: "Censo", data: d.map(x => x.tipo === "Censo" ? x.valor : null), backgroundColor: cor("c1"), skipNull: true, borderRadius: 4 },
+            { label: "Estimativa", data: d.map(x => x.tipo === "Estimativa" ? x.valor : null), backgroundColor: cor("c7"), skipNull: true, borderRadius: 4 }] },
+          options: opcoes({ plugins: { legend: legendaBaixo(), rotulos: { formatar: v => int.format(v) }, tooltip: { callbacks: { label: c => int.format(c.parsed.y) + " pessoas" } } },
+            scales: { x: { stacked: true, grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => int.format(v) } } } })
         },
         descricao: d.map(x => x.ano + " (" + x.tipo + "): " + int.format(x.valor)).join("; "),
         tabela: [["Ano", "Pessoas", "Fonte"], d.map(x => [x.ano, int.format(x.valor), x.tipo])]
       };
     });
+    cartao("pessoas", { titulo: "Onde as pessoas moram", nota: "Censo 2022 · situação do domicílio", largura: "l12" }, () => composicao(S.situacao, ["c1", "c6"]));
 
-    cartao("g-pessoas", { titulo: "Nascimentos e óbitos", nota: "Registro Civil 2003 a 2024 · por residência da mãe e do falecido" }, () => {
-      const d = S.vitais;
-      return {
-        config: {
-          type: "line",
-          data: {
-            labels: d.map(x => x.ano),
-            datasets: [
-              { label: "Nascimentos", data: d.map(x => x.nascimentos), borderColor: cor("c3"), backgroundColor: cor("c3"), pointRadius: 2, tension: 0.2 },
-              { label: "Óbitos", data: d.map(x => x.obitos), borderColor: cor("c2"), backgroundColor: cor("c2"), pointRadius: 2, tension: 0.2 }
-            ]
-          },
-          options: opcoes({ plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } }, scales: { y: { beginAtZero: true } } })
-        },
-        descricao: "Nascimentos e óbitos por ano de 2003 a 2024",
-        tabela: [["Ano", "Nascimentos", "Óbitos"], d.map(x => [x.ano, x.nascimentos, x.obitos])]
-      };
-    });
-
-    cartao("g-pessoas", { titulo: "Onde as pessoas moram", nota: "Censo 2022 · situação do domicílio" }, () =>
-      composicao(S.situacao, ["c1", "c6"]));
-  }
-
-  // ---------------------------------------------------------------- educação e renda
-  function graficosEducacao() {
-    cartao("g-educacao", { titulo: "Escolaridade dos adultos", nota: "Censo 2022 · pessoas de 18 anos ou mais, nível de instrução" }, () =>
-      composicao(S.instrucao, ["c7", "c6", "c3", "c1"]));
-
-    cartao("g-educacao", { titulo: "Rendimento do trabalho", nota: "Censo 2022 · por mês, pessoas de 14 anos ou mais ocupadas" }, () => {
-      const r = S.rendimento;
-      const locais = Object.keys(r);
+    // Educação e renda
+    cartao("educacao", { titulo: "Escolaridade dos adultos", nota: "Censo 2022 · pessoas de 18 anos ou mais, nível de instrução" }, () => composicao(S.instrucao, ["c7", "c6", "c3", "c1"]));
+    cartao("educacao", { titulo: "Rendimento do trabalho", nota: "Censo 2022 · por mês, pessoas de 14 anos ou mais ocupadas" }, () => {
+      const r = S.rendimento, locais = Object.keys(r);
       return {
         config: {
           type: "bar",
-          data: {
-            labels: ["Médio", "Mediano"],
-            datasets: locais.map((l, i) => ({ label: l, data: [r[l].medio, r[l].mediano], backgroundColor: cor(i ? "c2" : "c1") }))
-          },
-          options: opcoes({
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
-            scales: { y: { beginAtZero: true, ticks: { callback: v => reais(v) } } }
-          })
+          data: { labels: ["Médio", "Mediano"], datasets: locais.map((l, i) => ({ label: l, data: [r[l].medio, r[l].mediano], backgroundColor: cor(i ? "c2" : "c1"), borderRadius: 4 })) },
+          options: opcoes({ plugins: { legend: legendaBaixo(), rotulos: { formatar: v => reais(v) }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => reais(v) } } } })
         },
         descricao: locais.map(l => l + ": médio " + reais(r[l].medio) + ", mediano " + reais(r[l].mediano)).join(". "),
         tabela: [["Local", "Médio", "Mediano"], locais.map(l => [l, reais(r[l].medio), reais(r[l].mediano)])]
       };
     });
-
-    cartao("g-educacao", { titulo: "Alfabetização e ensino superior", nota: "Censo 2022 · Mondaí e as medianas das cidades", largura: "l12" }, () => {
+    cartao("educacao", { titulo: "Alfabetização e ensino superior", nota: "Censo 2022 · Mondaí e as medianas das cidades", largura: "l12" }, () => {
       const ks = ["alfabetizacao", "superior"];
       const series = [["Mondaí", "mondai", "c1"], ["Mediana da região", "mediana_regiao", "c6"], ["Mediana de SC", "mediana_sc", "c2"]];
       return {
         config: {
           type: "bar",
-          data: { labels: ks.map(k => IND[k].rotulo), datasets: series.map(([n, campo, c]) => ({ label: n, data: ks.map(k => IND[k][campo]), backgroundColor: cor(c) })) },
-          options: opcoes({
-            indexAxis: "y",
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
-            scales: { x: { beginAtZero: true, max: 100, ticks: { callback: v => v + "%" } } }
-          })
+          data: { labels: ks.map(k => IND[k].rotulo), datasets: series.map(([n, campo, c]) => ({ label: n, data: ks.map(k => IND[k][campo]), backgroundColor: cor(c), borderRadius: 4 })) },
+          options: opcoes({ indexAxis: "y", layout: { padding: { right: 48 } },
+            plugins: { legend: legendaBaixo(), rotulos: { formatar: v => d1.format(v) + "%" }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
+            scales: { x: { beginAtZero: true, max: 100, ticks: { callback: v => v + "%" } }, y: { grid: { display: false }, ticks: { color: cor("tinta") } } } })
         },
         descricao: ks.map(k => IND[k].rotulo + ": Mondaí " + fmt(k, IND[k].mondai) + ", mediana de SC " + fmt(k, IND[k].mediana_sc)).join(". "),
         tabela: [["Indicador", ...series.map(s => s[0])], ks.map(k => [IND[k].rotulo, ...series.map(s => fmt(k, IND[k][s[1]]))])]
       };
     });
-  }
 
-  // ---------------------------------------------------------------- economia
-  function graficosEconomia() {
-    cartao("g-economia", { titulo: "PIB de Mondaí", nota: "2002 a 2023 · em milhões de reais correntes" }, () => {
+    // Economia
+    cartao("economia", { titulo: "PIB de Mondaí", nota: "2002 a 2023 · milhões de reais correntes, sem correção pela inflação" }, () => {
       const d = S.pib;
       return {
         config: {
           type: "line",
-          data: { labels: d.map(x => x.ano), datasets: [{ data: d.map(x => x.valor / 1000), borderColor: cor("c1"), backgroundColor: cor("c1"), pointRadius: 2.5, tension: 0.2 }] },
+          data: { labels: d.map(x => x.ano), datasets: [{ data: d.map(x => x.valor / 1000), borderColor: cor("c1"), backgroundColor: cor("c1") + "22", fill: true, pointRadius: 0, borderWidth: 3, tension: 0.25 }] },
           options: opcoes({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => reais(c.parsed.y * 1e6) } } },
-            scales: { y: { ticks: { callback: v => "R$ " + int.format(v) + " mi" } } } })
+            scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 8 } }, y: { ticks: { callback: v => "R$ " + int.format(v) + " mi" } } } })
         },
         descricao: "PIB de Mondaí de " + d[0].ano + " a " + d[d.length - 1].ano + ": de " + reais(d[0].valor * 1000) + " para " + reais(d[d.length - 1].valor * 1000),
         tabela: [["Ano", "PIB"], d.map(x => [x.ano, reais(x.valor * 1000)])]
       };
     });
-
-    cartao("g-economia", { titulo: "PIB por habitante", nota: "IBGE, série oficial 2010 a 2023 · Mondaí e cidades vizinhas" }, () => {
-      const nomes = Object.keys(S.pib_pc);
-      const anos = Object.keys(S.pib_pc[nomes[0]]).sort();
+    cartao("economia", { titulo: "PIB por habitante", nota: "IBGE, série oficial 2010 a 2023 · Mondaí e cidades vizinhas" }, () => {
+      const nomes = Object.keys(S.pib_pc), anos = Object.keys(S.pib_pc[nomes[0]]).sort();
       const cores = ["c3", "c2", "c4", "c5", "c6"];
       return {
         config: {
           type: "line",
-          data: {
-            labels: anos,
-            datasets: nomes.map((n, i) => ({
-              label: n, data: anos.map(a => S.pib_pc[n][a]),
-              borderColor: n === "Mondaí" ? cor("c1") : cor(cores[(i - 1) % cores.length]),
-              backgroundColor: n === "Mondaí" ? cor("c1") : cor(cores[(i - 1) % cores.length]),
-              borderWidth: n === "Mondaí" ? 3.5 : 1.5, pointRadius: n === "Mondaí" ? 2.5 : 0, tension: 0.2
-            }))
-          },
-          options: opcoes({ plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
-            scales: { y: { ticks: { callback: v => "R$ " + int.format(v / 1000) + " mil" } } } })
+          data: { labels: anos, datasets: nomes.map((n, i) => ({
+            label: n, data: anos.map(a => S.pib_pc[n][a]),
+            borderColor: n === "Mondaí" ? cor("c1") : cor(cores[(i - 1) % cores.length]),
+            backgroundColor: n === "Mondaí" ? cor("c1") : cor(cores[(i - 1) % cores.length]),
+            borderWidth: n === "Mondaí" ? 3.5 : 1.5, pointRadius: 0, tension: 0.25 })) },
+          options: opcoes({ interaction: { mode: "index", intersect: false }, plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
+            scales: { x: { grid: { display: false } }, y: { ticks: { callback: v => "R$ " + int.format(v / 1000) + " mil" } } } })
         },
         descricao: "PIB por habitante de 2010 a 2023 de " + nomes.join(", "),
         tabela: [["Ano", ...nomes], anos.map(a => [a, ...nomes.map(n => S.pib_pc[n][a] ? reais(S.pib_pc[n][a]) : "sem dado")])]
       };
     });
-
-    cartao("g-economia", { titulo: "De onde vem a economia", nota: "2021, último ano com divisão por setor publicada pelo IBGE" }, () => {
+    cartao("economia", { titulo: "De onde vem a economia", nota: "2021, último ano com divisão por setor publicada pelo IBGE" }, () => {
       const ids = [P.mondai, ...VIZ];
-      const set = [["pct_agro", "Agropecuária", "c2"], ["pct_ind", "Indústria", "c1"], ["pct_serv", "Serviços", "c3"], ["pct_adm", "Adm. pública", "c4"]];
+      const set = [["pct_agro", "Agropecuária", "c6"], ["pct_ind", "Indústria", "c1"], ["pct_serv", "Serviços", "c3"], ["pct_adm", "Adm. pública", "c4"]];
       return {
         config: {
           type: "bar",
           data: { labels: ids.map(nomeDe), datasets: set.map(([k, n, c]) => ({ label: n, data: ids.map(id => MUN[id][k]), backgroundColor: cor(c) })) },
-          options: opcoes({
-            indexAxis: "y",
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
-            scales: { x: { stacked: true, max: 100, ticks: { callback: v => v + "%" } }, y: { stacked: true } }
-          })
+          options: opcoes({ indexAxis: "y",
+            plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
+            scales: { x: { stacked: true, max: 100, ticks: { callback: v => v + "%" } }, y: { stacked: true, grid: { display: false }, ticks: { color: cor("tinta") } } } })
         },
         descricao: "Composição da economia por setor em 2021",
         tabela: [["Cidade", ...set.map(s => s[1])], ids.map(id => [nomeDe(id), ...set.map(([k]) => d1.format(MUN[id][k]) + "%")])]
       };
     });
-
-    cartao("g-economia", { titulo: "Riqueza produzida e salário", nota: "As 295 cidades de SC · PIB por habitante 2023 (escala logarítmica) × salário médio 2024" }, () => {
+    cartao("economia", { titulo: "Riqueza produzida e salário", nota: "As 295 cidades de SC · PIB por habitante 2023 (escala logarítmica) × salário médio 2024" }, () => {
       const pontos = id => ({ x: MUN[id].pib_pc, y: MUN[id].salario_rs, nome: nomeDe(id) });
       const validos = Object.keys(MUN).filter(id => MUN[id].pib_pc && MUN[id].salario_rs);
       const outros = validos.filter(id => id !== P.mondai && !VIZ.includes(id));
       return {
         config: {
           type: "scatter",
-          data: {
-            datasets: [
-              { label: "Mondaí", data: [pontos(P.mondai)], backgroundColor: cor("c1"), pointRadius: 8, pointHoverRadius: 10, order: 0 },
-              { label: "Vizinhas", data: VIZ.map(pontos), backgroundColor: cor("c2"), pointRadius: 5, order: 1 },
-              { label: "Outras cidades de SC", data: outros.map(pontos), backgroundColor: cor("c7") + "99", pointRadius: 3, order: 2 }
-            ]
-          },
+          data: { datasets: [
+            { label: "Mondaí", data: [pontos(P.mondai)], backgroundColor: cor("c1"), pointRadius: 8, pointHoverRadius: 10, order: 0 },
+            { label: "Vizinhas", data: VIZ.map(pontos), backgroundColor: cor("c2"), pointRadius: 5, order: 1 },
+            { label: "Outras cidades de SC", data: outros.map(pontos), backgroundColor: cor("c7") + "99", pointRadius: 3, order: 2 }] },
           options: opcoes({
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } },
-              tooltip: { callbacks: { label: c => c.raw.nome + ": PIB/hab " + reais(c.raw.x) + ", salário " + reais(c.raw.y) } } },
+            plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.raw.nome + ": PIB/hab " + reais(c.raw.x) + ", salário " + reais(c.raw.y) } } },
             scales: {
               x: { type: "logarithmic", title: { display: true, text: "PIB por habitante" }, ticks: { callback: v => [20000, 50000, 100000, 200000, 500000].includes(v) ? "R$ " + int.format(v / 1000) + " mil" : "" } },
               y: { title: { display: true, text: "Salário médio mensal" }, ticks: { callback: v => reais(v) } }
@@ -711,15 +987,12 @@
         },
         descricao: "Dispersão entre PIB por habitante e salário médio nas cidades de SC, com Mondaí em destaque",
         tabela: [["Cidade", "PIB por habitante 2023", "Salário médio 2024"],
-          validos.sort((a, b) => MUN[b].pib_pc - MUN[a].pib_pc).map(id => [nomeDe(id), reais(MUN[id].pib_pc), reais(MUN[id].salario_rs)]),
-          l => l[0] === M.nome]
+          validos.sort((a, b) => MUN[b].pib_pc - MUN[a].pib_pc).map(id => [nomeDe(id), reais(MUN[id].pib_pc), reais(MUN[id].salario_rs)]), l => l[0] === M.nome]
       };
     });
-  }
 
-  // ---------------------------------------------------------------- trabalho
-  function graficosTrabalho() {
-    cartao("g-trabalho", { titulo: "Onde estão os empregos", nota: "2024 · pessoal ocupado por setor (CNAE)", largura: "l8", altura: "alto" }, () => {
+    // Trabalho
+    cartao("trabalho", { titulo: "Onde estão os empregos", nota: "2024 · pessoal ocupado por setor (CNAE)", largura: "l8", altura: "alto" }, () => {
       const d = S.setores.filter(x => x.pessoas > 0);
       const top = d.slice(0, 10), resto = d.slice(10).reduce((s, x) => s + x.pessoas, 0);
       const rot = top.map(x => x.secao.length > 38 ? x.secao.slice(0, 36) + "…" : x.secao).concat(resto ? ["Outros setores"] : []);
@@ -730,41 +1003,32 @@
         tabela: [["Setor", "Pessoas"], d.map(x => [x.secao, int.format(x.pessoas)])]
       };
     });
-
-    cartao("g-trabalho", { titulo: "Empresas e empregos", nota: "2022 a 2024 · nova série do Cadastro Central de Empresas", largura: "l4", altura: "alto" }, () => {
+    cartao("trabalho", { titulo: "Empresas e empregos", nota: "2022 a 2024 · nova série do Cadastro Central de Empresas", largura: "l4", altura: "alto" }, () => {
       const d = S.cempre;
       return {
         config: {
           type: "bar",
-          data: {
-            labels: d.map(x => x.ano),
-            datasets: [
-              { type: "bar", label: "Pessoal ocupado", data: d.map(x => x.ocupados), backgroundColor: cor("c3"), yAxisID: "y" },
-              { type: "line", label: "Empresas", data: d.map(x => x.empresas), borderColor: cor("c1"), backgroundColor: cor("c1"), yAxisID: "y1", pointRadius: 4 }
-            ]
-          },
-          options: opcoes({
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
-            scales: { y: { beginAtZero: true, position: "left", ticks: { callback: v => int.format(v) } },
-              y1: { beginAtZero: true, position: "right", grid: { drawOnChartArea: false }, ticks: { callback: v => int.format(v) } } }
-          })
+          data: { labels: d.map(x => x.ano), datasets: [
+            { type: "bar", label: "Pessoal ocupado", data: d.map(x => x.ocupados), backgroundColor: cor("c3"), yAxisID: "y", borderRadius: 4, semRotulo: true },
+            { type: "line", label: "Empresas", data: d.map(x => x.empresas), borderColor: cor("c1"), backgroundColor: cor("c1"), yAxisID: "y1", pointRadius: 4, semRotulo: true }] },
+          options: opcoes({ plugins: { legend: legendaBaixo() },
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true, position: "left", ticks: { callback: v => int.format(v) } },
+              y1: { beginAtZero: true, position: "right", grid: { drawOnChartArea: false }, ticks: { callback: v => int.format(v) } } } })
         },
         descricao: d.map(x => x.ano + ": " + x.empresas + " empresas, " + x.ocupados + " pessoas ocupadas").join("; "),
         tabela: [["Ano", "Empresas", "Pessoal ocupado", "Salário médio"], d.map(x => [x.ano, int.format(x.empresas), int.format(x.ocupados), d1.format(x.salario_sm) + " sal. mín."])]
       };
     });
-  }
 
-  // ---------------------------------------------------------------- campo
-  function graficosCampo() {
-    const rebanho = (nome, corNome) => cartao("g-campo", { titulo: nome, nota: "Cabeças, 2000 a 2025", largura: "l4", altura: "baixo" }, () => {
+    // Campo
+    const rebanho = (nome, corNome) => cartao("campo", { titulo: nome, nota: "Cabeças, 2000 a 2025", largura: "l4", altura: "baixo" }, () => {
       const d = S.rebanhos[nome], anos = Object.keys(d).sort();
       return {
         config: {
           type: "line",
           data: { labels: anos, datasets: [{ data: anos.map(a => d[a]), borderColor: cor(corNome), backgroundColor: cor(corNome) + "33", fill: true, pointRadius: 0, tension: 0.2 }] },
           options: opcoes({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => int.format(c.parsed.y) + " cabeças" } } },
-            scales: { x: { ticks: { maxTicksLimit: 6 } }, y: { beginAtZero: true, ticks: { callback: v => int.format(v) } } } })
+            scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 6 } }, y: { beginAtZero: true, ticks: { callback: v => int.format(v) } } } })
         },
         descricao: nome + " em Mondaí de 2000 a 2025; em 2025: " + int.format(d["2025"]),
         tabela: [["Ano", "Cabeças"], anos.map(a => [a, int.format(d[a])])]
@@ -773,22 +1037,20 @@
     rebanho("Suínos", "c2");
     rebanho("Galináceos", "c6");
     rebanho("Bovinos", "c3");
-
-    cartao("g-campo", { titulo: "Produção de leite", nota: "Milhões de litros por ano, 2000 a 2025" }, () => {
+    cartao("campo", { titulo: "Produção de leite", nota: "Milhões de litros por ano, 2000 a 2025" }, () => {
       const anos = Object.keys(S.leite).sort();
       return {
         config: {
           type: "line",
           data: { labels: anos, datasets: [{ data: anos.map(a => S.leite[a] / 1000), borderColor: cor("c3"), backgroundColor: cor("c3") + "33", fill: true, pointRadius: 0, tension: 0.2 }] },
           options: opcoes({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => d1.format(c.parsed.y) + " milhões de litros" } } },
-            scales: { y: { beginAtZero: true, ticks: { callback: v => d1.format(v) + " mi" } } } })
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => d1.format(v) + " mi" } } } })
         },
         descricao: "Produção de leite de 2000 a 2025",
         tabela: [["Ano", "Mil litros"], anos.map(a => [a, int.format(S.leite[a])])]
       };
     });
-
-    cartao("g-campo", { titulo: "Lavouras: valor da produção", nota: "2025 · principais produtos" }, () => {
+    cartao("campo", { titulo: "Lavouras: valor da produção", nota: "2025 · principais produtos" }, () => {
       const d = S.lavouras, top = d.slice(0, 6), resto = d.slice(6).reduce((s, x) => s + x.valor, 0);
       const rot = top.map(x => x.produto).concat(resto ? ["Outros"] : []);
       const val = top.map(x => x.valor * 1000).concat(resto ? [resto * 1000] : []);
@@ -798,24 +1060,17 @@
         tabela: [["Produto", "Valor"], d.map(x => [x.produto, reais(x.valor * 1000)])]
       };
     });
-  }
 
-  // ---------------------------------------------------------------- saneamento
-  function graficosSaneamento() {
-    cartao("g-saneamento", { titulo: "Água", nota: "Censo 2022 · ligação à rede geral de distribuição", largura: "l4" }, () =>
-      composicao(S.agua, ["c3", "c5", "c7"]));
-    cartao("g-saneamento", { titulo: "Esgoto", nota: "Censo 2022 · tipo de esgotamento sanitário", largura: "l4" }, () =>
-      composicao(S.esgoto, ["c3", "c5", "c2", "c7"],
-        { nome: "Outras formas", itens: ["Vala", "Rio, lago ou córrego", "Outra forma", "Sem banheiro nem sanitário"] }));
-    cartao("g-saneamento", { titulo: "Lixo", nota: "Censo 2022 · destino do lixo", largura: "l4" }, () =>
-      composicao(S.lixo, ["c3", "c5", "c2", "c7"],
-        { nome: "Outros destinos", itens: ["Enterrado na propriedade", "Terreno baldio ou área pública", "Outro destino"] }));
-  }
+    // Saneamento
+    cartao("saneamento", { titulo: "Água", nota: "Censo 2022 · ligação à rede geral de distribuição", largura: "l4" }, () => composicao(S.agua, ["c3", "c5", "c7"]));
+    cartao("saneamento", { titulo: "Esgoto", nota: "Censo 2022 · tipo de esgotamento sanitário", largura: "l4" }, () =>
+      composicao(S.esgoto, ["c3", "c5", "c2", "c7"], { nome: "Outras formas", itens: ["Vala", "Rio, lago ou córrego", "Outra forma", "Sem banheiro nem sanitário"] }));
+    cartao("saneamento", { titulo: "Lixo", nota: "Censo 2022 · destino do lixo", largura: "l4" }, () =>
+      composicao(S.lixo, ["c3", "c5", "c2", "c7"], { nome: "Outros destinos", itens: ["Enterrado na propriedade", "Terreno baldio ou área pública", "Outro destino"] }));
 
-  // ---------------------------------------------------------------- prefeitura
-  function graficosPrefeitura() {
+    // Prefeitura
     const pf = P.prefeitura;
-    cartao("g-prefeitura", { titulo: "Para onde vai o dinheiro", nota: pf.ano + " · despesas liquidadas por área", largura: "l8", altura: "alto" }, () => {
+    cartao("prefeitura", { titulo: "Para onde vai o dinheiro", nota: pf.ano + " · despesas liquidadas por área", largura: "l8", altura: "alto" }, () => {
       const d = Object.entries(pf.mondai).sort((a, b) => b[1] - a[1]);
       const top = d.slice(0, 10), resto = d.slice(10).reduce((s, x) => s + x[1], 0);
       const rot = top.map(x => x[0]).concat(resto ? ["Outras áreas"] : []);
@@ -826,8 +1081,7 @@
         tabela: [["Área", "Despesa liquidada"], d.map(x => [x[0], reais(x[1])])]
       };
     });
-
-    cartao("g-prefeitura", { titulo: "Despesa por habitante", nota: pf.ano + " · Mondaí e mediana da região", largura: "l4", altura: "alto" }, () => {
+    cartao("prefeitura", { titulo: "Despesa por habitante", nota: pf.ano + " · Mondaí e mediana da região", largura: "l4", altura: "alto" }, () => {
       const ph = pf.por_habitante;
       const regiao = Object.keys(ph).filter(id => MUN[id].regiao_imediata === P.regiao);
       const campos = [["total", "Total"], ["saude", "Saúde"], ["educacao", "Educação"]];
@@ -837,10 +1091,10 @@
         config: {
           type: "bar",
           data: { labels: campos.map(c => c[1]), datasets: [
-            { label: "Mondaí", data: mond, backgroundColor: cor("c1") },
-            { label: "Mediana da região", data: med, backgroundColor: cor("c2") }] },
-          options: opcoes({ plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
-            scales: { y: { beginAtZero: true, ticks: { callback: v => reais(v) } } } })
+            { label: "Mondaí", data: mond, backgroundColor: cor("c1"), borderRadius: 4 },
+            { label: "Mediana da região", data: med, backgroundColor: cor("c2"), borderRadius: 4 }] },
+          options: opcoes({ plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => reais(v) } } } })
         },
         descricao: campos.map(([, n], i) => n + ": Mondaí " + reais(mond[i]) + ", mediana da região " + reais(med[i])).join("; "),
         tabela: [["Cidade", "Total", "Saúde", "Educação"],
@@ -848,105 +1102,29 @@
           l => l[0] === M.nome]
       };
     });
-  }
 
-  // ---------------------------------------------------------------- comparar
-  const TEMAS = ["Pessoas", "Educação e renda", "Economia", "Trabalho", "Saneamento", "Campo"];
-
-  function opcoesIndicadores(padrao) {
-    return TEMAS.map(t => '<optgroup label="' + t + '">' +
+    // Mondaí e as vizinhas
+    const temas = ["Pessoas", "Educação e renda", "Economia", "Trabalho", "Saneamento", "Campo"];
+    const opcoesInd = temas.map(t => '<optgroup label="' + t + '">' +
       Object.entries(IND).filter(([, i]) => i.tema === t)
-        .map(([k, i]) => '<option value="' + k + '"' + (k === padrao ? " selected" : "") + ">" + i.rotulo + " (" + i.ano + ")</option>").join("") +
-      "</optgroup>").join("");
-  }
-
-  function graficosComparar() {
-    const gInd = cartao("g-comparar", {
+        .map(([k, i]) => '<option value="' + k + '"' + (k === "pib_pc" ? " selected" : "") + ">" + i.rotulo + " (" + i.ano + ")</option>").join("") + "</optgroup>").join("");
+    const gInd = cartao("vizinhas", {
       titulo: "Mondaí e as vizinhas", nota: "Indicador escolhido, com as medianas da região e de SC", largura: "l12", altura: "alto",
-      controle: '<label for="sel-ind">Indicador</label><select id="sel-ind">' + opcoesIndicadores("pib_pc") + "</select>",
-      resumoTabela: "Ver o ranking das 295 cidades"
+      controle: '<label for="sel-ind">Indicador</label><select id="sel-ind">' + opcoesInd + "</select>", resumoTabela: "Ver o ranking das 295 cidades"
     }, () => {
       const k = document.getElementById("sel-ind").value, i = IND[k];
-      const itens = [P.mondai, ...VIZ].filter(id => MUN[id][k] !== null).map(id => ({ nome: nomeDe(id), v: MUN[id][k], tipo: id === P.mondai ? "c1" : "c7" }));
-      itens.push({ nome: "Mediana da região", v: i.mediana_regiao, tipo: "c2" }, { nome: "Mediana de SC", v: i.mediana_sc, tipo: "c2" });
+      const itens = [P.mondai, ...VIZ].filter(id => MUN[id][k] !== null).map(id => ({ nome: nomeDe(id), v: MUN[id][k], c: id === P.mondai ? "c1" : "c7" }));
+      itens.push({ nome: "Mediana da região", v: i.mediana_regiao, c: "c2" }, { nome: "Mediana de SC", v: i.mediana_sc, c: "c2" });
       itens.sort((a, b) => b.v - a.v);
       const ranking = Object.entries(MUN).filter(([, m]) => m[k] !== null).sort((a, b) => b[1][k] - a[1][k]);
       return {
-        config: barrasH(itens.map(x => x.nome), itens.map(x => x.v), itens.map(x => cor(x.tipo)), v => fmt(k, v)),
+        config: barrasH(itens.map(x => x.nome), itens.map(x => x.v), itens.map(x => cor(x.c)), v => fmt(k, v)),
         descricao: i.rotulo + ": " + itens.map(x => x.nome + " " + fmt(k, x.v)).join("; "),
         tabela: [["Posição · Cidade", i.rotulo + " (" + i.ano + ")"], ranking.map(([, m], n) => [(n + 1) + "º · " + m.nome, fmt(k, m[k])]), l => l[0].endsWith(" · " + M.nome)]
       };
     });
-
-    const outras = Object.entries(MUN).filter(([id]) => id !== P.mondai).sort((a, b) => a[1].nome.localeCompare(b[1].nome, "pt-BR"));
-    const chapeco = outras.find(([, m]) => m.nome === "Chapecó")[0];
-    const LADO = ["pop2026", "crescimento", "idade_mediana", "alfabetizacao", "superior", "rend_medio", "pib_pc", "salario_rs",
-      "ocupados_100", "pct_ind", "agua_rede", "esgoto_rede", "lixo_coletado", "suinos", "leite"];
-    const gCid = cartao("g-comparar", {
-      titulo: "Mondaí lado a lado com outra cidade", nota: "Posição de cada cidade entre as 295 de SC: 0 é o menor valor do estado e 100, o maior", largura: "l12", altura: "alto",
-      controle: '<label for="sel-cid">Cidade</label><select id="sel-cid">' + outras.map(([id, m]) => '<option value="' + id + '"' + (id === chapeco ? " selected" : "") + ">" + m.nome + "</option>").join("") + "</select>",
-      resumoTabela: "Ver os valores"
-    }, () => {
-      const outra = document.getElementById("sel-cid").value;
-      const rot = LADO.map(k => IND[k].rotulo + " (" + IND[k].ano + ")");
-      const serie = id => LADO.map(k => percentil(k, MUN[id][k]));
-      return {
-        config: {
-          type: "bar",
-          data: { labels: rot, datasets: [
-            { label: "Mondaí", data: serie(P.mondai), backgroundColor: cor("c1") },
-            { label: nomeDe(outra), data: serie(outra), backgroundColor: cor("c3") }] },
-          options: opcoes({
-            indexAxis: "y",
-            plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } },
-              tooltip: { callbacks: { label: c => c.dataset.label + ": " + fmt(LADO[c.dataIndex], MUN[c.datasetIndex ? outra : P.mondai][LADO[c.dataIndex]]) } } },
-            scales: { x: { min: 0, max: 100 }, y: { ticks: { autoSkip: false, font: { size: 11 } } } }
-          })
-        },
-        descricao: "Comparação entre Mondaí e " + nomeDe(outra) + " em " + LADO.length + " indicadores",
-        tabela: [["Indicador", "Mondaí", nomeDe(outra)], LADO.map(k => [IND[k].rotulo + " (" + IND[k].ano + ")", fmt(k, M[k]), fmt(k, MUN[outra][k])])]
-      };
-    });
-
     document.getElementById("sel-ind").addEventListener("change", () => desenhar(gInd));
-    document.getElementById("sel-cid").addEventListener("change", () => desenhar(gCid));
   }
-
-  // ---------------------------------------------------------------- início
-  document.getElementById("selo").textContent = "Fontes: IBGE e Tesouro Nacional · dados baixados em " + P.gerado_em;
-
-  // Contador público: quantas pessoas e cidades já passaram pelo painel, sem nomes.
-  fetch("/api/resumo").then(r => r.ok ? r.json() : null).then(r => {
-    if (!r || !r.pessoas) return;
-    const el = document.getElementById("contador");
-    el.textContent = int.format(r.pessoas) + (r.pessoas === 1 ? " pessoa já viu" : " pessoas já viram") + " este painel" +
-      (r.cidades ? ", de " + int.format(r.cidades) + (r.cidades === 1 ? " cidade" : " cidades") : "");
-    el.hidden = false;
-  }).catch(() => {});
-  kpis();
-  if (window.Chart) {
-    graficosPessoas();
-    graficosEducacao();
-    graficosEconomia();
-    graficosTrabalho();
-    graficosCampo();
-    graficosSaneamento();
-    graficosPrefeitura();
-    graficosComparar();
-    GRAFICOS.forEach(desenhar);
-  } else {
-    document.getElementById("g-pessoas").innerHTML = '<p class="aviso card l12">Não foi possível carregar a biblioteca de gráficos. Verifique a conexão e recarregue a página.</p>';
-  }
-
-  let base = 16;
-  const fonte = () => { document.documentElement.style.setProperty("--base", base + "px"); GRAFICOS.forEach(g => g.chart && g.chart.resize()); };
-  document.getElementById("fonteMais").addEventListener("click", () => { base = Math.min(24, base + 2); fonte(); });
-  document.getElementById("fonteMenos").addEventListener("click", () => { base = Math.max(12, base - 2); fonte(); });
-  document.getElementById("contraste").addEventListener("click", e => {
-    const ativo = document.body.classList.toggle("contraste");
-    e.currentTarget.setAttribute("aria-pressed", String(ativo));
-    GRAFICOS.forEach(desenhar);
-  });
 
   // ---------------------------------------------------------------- registro de acesso e opinião
   // O navegador guarda um código aleatório, o nome e a cidade, para não pedir de novo.
@@ -978,30 +1156,23 @@
     }).catch(() => {});
   }
 
-  const portao = document.getElementById("portao");
-  function fecharPortao() {
-    portao.hidden = true;
-    document.body.classList.remove("travado");
-    document.getElementById("t-visao").focus({ preventScroll: true });
-  }
-
-  let conhecido = visitante.ler();
-  if (conhecido && !conhecido.id) conhecido = visitante.salvar(conhecido);
-  if (conhecido) {
-    registrar({ tipo: "retorno", nome: conhecido.nome, cidade: conhecido.cidade });
-  } else {
-    document.getElementById("lista-cidades").innerHTML = Object.values(MUN).map(m => m.nome)
-      .sort((a, b) => a.localeCompare(b, "pt-BR")).map(n => '<option value="' + n + '">').join("");
-    portao.hidden = false;
-    document.body.classList.add("travado");
-    document.getElementById("p-nome").focus();
-  }
-  document.getElementById("t-visao").setAttribute("tabindex", "-1");
-
   // "mondai", "MONDAI" e "Mondaí" viram o nome oficial, para a contagem por cidade não se dividir.
   const semAcento = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
   const NOMES_OFICIAIS = Object.fromEntries(Object.values(MUN).map(m => [semAcento(m.nome), m.nome]));
   const cidadeOficial = texto => NOMES_OFICIAIS[semAcento(texto)] || texto.replace(/\s+/g, " ").trim();
+
+  const portao = document.getElementById("portao");
+  function abrirPortao() {
+    portao.hidden = false;
+    document.body.classList.add("travado");
+    document.getElementById("p-nome").focus();
+  }
+  function fecharPortao() {
+    portao.hidden = true;
+    document.body.classList.remove("travado");
+    document.getElementById("manchete").setAttribute("tabindex", "-1");
+    document.getElementById("manchete").focus({ preventScroll: true });
+  }
 
   document.getElementById("portaoForm").addEventListener("submit", e => {
     e.preventDefault();
@@ -1010,11 +1181,7 @@
     if (!nome || !cidade) return;
     visitante.salvar({ nome, cidade });
     registrar({ tipo: "acesso", nome, cidade });
-    fecharPortao();
-  });
-  document.getElementById("p-pular").addEventListener("click", () => {
-    visitante.salvar({ nome: "", cidade: "" });
-    registrar({ tipo: "acesso" });
+    personalizar(cidade);
     fecharPortao();
   });
 
@@ -1027,7 +1194,53 @@
     document.getElementById("op-ok").hidden = false;
   });
 
-  if (LINK_CODIGO === "#") document.getElementById("linkCodigo").remove();
+  // ---------------------------------------------------------------- início
+  abertura();
+  preencherCidades();
+  kpis();
+
+  let conhecido = visitante.ler();
+  if (conhecido && !conhecido.id) conhecido = visitante.salvar(conhecido);
+  if (conhecido && conhecido.nome && conhecido.cidade) {
+    registrar({ tipo: "retorno", nome: conhecido.nome, cidade: conhecido.cidade });
+    personalizar(conhecido.cidade);
+  } else {
+    personalizar(null);
+    abrirPortao();
+  }
+  document.getElementById("selCidade").addEventListener("change", e =>
+    duelo(e.target.value, "Comparação escolhida por você. Troque a cidade quando quiser."));
+
+  fetch("/api/resumo").then(r => r.ok ? r.json() : null).then(r => {
+    if (!r || !r.pessoas) return;
+    const el = document.getElementById("contador");
+    el.textContent = int.format(r.pessoas) + (r.pessoas === 1 ? " pessoa já viu" : " pessoas já viram") + " estes números" +
+      (r.cidades ? ", de " + int.format(r.cidades) + (r.cidades === 1 ? " cidade" : " cidades") : "");
+    el.hidden = false;
+  }).catch(() => {});
+
+  if (window.Chart) {
+    historias();
+    montarAbas();
+    graficosExplorar();
+    GRAFICOS.filter(g => !g.painel).forEach(desenhar);
+    abrirAba("pessoas");
+  } else {
+    document.getElementById("capitulos").innerHTML = '<p class="card">Não foi possível carregar a biblioteca de gráficos. Verifique a conexão e recarregue a página.</p>';
+  }
+
+  let base = 16;
+  const fonte = () => { document.documentElement.style.setProperty("--base", base + "px"); GRAFICOS.forEach(g => g.chart && g.chart.resize()); };
+  document.getElementById("fonteMais").addEventListener("click", () => { base = Math.min(24, base + 2); fonte(); });
+  document.getElementById("fonteMenos").addEventListener("click", () => { base = Math.max(12, base - 2); fonte(); });
+  document.getElementById("contraste").addEventListener("click", e => {
+    const ativo = document.body.classList.toggle("contraste");
+    e.currentTarget.setAttribute("aria-pressed", String(ativo));
+    GRAFICOS.filter(g => g.chart).forEach(desenhar);
+    duelo(document.getElementById("selCidade").value, document.getElementById("introDuelo").textContent);
+  });
+
+  if (LINK_CODIGO === "#") document.getElementById("itemCodigo").remove();
   else document.getElementById("linkCodigo").href = LINK_CODIGO;
 </script>
 </body>
