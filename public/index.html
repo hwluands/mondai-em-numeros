@@ -6,7 +6,7 @@
 <title>Mondaí em Números</title>
 <meta name="description" content="O que os dados oficiais contam sobre Mondaí (SC), e como a sua cidade se compara. População, economia, trabalho, campo, saneamento e prefeitura, com dados do IBGE e do Tesouro Nacional.">
 <meta name="author" content="Luan Henrique Weber">
-<meta name="theme-color" content="#0e0f0e">
+<meta name="theme-color" content="#fbfbf9">
 <!-- Prévia do link no WhatsApp, Instagram e LinkedIn. O texto vem dos dados de 26/10/2026. -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -21,8 +21,8 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fontes/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-  // Aplica o tema salvo antes de desenhar a página, para não piscar. O padrão é escuro.
-  try { if (localStorage.getItem("mondai-tema") === "claro") document.documentElement.dataset.tema = "claro"; } catch (e) {}
+  // Aplica o tema salvo antes de desenhar a página, para não piscar. O padrão é claro.
+  try { if (localStorage.getItem("mondai-tema") === "escuro") document.documentElement.dataset.tema = "escuro"; } catch (e) {}
 </script>
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/painel.css">
@@ -43,7 +43,7 @@
       <button type="button" id="fonteMenos" aria-label="Diminuir letra">A−</button>
       <button type="button" id="fonteMais" aria-label="Aumentar letra">A+</button>
       <button type="button" id="contraste" aria-pressed="false">Contraste</button>
-      <button type="button" id="tema" aria-label="Mudar para o tema claro">Claro</button>
+      <button type="button" id="tema" aria-label="Mudar para o tema escuro">Escuro</button>
     </div>
   </div>
 </header>

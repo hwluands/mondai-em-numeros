@@ -147,7 +147,7 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 | Princípio | Como foi atendido |
 |---|---|
 | Igualitário | Gratuito e funciona em qualquer navegador; a entrada pede só nome e cidade |
-| Adaptável | Letra A−/A+, tema escuro (padrão) ou claro e modo de alto contraste |
+| Adaptável | Letra A−/A+, tema claro (padrão) ou escuro e modo de alto contraste |
 | Intuitivo | Posições escritas como "8º maior de SC"; cada indicador mostra as 295 cidades em traços, com Mondaí em destaque |
 | Informação perceptível | Cada gráfico tem tabela equivalente e descrição para leitores de tela |
 | Tolerância ao erro | Indicadores sem dado aparecem como "sem dado"; o script para em vez de publicar dado errado |

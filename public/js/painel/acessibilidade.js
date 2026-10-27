@@ -1,4 +1,4 @@
-// Letra ajustável (A−/A+), alto contraste e tema claro ou escuro (o escuro é o padrão).
+// Letra ajustável (A−/A+), alto contraste e tema claro ou escuro (o claro é o padrão).
 import { GRAFICOS, desenhar } from "./graficos.js";
 import { redesenharDuelo } from "./comparar.js";
 
@@ -11,11 +11,11 @@ function redesenharTudo() {
 }
 
 function mostrarTema(botao) {
-  const claro = document.documentElement.dataset.tema === "claro";
+  const escuro = document.documentElement.dataset.tema === "escuro";
   // O botão mostra o tema para o qual vai mudar.
-  botao.textContent = claro ? "Escuro" : "Claro";
-  botao.setAttribute("aria-label", claro ? "Mudar para o tema escuro" : "Mudar para o tema claro");
-  document.querySelector('meta[name="theme-color"]').content = claro ? "#fbfbf9" : "#0e0f0e";
+  botao.textContent = escuro ? "Claro" : "Escuro";
+  botao.setAttribute("aria-label", escuro ? "Mudar para o tema claro" : "Mudar para o tema escuro");
+  document.querySelector('meta[name="theme-color"]').content = escuro ? "#0e0f0e" : "#fbfbf9";
 }
 
 export function iniciarAcessibilidade() {
@@ -32,10 +32,10 @@ export function iniciarAcessibilidade() {
   const botaoTema = document.getElementById("tema");
   mostrarTema(botaoTema);
   botaoTema.addEventListener("click", () => {
-    const claro = document.documentElement.dataset.tema !== "claro";
-    if (claro) document.documentElement.dataset.tema = "claro";
+    const escuro = document.documentElement.dataset.tema !== "escuro";
+    if (escuro) document.documentElement.dataset.tema = "escuro";
     else delete document.documentElement.dataset.tema;
-    try { localStorage.setItem(CHAVE_TEMA, claro ? "claro" : "escuro"); } catch (e) {}
+    try { localStorage.setItem(CHAVE_TEMA, escuro ? "escuro" : "claro"); } catch (e) {}
     mostrarTema(botaoTema);
     redesenharTudo();
   });
