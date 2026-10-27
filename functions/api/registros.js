@@ -1,6 +1,7 @@
 // GET /api/registros: lista todos os registros para a página admin.
 // Exige o cabeçalho "Authorization: Bearer <senha>", com a senha guardada no segredo ADMIN_TOKEN.
 // Com ?formato=csv, devolve uma planilha pronta para abrir no Excel.
+import { bloqueado, contar, muitasTentativas } from "../../lib/limite.js";
 
 async function senhaConfere(recebida, correta) {
   const cod = new TextEncoder();
@@ -33,9 +34,16 @@ export function csv(linhas) {
   return "﻿" + [colunas.join(";"), ...corpo].join("\n") + "\n";
 }
 
+// Cinco senhas erradas pelo mesmo IP bloqueiam a entrada por 15 minutos.
+export const LIMITE = { maximo: 5, janela: 15 * 60 };
+
 export async function onRequestGet({ request, env }) {
+  const espera = await bloqueado(request, env, "admin", LIMITE);
+  if (espera) return muitasTentativas(espera);
+
   const senha = (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
   if (!env.ADMIN_TOKEN || !senha || !(await senhaConfere(senha, env.ADMIN_TOKEN))) {
+    await contar(request, env, "admin");
     return new Response(JSON.stringify({ erro: "senha inválida" }), {
       status: 401, headers: { "Content-Type": "application/json; charset=utf-8" },
     });

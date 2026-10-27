@@ -13,3 +13,13 @@ CREATE TABLE IF NOT EXISTS registros (
 
 CREATE INDEX IF NOT EXISTS idx_registros_criado_em ON registros (criado_em);
 CREATE INDEX IF NOT EXISTS idx_registros_visitante ON registros (visitante);
+
+-- Limite de tentativas (lib/limite.js): uma linha por tentativa, apagada depois de uma hora.
+-- A chave é a rota mais um HMAC do IP; o IP em si nunca é gravado.
+CREATE TABLE IF NOT EXISTS tentativas (
+  chave TEXT NOT NULL,
+  criado_em INTEGER NOT NULL        -- segundos desde 1970 (UTC)
+);
+
+CREATE INDEX IF NOT EXISTS idx_tentativas_chave ON tentativas (chave, criado_em);
+CREATE INDEX IF NOT EXISTS idx_tentativas_criado_em ON tentativas (criado_em);

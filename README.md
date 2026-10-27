@@ -28,8 +28,9 @@ functions/api/       API (Cloudflare Pages Functions)
   registro.js        POST: grava acesso, retorno ou opinião
   registros.js       GET com senha: lista os registros (JSON ou CSV)
   resumo.js          GET público: contador de pessoas e cidades, sem nomes
+lib/limite.js        limite de tentativas por IP, usado pela API
 tests/               testes da API e do painel (node --test)
-schema.sql           tabela do banco D1
+schema.sql           tabelas do banco D1
 wrangler.toml        configuração do Cloudflare Pages e do banco
 ```
 
@@ -140,7 +141,7 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 3. Conferir automaticamente os códigos das fontes antes de cada atualização.
 4. Site estático e API sem servidor próprio, publicados no Cloudflare Pages a partir deste repositório.
 5. Acessibilidade: letra ajustável, alto contraste, tabela alternativa e descrição para leitores de tela em cada gráfico.
-6. A API recusa envios de outros sites, campos inválidos ou longos demais, e só mostra os registros com senha.
+6. A API recusa envios de outros sites, campos inválidos ou longos demais, e só mostra os registros com senha. Cinco senhas erradas pelo mesmo IP bloqueiam a página de registros por 15 minutos, e cada IP pode enviar até 60 registros a cada 10 minutos.
 
 ## Desenho universal
 
@@ -157,6 +158,8 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 ## Registro de acessos e privacidade
 
 Na primeira visita, o painel pede nome e cidade e envia para a rota `/api/registro`, que valida os campos e grava no banco D1 com a data e a hora do servidor. A cidade digitada é padronizada para o nome oficial (por exemplo, "mondai" vira "Mondaí") e passa a personalizar a comparação do site. O navegador guarda um código aleatório, o nome e a cidade, para não pedir de novo e para contar pessoas sem depender do nome digitado. Nenhum outro dado é coletado, e os registros servem apenas para medir o alcance do projeto, como a tela de entrada informa.
+
+Para o limite de tentativas, a API guarda por no máximo uma hora um código derivado do IP (HMAC com a senha do servidor). O IP em si nunca é gravado, e o código não permite voltar a ele.
 
 ## Rodar localmente
 
@@ -176,7 +179,7 @@ E rode `npm run dev`. O painel fica em `http://localhost:8788` e a página de re
 ## Testes
 
 ```
-npm test                   # API (validação, origem, senha, CSV) e painel (formatação, integridade dos dados)
+npm test                   # API (validação, origem, senha, limite, CSV) e painel (formatação, integridade dos dados)
 pipx run ruff check pipeline/
 ```
 

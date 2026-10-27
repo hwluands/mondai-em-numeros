@@ -18,6 +18,10 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "
 async function api(caminho) {
   const r = await fetch(caminho, { headers: { Authorization: "Bearer " + senha } });
   if (r.status === 401) throw new Error("Senha incorreta.");
+  if (r.status === 429) {
+    const minutos = Math.ceil(Number(r.headers.get("Retry-After") || 900) / 60);
+    throw new Error("Muitas tentativas erradas. Tente de novo em " + minutos + (minutos === 1 ? " minuto." : " minutos."));
+  }
   if (!r.ok) throw new Error("A API respondeu com erro " + r.status + ".");
   return r;
 }
