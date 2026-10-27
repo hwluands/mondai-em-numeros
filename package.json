@@ -1,0 +1,13 @@
+{
+  "name": "mondai-em-numeros",
+  "private": true,
+  "description": "Painel com dados oficiais sobre Mondaí (SC), com registro de acessos no Cloudflare D1",
+  "scripts": {
+    "banco:local": "wrangler d1 execute mondai-registros --local --file schema.sql",
+    "banco:remoto": "wrangler d1 execute mondai-registros --remote --file schema.sql",
+    "dev": "wrangler pages dev public --port 8788"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

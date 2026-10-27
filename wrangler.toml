@@ -1,0 +1,9 @@
+# Configuração do Cloudflare Pages: site estático em public/ e API em functions/.
+name = "mondai-em-numeros"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mondai-registros"
+database_id = "21bd6911-bf5f-4f2c-90aa-b1e982921a49"

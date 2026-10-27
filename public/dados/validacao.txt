@@ -1,0 +1,437 @@
+Conferência das fontes, 26/10/2026
+Cada item abaixo foi verificado nos metadados oficiais antes do download.
+
+Tabela 6579 (Estimativas de População): População residente estimada
+  variável 9324: População residente estimada [Pessoas]
+  período: 2026 (publicado 2001-2026)
+
+Tabela 4714 (Censo Demográfico): População Residente, Área territorial e Densidade demográfica
+  variável 93: População residente [Pessoas]
+  período: 2022 (publicado 2022-2022)
+
+Tabela 4714 (Censo Demográfico): População Residente, Área territorial e Densidade demográfica
+  variável 6318: Área da unidade territorial [Quilômetros quadrados]
+  período: 2022 (publicado 2022-2022)
+
+Tabela 4714 (Censo Demográfico): População Residente, Área territorial e Densidade demográfica
+  variável 614: Densidade demográfica [Habitante por quilômetro quadrado]
+  período: 2022 (publicado 2022-2022)
+
+Tabela 4709 (Censo Demográfico): População residente, Variação absoluta de população residente e Taxa de crescimento geométrico
+  variável 10605: Taxa de crescimento geométrico [%]
+  período: 2022 (publicado 2022-2022)
+
+Tabela 9923 (Censo Demográfico): População residente, por situação do domicílio
+  variável 1000093: População residente - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Situação do domicílio 1: Urbana
+
+Tabela 9756 (Censo Demográfico): Índice de envelhecimento, idade mediana e razão de sexo, por cor ou raça
+  variável 10613: Idade mediana [Anos]
+  período: 2022 (publicado 2010-2022)
+  Cor ou raça 95251: Total
+
+Tabela 9756 (Censo Demográfico): Índice de envelhecimento, idade mediana e razão de sexo, por cor ou raça
+  variável 9175: Índice de envelhecimento (Idosos: 60 anos ou mais de idade) [Razão]
+  período: 2022 (publicado 2010-2022)
+  Cor ou raça 95251: Total
+
+Tabela 9543 (Censo Demográfico): Taxa de alfabetização das pessoas de 15 anos ou mais de idade por sexo, cor ou raça e grupos de idade
+  variável 2513: Taxa de alfabetização das pessoas de 15 anos ou mais de idade [%]
+  período: 2022 (publicado 2022-2022)
+  Sexo 6794: Total
+  Cor ou raça 95251: Total
+  Idade 100362: Total
+
+Tabela 10061 (Censo Demográfico): Pessoas de 18 anos ou mais de idade, por nível de instrução, segundo os grupos de idade, o sexo e a cor ou raça
+  variável 1002667: Pessoas de 18 anos ou mais de idade - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Nível de instrução 99713: Superior completo
+  Grupo de idade 95253: Total
+  Sexo 6794: Total
+  Cor ou raça 95251: Total
+
+Tabela 10289 (Censo Demográfico): Massa de rendimento nominal mensal de todos os trabalhos, Valor do rendimento nominal mensal médio e mediano de todos os trabalhos das pessoas de 14 anos ou mais de idade, ocupadas na semana de referência, com rendimento de trabalho, por sexo e cor ou raça
+  variável 13536: Valor do rendimento nominal médio mensal de todos os trabalhos das pessoas de 14 anos ou mais de idade, ocupadas na semana de referência, com rendimento de trabalho [Reais]
+  período: 2022 (publicado 2022-2022)
+  Sexo 6794: Total
+  Cor ou raça 95251: Total
+
+Tabela 10289 (Censo Demográfico): Massa de rendimento nominal mensal de todos os trabalhos, Valor do rendimento nominal mensal médio e mediano de todos os trabalhos das pessoas de 14 anos ou mais de idade, ocupadas na semana de referência, com rendimento de trabalho, por sexo e cor ou raça
+  variável 13537: Valor do rendimento nominal mediano mensal de todos os trabalhos das pessoas de 14 anos ou mais de idade, ocupadas na semana de referência, com rendimento de trabalho [Reais]
+  período: 2022 (publicado 2022-2022)
+  Sexo 6794: Total
+  Cor ou raça 95251: Total
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 367: Número de empresas e outras organizações atuantes [Unidades]
+  período: 2024 (publicado 2022-2024)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 707: Pessoal ocupado total [Pessoas]
+  período: 2024 (publicado 2022-2024)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 1606: Salário médio mensal [Salários mínimos]
+  período: 2024 (publicado 2022-2024)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 10143: Salário médio mensal em reais [Reais]
+  período: 2024 (publicado 2022-2024)
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 37: Produto Interno Bruto a preços correntes [Mil Reais]
+  período: 2023 (publicado 2002-2023)
+
+Tabela 9850 (Censo Demográfico): Moradores, total e indígenas, em domicílios particulares permanentes ocupados, por tipo de domicílio, existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água, existência de canalização de água, existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio, grupos de idade e localização do domicílio
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2010-2022)
+  Tipo de domicílio 2932: Total
+  Existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água 72144: Possui ligação à rede geral e a utiliza como forma principal
+  Existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água 72145: Possui ligação à rede geral, mas utiliza principalmente outra forma
+  Existência de canalização de água 72125: Total
+  Existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio 72117: Total
+  Grupo de idade 95253: Total
+  Localização do domicílio 32776: Total
+
+Tabela 9397 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio e por tipo de esgotamento sanitário, segundo grupos de idade e cor ou raça
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Tipo de esgotamento sanitário 46290: Rede geral, rede pluvial ou fossa ligada à rede
+  Existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio 72117: Total
+  Grupo de idade 95253: Total
+  Cor ou raça 95251: Total
+
+Tabela 9541 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por destino do lixo, segundo grupos de idade e cor ou raça
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Destino do lixo 2520: Coletado
+  Grupo de idade 95253: Total
+  Cor ou raça 95251: Total
+
+Tabela 3939 (Pesquisa da Pecuária Municipal): Efetivo dos rebanhos, por tipo de rebanho
+  variável 105: Efetivo dos rebanhos [Cabeças]
+  período: 2025 (publicado 1974-2025)
+  Tipo de rebanho 32794: Suíno - total
+
+Tabela 3939 (Pesquisa da Pecuária Municipal): Efetivo dos rebanhos, por tipo de rebanho
+  variável 105: Efetivo dos rebanhos [Cabeças]
+  período: 2025 (publicado 1974-2025)
+  Tipo de rebanho 2670: Bovino
+
+Tabela 3939 (Pesquisa da Pecuária Municipal): Efetivo dos rebanhos, por tipo de rebanho
+  variável 105: Efetivo dos rebanhos [Cabeças]
+  período: 2025 (publicado 1974-2025)
+  Tipo de rebanho 32796: Galináceos - total
+
+Tabela 74 (Pesquisa da Pecuária Municipal): Produção de origem animal, por tipo de produto
+  variável 106: Produção de origem animal [Vide categorias da classificação 'Tipo de produto de origem animal']
+  período: 2025 (publicado 1974-2025)
+  Tipo de produto de origem animal 2682: Leite
+
+Tabela 5457 (Produção Agrícola Municipal): Área plantada ou destinada à colheita, área colhida, quantidade produzida, rendimento médio e valor da produção das lavouras temporárias e permanentes
+  variável 215: Valor da produção [Mil Cruzeiros [1974 a 1985, 1990 a 1992], Mil Cruzados [1986 a 1988], Mil Cruzados Novos [1989], Mil Cruzeiros Reais [1993], Mil Reais [1994 a 2025]]
+  período: 2025 (publicado 1974-2025)
+  Produto das lavouras temporárias e permanentes 0: Total
+
+Tabela 6579 (Estimativas de População): População residente estimada
+  variável 9324: População residente estimada [Pessoas]
+  período: 2024 (publicado 2001-2026)
+
+Tabela 6579 (Estimativas de População): População residente estimada
+  variável 9324: População residente estimada [Pessoas]
+  período: 2025 (publicado 2001-2026)
+
+Tabela 2612 (Pesquisa Estatísticas do Registro Civil): Nascidos vivos, ocorridos no ano, por mês do nascimento, sexo, local de nascimento, número de nascidos por parto, idade da mãe na ocasião do parto e lugar de residência da mãe
+  variável 218: Nascidos vivos ocorridos no ano [Pessoas]
+  período: 2024 (publicado 2003-2024)
+  Mês do nascimento 0: Total
+  Sexo 0: Total
+  Local do nascimento 0: Total
+  Número de nascidos por parto 0: Total
+  Idade da mãe na ocasião do parto 0: Total
+
+Tabela 2654 (Pesquisa Estatísticas do Registro Civil): Óbitos, ocorridos no ano, por mês de ocorrência, natureza do óbito, sexo, idade, local de ocorrência e lugar de residência do falecido
+  variável 343: Número de óbitos ocorridos no ano [Pessoas]
+  período: 2024 (publicado 2003-2024)
+  Mês de ocorrência 0: Total
+  Natureza do óbito 0: Total
+  Sexo 0: Total
+  Idade do(a) falecido(a) 0: Total
+  Local de ocorrência 0: Total
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 498: Valor adicionado bruto a preços correntes total [Mil Reais]
+  período: 2021 (publicado 2002-2023)
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 513: Valor adicionado bruto a preços correntes da agropecuária [Mil Reais]
+  período: 2021 (publicado 2002-2023)
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 517: Valor adicionado bruto a preços correntes da indústria [Mil Reais]
+  período: 2021 (publicado 2002-2023)
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 6575: Valor adicionado bruto a preços correntes dos serviços, exclusive administração, defesa, educação e saúde públicas e seguridade social [Mil Reais]
+  período: 2021 (publicado 2002-2023)
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 525: Valor adicionado bruto a preços correntes da administração, defesa, educação e saúde públicas e seguridade social [Mil Reais]
+  período: 2021 (publicado 2002-2023)
+
+IBGE Cidades, pesquisa 38 (PIB dos Municípios), indicador 47001: PIB per capita, Série revisada [R$]
+
+Tabela 9514 (Censo Demográfico): População residente, por sexo, idade e forma de declaração da idade
+  variável 93: População residente [Pessoas]
+  período: 2022 (publicado 2022-2022)
+  Sexo 4: Homens
+  Sexo 5: Mulheres
+  Idade 93070: 0 a 4 anos
+  Idade 93084: 5 a 9 anos
+  Idade 93085: 10 a 14 anos
+  Idade 93086: 15 a 19 anos
+  Idade 93087: 20 a 24 anos
+  Idade 93088: 25 a 29 anos
+  Idade 93089: 30 a 34 anos
+  Idade 93090: 35 a 39 anos
+  Idade 93091: 40 a 44 anos
+  Idade 93092: 45 a 49 anos
+  Idade 93093: 50 a 54 anos
+  Idade 93094: 55 a 59 anos
+  Idade 93095: 60 a 64 anos
+  Idade 93096: 65 a 69 anos
+  Idade 93097: 70 a 74 anos
+  Idade 93098: 75 a 79 anos
+  Idade 49108: 80 a 84 anos
+  Idade 49109: 85 a 89 anos
+  Idade 60040: 90 a 94 anos
+  Idade 60041: 95 a 99 anos
+  Idade 6653: 100 anos ou mais
+  Forma de declaração da idade 113635: Total
+
+Tabela 9605 (Censo Demográfico): População residente, por cor ou raça, nos Censos Demográficos
+  variável 93: População residente [Pessoas]
+  período: all (publicado 2010-2022)
+  Cor ou raça 95251: Total
+
+Tabela 6579 (Estimativas de População): População residente estimada
+  variável 9324: População residente estimada [Pessoas]
+  período: 2024,2025,2026 (publicado 2001-2026)
+
+Tabela 2612 (Pesquisa Estatísticas do Registro Civil): Nascidos vivos, ocorridos no ano, por mês do nascimento, sexo, local de nascimento, número de nascidos por parto, idade da mãe na ocasião do parto e lugar de residência da mãe
+  variável 218: Nascidos vivos ocorridos no ano [Pessoas]
+  período: all (publicado 2003-2024)
+  Mês do nascimento 0: Total
+  Sexo 0: Total
+  Local do nascimento 0: Total
+  Número de nascidos por parto 0: Total
+  Idade da mãe na ocasião do parto 0: Total
+
+Tabela 2654 (Pesquisa Estatísticas do Registro Civil): Óbitos, ocorridos no ano, por mês de ocorrência, natureza do óbito, sexo, idade, local de ocorrência e lugar de residência do falecido
+  variável 343: Número de óbitos ocorridos no ano [Pessoas]
+  período: all (publicado 2003-2024)
+  Mês de ocorrência 0: Total
+  Natureza do óbito 0: Total
+  Sexo 0: Total
+  Idade do(a) falecido(a) 0: Total
+  Local de ocorrência 0: Total
+
+Tabela 9923 (Censo Demográfico): População residente, por situação do domicílio
+  variável 93: População residente [Pessoas]
+  período: 2022 (publicado 2022-2022)
+  Situação do domicílio 1: Urbana
+  Situação do domicílio 2: Rural
+
+Tabela 10061 (Censo Demográfico): Pessoas de 18 anos ou mais de idade, por nível de instrução, segundo os grupos de idade, o sexo e a cor ou raça
+  variável 1002667: Pessoas de 18 anos ou mais de idade - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Nível de instrução 9493: Sem instrução e fundamental incompleto
+  Nível de instrução 9494: Fundamental completo e médio incompleto
+  Nível de instrução 9495: Médio completo e superior incompleto
+  Nível de instrução 99713: Superior completo
+  Grupo de idade 95253: Total
+  Sexo 6794: Total
+  Cor ou raça 95251: Total
+
+Tabela 9850 (Censo Demográfico): Moradores, total e indígenas, em domicílios particulares permanentes ocupados, por tipo de domicílio, existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água, existência de canalização de água, existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio, grupos de idade e localização do domicílio
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2010-2022)
+  Existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água 72144: Possui ligação à rede geral e a utiliza como forma principal
+  Existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água 72145: Possui ligação à rede geral, mas utiliza principalmente outra forma
+  Existência de ligação à rede geral de distribuição de água e principal forma de abastecimento de água 72153: Não possui ligação com a rede geral
+  Tipo de domicílio 2932: Total
+  Existência de canalização de água 72125: Total
+  Existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio 72117: Total
+  Grupo de idade 95253: Total
+  Localização do domicílio 32776: Total
+
+Tabela 9397 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio e por tipo de esgotamento sanitário, segundo grupos de idade e cor ou raça
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Tipo de esgotamento sanitário 46290: Rede geral, rede pluvial ou fossa ligada à rede
+  Tipo de esgotamento sanitário 72112: Fossa séptica ou fossa filtro não ligada à rede
+  Tipo de esgotamento sanitário 72113: Fossa rudimentar ou buraco
+  Tipo de esgotamento sanitário 92858: Vala
+  Tipo de esgotamento sanitário 72114: Rio, lago, córrego ou mar
+  Tipo de esgotamento sanitário 72115: Outra forma
+  Tipo de esgotamento sanitário 92861: Não tinham banheiro nem sanitário
+  Existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio 72117: Total
+  Grupo de idade 95253: Total
+  Cor ou raça 95251: Total
+
+Tabela 9541 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por destino do lixo, segundo grupos de idade e cor ou raça
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Destino do lixo 72120: Coletado no domicílio por serviço de limpeza
+  Destino do lixo 72121: Depositado em caçamba de serviço de limpeza
+  Destino do lixo 72122: Queimado na propriedade
+  Destino do lixo 72123: Enterrado na propriedade
+  Destino do lixo 72124: Jogado em terreno baldio, encosta ou área pública
+  Destino do lixo 1091: Outro destino
+  Grupo de idade 95253: Total
+  Cor ou raça 95251: Total
+
+Tabela 5938 (Produto Interno Bruto dos Municípios): Produto interno bruto a preços correntes, impostos, líquidos de subsídios, sobre produtos a preços correntes e valor adicionado bruto a preços correntes total e por atividade econômica, e respectivas participações - Referência 2010
+  variável 37: Produto Interno Bruto a preços correntes [Mil Reais]
+  período: all (publicado 2002-2023)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 367: Número de empresas e outras organizações atuantes [Unidades]
+  período: all (publicado 2022-2024)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 707: Pessoal ocupado total [Pessoas]
+  período: all (publicado 2022-2024)
+
+Tabela 9509 (Cadastro Central de Empresas): Unidades locais, empresas e outras organizações atuantes, pessoal ocupado total, pessoal ocupado assalariado, pessoal assalariado médio, salários e outras remunerações e salário médio mensal
+  variável 1606: Salário médio mensal [Salários mínimos]
+  período: all (publicado 2022-2024)
+
+Tabela 9528 (Cadastro Central de Empresas): Unidades locais, pessoal ocupado total e assalariado, salários e outras remunerações, por seção, divisão, grupo e classe da classificação de atividades (CNAE 2.0)
+  variável 707: Pessoal ocupado total [Pessoas]
+  período: 2024 (publicado 2022-2024)
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 116830: A Agricultura, pecuária, produção florestal, pesca e aquicultura
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 116880: B Indústrias extrativas
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 116910: C Indústrias de transformação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117296: D Eletricidade e gás
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117307: E Água, esgoto, atividades de gestão de resíduos e descontaminação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117329: F Construção
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117363: G Comércio; reparação de veículos automotores e motocicletas
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117484: H Transporte, armazenagem e correio
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117543: I Alojamento e alimentação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117555: J Informação e comunicação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117608: K Atividades financeiras, de seguros e serviços relacionados
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117666: L Atividades imobiliárias
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117673: M Atividades profissionais, científicas e técnicas
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117714: N Atividades administrativas e serviços complementares
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117774: O Administração pública, defesa e seguridade social
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117788: P Educação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117810: Q Saúde humana e serviços sociais
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117838: R Artes, cultura, esporte e recreação
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117861: S Outras atividades de serviços
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117888: T Serviços domésticos
+  Classificação Nacional de Atividades Econômicas (CNAE 2.0) 117892: U Organismos internacionais e outras instituições extraterritoriais
+
+Tabela 3939 (Pesquisa da Pecuária Municipal): Efetivo dos rebanhos, por tipo de rebanho
+  variável 105: Efetivo dos rebanhos [Cabeças]
+  período: all (publicado 1974-2025)
+  Tipo de rebanho 2670: Bovino
+  Tipo de rebanho 32794: Suíno - total
+  Tipo de rebanho 32796: Galináceos - total
+
+Tabela 74 (Pesquisa da Pecuária Municipal): Produção de origem animal, por tipo de produto
+  variável 106: Produção de origem animal [Vide categorias da classificação 'Tipo de produto de origem animal']
+  período: all (publicado 1974-2025)
+  Tipo de produto de origem animal 2682: Leite
+
+Tabela 5457 (Produção Agrícola Municipal): Área plantada ou destinada à colheita, área colhida, quantidade produzida, rendimento médio e valor da produção das lavouras temporárias e permanentes
+  variável 215: Valor da produção [Mil Cruzeiros [1974 a 1985, 1990 a 1992], Mil Cruzados [1986 a 1988], Mil Cruzados Novos [1989], Mil Cruzeiros Reais [1993], Mil Reais [1994 a 2025]]
+  período: 2025 (publicado 1974-2025)
+  Produto das lavouras temporárias e permanentes 40129: Abacate
+  Produto das lavouras temporárias e permanentes 40092: Abacaxi*
+  Produto das lavouras temporárias e permanentes 83388: Abóbora
+  Produto das lavouras temporárias e permanentes 45982: Açaí
+  Produto das lavouras temporárias e permanentes 83399: Acerola
+  Produto das lavouras temporárias e permanentes 40329: Alfafa fenada
+  Produto das lavouras temporárias e permanentes 83389: Alface
+  Produto das lavouras temporárias e permanentes 40130: Algodão arbóreo (em caroço)
+  Produto das lavouras temporárias e permanentes 40099: Algodão herbáceo (em caroço)
+  Produto das lavouras temporárias e permanentes 40100: Alho
+  Produto das lavouras temporárias e permanentes 40101: Amendoim (em casca)
+  Produto das lavouras temporárias e permanentes 40102: Arroz (em casca)
+  Produto das lavouras temporárias e permanentes 40103: Aveia (em grão)
+  Produto das lavouras temporárias e permanentes 40131: Azeitona
+  Produto das lavouras temporárias e permanentes 40136: Banana (cacho)
+  Produto das lavouras temporárias e permanentes 40104: Batata-doce
+  Produto das lavouras temporárias e permanentes 40105: Batata-inglesa
+  Produto das lavouras temporárias e permanentes 40137: Borracha (látex coagulado)
+  Produto das lavouras temporárias e permanentes 40468: Borracha (látex líquido)
+  Produto das lavouras temporárias e permanentes 40138: Cacau (em amêndoa)
+  Produto das lavouras temporárias e permanentes 40139: Café (em grão) Total
+  Produto das lavouras temporárias e permanentes 40140: Café (em grão) Arábica
+  Produto das lavouras temporárias e permanentes 40141: Café (em grão) Canephora
+  Produto das lavouras temporárias e permanentes 40330: Caju
+  Produto das lavouras temporárias e permanentes 40106: Cana-de-açúcar
+  Produto das lavouras temporárias e permanentes 40331: Cana para forragem
+  Produto das lavouras temporárias e permanentes 83390: Canola
+  Produto das lavouras temporárias e permanentes 40142: Caqui
+  Produto das lavouras temporárias e permanentes 40143: Castanha de caju
+  Produto das lavouras temporárias e permanentes 40107: Cebola
+  Produto das lavouras temporárias e permanentes 83391: Cenoura
+  Produto das lavouras temporárias e permanentes 40108: Centeio (em grão)
+  Produto das lavouras temporárias e permanentes 40109: Cevada (em grão)
+  Produto das lavouras temporárias e permanentes 40144: Chá-da-índia (folha verde)
+  Produto das lavouras temporárias e permanentes 83392: Chuchu
+  Produto das lavouras temporárias e permanentes 40145: Coco-da-baía*
+  Produto das lavouras temporárias e permanentes 83400: Cupuaçu
+  Produto das lavouras temporárias e permanentes 40146: Dendê (cacho de coco)
+  Produto das lavouras temporárias e permanentes 40147: Erva-mate (folha verde)
+  Produto das lavouras temporárias e permanentes 40110: Ervilha (em grão)
+  Produto das lavouras temporárias e permanentes 40111: Fava (em grão)
+  Produto das lavouras temporárias e permanentes 40112: Feijão (em grão)
+  Produto das lavouras temporárias e permanentes 40148: Figo
+  Produto das lavouras temporárias e permanentes 40113: Fumo (em folha)
+  Produto das lavouras temporárias e permanentes 83395: Gergelim
+  Produto das lavouras temporárias e permanentes 40114: Girassol (em grão)
+  Produto das lavouras temporárias e permanentes 40149: Goiaba
+  Produto das lavouras temporárias e permanentes 83401: Graviola
+  Produto das lavouras temporárias e permanentes 40150: Guaraná (semente)
+  Produto das lavouras temporárias e permanentes 83393: Inhame
+  Produto das lavouras temporárias e permanentes 40115: Juta (fibra)
+  Produto das lavouras temporárias e permanentes 40151: Laranja
+  Produto das lavouras temporárias e permanentes 40152: Limão
+  Produto das lavouras temporárias e permanentes 40116: Linho (semente)
+  Produto das lavouras temporárias e permanentes 40260: Maçã
+  Produto das lavouras temporárias e permanentes 40117: Malva (fibra)
+  Produto das lavouras temporárias e permanentes 40261: Mamão
+  Produto das lavouras temporárias e permanentes 40118: Mamona (baga)
+  Produto das lavouras temporárias e permanentes 40119: Mandioca
+  Produto das lavouras temporárias e permanentes 40262: Manga
+  Produto das lavouras temporárias e permanentes 40263: Maracujá
+  Produto das lavouras temporárias e permanentes 40264: Marmelo
+  Produto das lavouras temporárias e permanentes 40120: Melancia
+  Produto das lavouras temporárias e permanentes 40121: Melão
+  Produto das lavouras temporárias e permanentes 40122: Milho (em grão)
+  Produto das lavouras temporárias e permanentes 83394: Milho verde
+  Produto das lavouras temporárias e permanentes 83396: Morango
+  Produto das lavouras temporárias e permanentes 40265: Noz (fruto seco)
+  Produto das lavouras temporárias e permanentes 40266: Palmito
+  Produto das lavouras temporárias e permanentes 40267: Pera
+  Produto das lavouras temporárias e permanentes 40268: Pêssego
+  Produto das lavouras temporárias e permanentes 40269: Pimenta-do-reino
+  Produto das lavouras temporárias e permanentes 83397: Pimentão
+  Produto das lavouras temporárias e permanentes 40123: Rami (fibra)
+  Produto das lavouras temporárias e permanentes 83398: Repolho
+  Produto das lavouras temporárias e permanentes 40270: Sisal ou agave (fibra)
+  Produto das lavouras temporárias e permanentes 40124: Soja (em grão)
+  Produto das lavouras temporárias e permanentes 40125: Sorgo (em grão)
+  Produto das lavouras temporárias e permanentes 40271: Tangerina
+  Produto das lavouras temporárias e permanentes 40126: Tomate
+  Produto das lavouras temporárias e permanentes 40127: Trigo (em grão)
+  Produto das lavouras temporárias e permanentes 40128: Triticale (em grão)
+  Produto das lavouras temporárias e permanentes 40272: Tungue (fruto seco)
+  Produto das lavouras temporárias e permanentes 40273: Urucum (semente)
+  Produto das lavouras temporárias e permanentes 40274: Uva
+
+Tesouro Nacional, Siconfi: DCA 2025, Anexo I-E (despesa por função), coluna Despesas Liquidadas; 34 de 34 municípios com dados
