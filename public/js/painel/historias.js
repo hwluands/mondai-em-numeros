@@ -45,8 +45,9 @@ export function historias() {
     titulo: "A riqueza fica entre as primeiras do estado. O salário, no meio da fila.",
     texto: "O PIB por habitante divide pela população tudo o que é produzido na cidade; em Mondaí, " +
       Math.round(I.pct_ind.mondai) + "% do valor produzido em " + I.pct_ind.ano + " veio da indústria. " +
-      "O salário médio mostra quanto recebe, em média, quem trabalha em empresas e organizações. Em Mondaí, a diferença entre as duas posições (" +
-      pc.maior_sc + "º e " + sal.maior_sc + "º) é a " + posDistancia + "ª maior entre as " + distancias.length + " cidades de SC.",
+      "O salário médio mostra quanto recebe, em média, quem trabalha em empresas e organizações. No salário, Mondaí fica " +
+      (rSal[P.mondai] - rPib[P.mondai]) + " posições abaixo de onde está na riqueza. Só " + (posDistancia - 1) + " das " + distancias.length +
+      " cidades de SC têm uma diferença maior.",
     figura: "As " + pc.total_sc + " cidades de SC em dois rankings. Cada traço é uma cidade, da maior para a menor.",
     fonte: "IBGE, PIB dos Municípios " + pc.ano + " e Cadastro Central de Empresas " + sal.ano
   }, () => ({
