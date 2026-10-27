@@ -12,8 +12,9 @@ function redesenharTudo() {
 
 function mostrarTema(botao) {
   const claro = document.documentElement.dataset.tema === "claro";
-  botao.textContent = claro ? "Tema escuro" : "Tema claro";
-  botao.setAttribute("aria-pressed", String(claro));
+  // O botão mostra o tema para o qual vai mudar.
+  botao.textContent = claro ? "Escuro" : "Claro";
+  botao.setAttribute("aria-label", claro ? "Mudar para o tema escuro" : "Mudar para o tema claro");
   document.querySelector('meta[name="theme-color"]').content = claro ? "#fbfbf9" : "#0e0f0e";
 }
 

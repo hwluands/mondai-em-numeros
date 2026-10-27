@@ -1,7 +1,7 @@
 /* Tokens e estilos comuns às páginas do Mondaí em Números.
    Identidade: publicação estatística. Regra de cor: Mondaí (c1) é a única cor forte;
    referências (SC, medianas, outras cidades) ficam em tons neutros.
-   Tema escuro é o padrão; html[data-tema="claro"] troca o fundo das áreas de leitura. */
+   Tema escuro é o padrão; html[data-tema="claro"] troca a página inteira para o claro. */
 
 @font-face {
   font-family: "Archivo";
@@ -22,8 +22,8 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0;
 }
 
-/* Escuro (padrão) e blocos que são sempre escuros, como a abertura */
-:root, .sempre-escuro {
+/* Escuro (padrão) */
+:root {
   --papel: #0e0f0e;
   --card: #161816;
   --tinta: #f1f2ee;
@@ -63,7 +63,7 @@ html[data-tema="claro"] {
   --fonte: "Archivo", "Arial Narrow", Arial, sans-serif;
   --base: 16px;
 }
-body.contraste, body.contraste .sempre-escuro {
+body.contraste {
   --papel: #000; --card: #000; --tinta: #fff; --texto: #fff; --suave: #fff; --linha: #fff; --trilho: #444;
   --c1: #ffd400; --c2: #ffffff; --c3: #ffb000; --c4: #c8c8c8; --c5: #8a6d00; --c6: #888888; --c7: #555555; --sobre-c1: #000000;
 }
@@ -77,7 +77,8 @@ body {
   font-family: var(--fonte); font-stretch: 100%; line-height: 1.5;
   font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
 }
-.sempre-escuro { background: var(--papel); color: var(--texto); }
+/* Blocos com fundo próprio (topo fixo, abertura, janela de entrada) */
+.superficie { background: var(--papel); color: var(--texto); }
 a { color: var(--c1); text-underline-offset: 0.15em; }
 .largura { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 .pular { position: absolute; left: -999px; top: 8px; background: var(--card); color: var(--tinta); padding: 8px 12px; z-index: 30; }

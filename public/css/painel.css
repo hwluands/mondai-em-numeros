@@ -11,7 +11,7 @@
 .acess button { min-height: 34px; padding: 4px 10px; font-size: 0.8rem; background: transparent; border-color: var(--linha); color: var(--tinta); }
 .acess button[aria-pressed=true] { border-color: var(--c1); color: var(--c1); }
 
-/* Abertura: sempre escura, manchete grande e o ranking das 295 cidades */
+/* Abertura: manchete grande e o ranking das 295 cidades */
 .abertura { padding: 56px 0 44px; border-bottom: 1px solid var(--linha); }
 .abertura h1 { font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: 0.98; font-stretch: 72%; max-width: 17ch; }
 .abertura h1 .m { color: var(--c1); }
