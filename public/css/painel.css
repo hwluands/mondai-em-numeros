@@ -57,6 +57,8 @@ section.bloco:first-of-type { border-top: 0; }
 .duelo-topo .intro { margin-bottom: 0; }
 #sua-cidade > .largura > .nota { margin-top: 14px; }
 .duelo-topo label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 4px; min-width: 240px; color: var(--tinta); }
+/* O seletor fica sempre destacado, para a pessoa perceber que pode trocar a cidade */
+#selCidade { border: 2px solid var(--c1); font-weight: 650; }
 .duelo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; border-top: 1px solid var(--tinta); }
 .linha-duelo { padding: 16px 0 14px; border-bottom: 1px solid var(--linha); }
 .linha-duelo h3 { font-size: 1.02rem; font-stretch: 85%; font-weight: 700; margin-bottom: 4px; }

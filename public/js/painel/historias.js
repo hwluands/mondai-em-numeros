@@ -38,16 +38,18 @@ export function historias() {
     return Object.fromEntries(ids.map((id, i) => [id, i + 1]));
   };
   const rPib = posicoes("pib_pc"), rSal = posicoes("salario_rs");
+  const salarios = Object.values(MUN).map(m => m.salario_rs).filter(v => v).sort((a, b) => b - a);
   const distancias = Object.keys(rPib).map(id => rSal[id] - rPib[id]).sort((a, b) => b - a);
   const posDistancia = distancias.indexOf(rSal[P.mondai] - rPib[P.mondai]) + 1;
   capitulo(1, {
     tema: "Riqueza e salário",
-    titulo: "A riqueza fica entre as primeiras do estado. O salário, no meio da fila.",
+    titulo: "Muita riqueza produzida por habitante. O salário, perto da mediana do estado.",
     texto: "O PIB por habitante divide pela população tudo o que é produzido na cidade; em Mondaí, " +
-      Math.round(I.pct_ind.mondai) + "% do valor produzido em " + I.pct_ind.ano + " veio da indústria. " +
-      "O salário médio mostra quanto recebe, em média, quem trabalha em empresas e organizações. No salário, Mondaí fica " +
-      (rSal[P.mondai] - rPib[P.mondai]) + " posições abaixo de onde está na riqueza. Só " + (posDistancia - 1) + " das " + distancias.length +
-      " cidades de SC têm uma diferença maior.",
+      Math.round(I.pct_ind.mondai) + "% do valor produzido em " + I.pct_ind.ano + " veio da indústria. É o " + pc.maior_sc + "º maior de SC e o " +
+      pc.maior_regiao + "º da região. O salário médio mostra quanto recebe, em média, quem trabalha em empresas e organizações: " + reais(sal.mondai) +
+      " em " + sal.ano + ", " + reais(Math.abs(sal.mediana_sc - sal.mondai)) + (sal.mondai < sal.mediana_sc ? " abaixo" : " acima") +
+      " da mediana do estado. No ranking, isso vira a " + sal.maior_sc + "ª posição porque, no meio da fila, as cidades ficam muito próximas: da 100ª à 200ª, a diferença é de " +
+      reais(salarios[99] - salarios[199]) + ".",
     figura: "As " + pc.total_sc + " cidades de SC em dois rankings. Cada traço é uma cidade, da maior para a menor.",
     fonte: "IBGE, PIB dos Municípios " + pc.ano + " e Cadastro Central de Empresas " + sal.ano
   }, () => ({
@@ -114,13 +116,16 @@ export function historias() {
   const razao = a => somaV(a, "nascimentos") / somaV(a, "obitos");
   const v0 = S.vitais[0], v1 = S.vitais[S.vitais.length - 1];
   const censos = S.populacao.filter(x => x.tipo === "Censo");
+  const estimativas = S.populacao.filter(x => x.tipo === "Estimativa");
   capitulo(4, {
     tema: "População",
     titulo: "De " + per(ini) + ", nasciam " + d1.format(razao(ini)) + " bebês para cada morte. De " + per(fim) + ", " + d1.format(razao(fim)) + ".",
     texto: "Os nascimentos ficaram estáveis, com média de " + int.format(somaV(ini, "nascimentos") / 3) + " e " + int.format(somaV(fim, "nascimentos") / 3) +
       " por ano nos dois períodos. O que mudou foram os óbitos, que passaram de " + int.format(somaV(ini, "obitos") / 3) + " para " + int.format(somaV(fim, "obitos") / 3) +
       " por ano. Entre os Censos de " + censos[0].ano + " e " + censos[censos.length - 1].ano + ", a população foi de " + int.format(censos[0].valor) + " para " +
-      int.format(censos[censos.length - 1].valor) + " pessoas.",
+      int.format(censos[censos.length - 1].valor) + " pessoas. Depois do Censo, as estimativas do IBGE de " + estimativas[0].ano + " a " +
+      estimativas[estimativas.length - 1].ano + " ficam estáveis, entre " + int.format(Math.min(...estimativas.map(x => x.valor))) + " e " +
+      int.format(Math.max(...estimativas.map(x => x.valor))) + " moradores.",
     figura: "Nascimentos e óbitos de moradores de Mondaí, por ano.",
     fonte: "IBGE, Registro Civil e Censos Demográficos"
   }, () => ({
@@ -143,23 +148,40 @@ export function historias() {
     tabela: [["Ano", "Nascimentos", "Óbitos"], S.vitais.map(x => [x.ano, x.nascimentos, x.obitos])]
   }));
 
-  // 5. Esgoto, pelo critério do Plansab
+  // 5. Esgoto, pelo critério do Plansab: abaixo de SC, à frente da região
+  const ea = I.esgoto_adequado;
+  const aFrente = ea.maior_regiao - 1;
   capitulo(5, {
-    tema: "Saneamento",
-    titulo: Math.round(precario(esgM)) + " em cada 100 moradores usam fossa rudimentar ou outra solução precária para o esgoto",
-    texto: "Pelo Plano Nacional de Saneamento Básico, rede geral e fossa séptica são soluções adequadas. Em Mondaí, " + Math.round(I.esgoto_adequado.mondai) +
-      "% dos moradores estão nesse grupo, contra " + Math.round(100 - precario(esgSC)) + "% em Santa Catarina. Quase todos usam fossa séptica: só " +
-      Math.round(I.esgoto_rede.mondai) + "% estão ligados à rede geral, contra " + Math.round(esgSC["Rede geral ou fossa ligada à rede"]) + "% no estado.",
+    tema: "Esgoto",
+    titulo: "O esgoto adequado chega a " + Math.round(ea.mondai) + "% dos moradores: abaixo de SC, mas o " + ea.maior_regiao + "º melhor da região",
+    texto: "Pelo Plano Nacional de Saneamento Básico, rede geral e fossa séptica são soluções adequadas. Em Mondaí, " + Math.round(ea.mondai) +
+      "% dos moradores estão nesse grupo, contra " + Math.round(100 - precario(esgSC)) + "% em Santa Catarina. Na região de " + P.regiao +
+      ", onde a mediana das cidades é de " + Math.round(ea.mediana_regiao) + "%, " + (aFrente === 0 ? "nenhuma cidade fica à frente" : aFrente === 1 ? "só uma cidade fica à frente" : "só " + aFrente + " cidades ficam à frente") +
+      ". O que puxa para baixo é a rede: só " + Math.round(I.esgoto_rede.mondai) + "% estão ligados à rede geral, contra " +
+      Math.round(esgSC["Rede geral ou fossa ligada à rede"]) + "% no estado, e " + Math.round(esgM["Fossa rudimentar ou buraco"]) + " em cada 100 ainda usam fossa rudimentar ou buraco.",
     figura: "Tipo de esgoto, em % dos moradores, em Mondaí e em Santa Catarina. Tons de verde: soluções adequadas; cinza: precárias.",
     fonte: "IBGE, Censo Demográfico 2022; critério do Plansab"
   }, () => composicao(esgotoRotulado(), ["c3", "c5", "c2", "c4"]));
 
-  // 6. Prefeitura
+  // 6. Água: acima de SC e da região, com a ressalva de quem tem rede e usa outra fonte
+  const ag = I.agua_rede, agM = S.agua["Mondaí"], agSC = S.agua["Santa Catarina"];
+  capitulo(6, {
+    tema: "Água",
+    titulo: Math.round(ag.mondai) + " em cada 100 moradores estão ligados à rede de água, o " + ag.maior_regiao + "º melhor índice da região",
+    texto: "Na mediana das cidades catarinenses, são " + Math.round(ag.mediana_sc) + " em cada 100, e o estado como um todo chega a " +
+      Math.round(agSC["Rede geral"] + agSC["Rede geral, mas usa outra fonte"]) + ". Mondaí é a " + ag.maior_sc + "ª de SC. Mas ter a ligação não quer dizer usá-la: " +
+      Math.round(agM["Rede geral, mas usa outra fonte"]) + " em cada 100 moradores têm rede e usam principalmente outra fonte, contra " +
+      Math.round(agSC["Rede geral, mas usa outra fonte"]) + " no estado. Outros " + Math.round(agM["Sem ligação à rede"]) + " não têm ligação.",
+    figura: "Abastecimento de água, em % dos moradores, em Mondaí e em Santa Catarina.",
+    fonte: "IBGE, Censo Demográfico 2022"
+  }, () => composicao(S.agua, ["c3", "c5", "c4"]));
+
+  // 7. Prefeitura
   const pf = P.prefeitura;
   const desp = Object.entries(pf.mondai).sort((a, b) => b[1] - a[1]);
   const totalDesp = desp.reduce((s, x) => s + x[1], 0);
   const edu = pf.mondai["Educação"], sau = pf.mondai["Saúde"];
-  capitulo(6, {
+  capitulo(7, {
     tema: "Prefeitura",
     titulo: "De cada R$ 10 que a prefeitura gasta, quase R$ 5 vão para educação e saúde",
     texto: "Em " + pf.ano + ", a prefeitura de Mondaí liquidou " + reais(totalDesp) + " em despesas, " + reais(pf.por_habitante[P.mondai].total) +
