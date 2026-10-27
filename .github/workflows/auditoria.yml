@@ -1,0 +1,18 @@
+# Uma vez por mês, refaz os números publicados direto das fontes do IBGE e falha se algum não conferir.
+name: Auditoria dos dados
+
+on:
+  schedule:
+    - cron: "17 9 3 * *"
+  workflow_dispatch:
+
+jobs:
+  auditoria:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Conferir os números publicados com o IBGE
+        run: python pipeline/auditoria.py

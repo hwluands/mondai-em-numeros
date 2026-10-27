@@ -1,0 +1,35 @@
+/* Página de registros (admin.html). Usa os tokens de base.css. */
+:root { --erro: #b3261e; }
+body { line-height: 1.45; }
+.largura { max-width: 1180px; padding: 24px 16px 40px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+h2 { font-size: 1rem; margin: 0 0 10px; font-family: var(--sans); letter-spacing: 0; }
+.sub { color: var(--suave); margin: 0 0 18px; font-size: 0.9rem; }
+.card { background: var(--card); border: 1px solid var(--linha); border-radius: var(--raio); padding: 16px; margin-bottom: 14px; }
+input[type=password] { font: inherit; font-size: 0.92rem; min-height: 44px; border-radius: 10px; border: 1.5px solid var(--linha); background: var(--card); color: var(--tinta); padding: 8px 14px; }
+input:focus-visible { outline: 3px solid var(--c2); outline-offset: 2px; }
+select { width: auto; }
+button { border-color: var(--c1); color: var(--c1); font-weight: 600; }
+button.principal { background: var(--c1); color: #fff; }
+.entrar { max-width: 380px; display: grid; gap: 10px; }
+.erro { color: var(--erro); font-size: 0.88rem; margin: 0; }
+.barra { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.numeros { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 14px; }
+.num { background: var(--card); border: 1px solid var(--linha); border-radius: var(--raio); padding: 12px 14px; }
+.num span { display: block; font-size: 0.78rem; color: var(--suave); }
+.num strong { font-size: 1.5rem; }
+.duas { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+.grafico { position: relative; height: 240px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+th { position: sticky; top: 0; background: var(--card); }
+.rolagem { overflow: auto; max-height: 560px; }
+.rolagem.curta { max-height: 240px; }
+.tag { font-size: 0.75rem; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--linha); white-space: nowrap; }
+.tag.acesso { border-color: var(--c1); color: var(--c1); }
+.tag.opiniao { border-color: var(--c2); color: var(--c2); }
+.tag.retorno { border-color: var(--c3); color: var(--c3); }
+.vazio { color: var(--suave); }
+@media (max-width: 900px) { .numeros { grid-template-columns: repeat(3, 1fr); } .duas { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .numeros { grid-template-columns: repeat(2, 1fr); } }
