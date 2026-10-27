@@ -1,18 +1,16 @@
 // Explorar: indicadores com a posição de Mondaí em SC e os gráficos em abas.
 import { P, IND, S, M, MUN, VIZ, nomeDe } from "./dados.js";
-import { int, d1, reais, fmt, posicao, percentil, mediana } from "./formato.js";
+import { int, d1, reais, fmt, posicao, mediana } from "./formato.js";
+import { ranking } from "./ranking.js";
 import { cor, opcoes, legendaBaixo, barrasH, composicao, esgotoRotulado, GRAFICOS, desenhar } from "./graficos.js";
 
 export function kpis() {
   const lista = ["pop2026", "pib", "pib_pc", "empresas_mil", "ocupados_100", "salario_rs", "alfabetizacao", "esgoto_adequado"];
   document.getElementById("kpis").innerHTML = lista.map(k => {
     const i = IND[k];
-    const p = percentil(k, i.mondai);
-    return '<div class="card kpi"><div class="rotulo"><span>' + i.rotulo + '</span><span class="ano">' + i.ano + "</span></div>" +
+    return '<div class="kpi"><div class="rotulo"><span>' + i.rotulo + '</span><span class="ano">' + i.ano + "</span></div>" +
       '<div class="valor">' + fmt(k, i.mondai) + "</div>" +
-      '<div class="faixa" role="img" aria-label="' + posicao(i, "sc") + " de " + i.total_sc + ' cidades de SC">' +
-      '<span class="mediana"></span><span class="ponto" style="left:' + (p === null ? 50 : p) + '%"></span></div>' +
-      '<div class="faixa-legenda"><span>menor de SC</span><span>maior</span></div>' +
+      ranking(k, { altura: 34, mini: true, rotulo: i.rotulo + ": Mondaí é a " + posicao(i, "sc") + " de " + i.total_sc + " cidades de SC" }) +
       '<div class="pos">' + posicao(i, "sc") + " de SC · " + posicao(i, "regiao") + " da região</div></div>";
   }).join("");
 }
@@ -74,8 +72,8 @@ export function graficosExplorar() {
       config: {
         type: "bar",
         data: { labels: rot, datasets: [
-          { label: "Homens", data: inv(m.homens).map(v => -v / tm * 100), backgroundColor: cor("c3"), grouped: false },
-          { label: "Mulheres", data: inv(m.mulheres).map(v => v / tm * 100), backgroundColor: cor("c2"), grouped: false },
+          { label: "Homens", data: inv(m.homens).map(v => -v / tm * 100), backgroundColor: cor("c1"), grouped: false },
+          { label: "Mulheres", data: inv(m.mulheres).map(v => v / tm * 100), backgroundColor: cor("c3"), grouped: false },
           Object.assign({ label: "Santa Catarina", data: inv(e.homens).map(v => -v / te * 100) }, sc),
           Object.assign({ label: "_sc", data: inv(e.mulheres).map(v => v / te * 100) }, sc)] },
         options: opcoes({
@@ -95,8 +93,8 @@ export function graficosExplorar() {
       config: {
         type: "bar",
         data: { labels: d.map(x => x.ano), datasets: [
-          { label: "Censo", data: d.map(x => x.tipo === "Censo" ? x.valor : null), backgroundColor: cor("c1"), skipNull: true, borderRadius: 4 },
-          { label: "Estimativa", data: d.map(x => x.tipo === "Estimativa" ? x.valor : null), backgroundColor: cor("c7"), skipNull: true, borderRadius: 4 }] },
+          { label: "Censo", data: d.map(x => x.tipo === "Censo" ? x.valor : null), backgroundColor: cor("c1"), skipNull: true, borderRadius: 1 },
+          { label: "Estimativa", data: d.map(x => x.tipo === "Estimativa" ? x.valor : null), backgroundColor: cor("c6"), skipNull: true, borderRadius: 1 }] },
         options: opcoes({ plugins: { legend: legendaBaixo(), rotulos: { formatar: v => int.format(v) }, tooltip: { callbacks: { label: c => int.format(c.parsed.y) + " pessoas" } } },
           scales: { x: { stacked: true, grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => int.format(v) } } } })
       },
@@ -113,7 +111,7 @@ export function graficosExplorar() {
     return {
       config: {
         type: "bar",
-        data: { labels: ["Médio", "Mediano"], datasets: locais.map((l, i) => ({ label: l, data: [r[l].medio, r[l].mediano], backgroundColor: cor(i ? "c2" : "c1"), borderRadius: 4 })) },
+        data: { labels: ["Médio", "Mediano"], datasets: locais.map((l, i) => ({ label: l, data: [r[l].medio, r[l].mediano], backgroundColor: cor(i ? "c2" : "c1"), borderRadius: 1 })) },
         options: opcoes({ plugins: { legend: legendaBaixo(), rotulos: { formatar: v => reais(v) }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
           scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => reais(v) } } } })
       },
@@ -127,7 +125,7 @@ export function graficosExplorar() {
     return {
       config: {
         type: "bar",
-        data: { labels: ks.map(k => IND[k].rotulo), datasets: series.map(([n, campo, c]) => ({ label: n, data: ks.map(k => IND[k][campo]), backgroundColor: cor(c), borderRadius: 4 })) },
+        data: { labels: ks.map(k => IND[k].rotulo), datasets: series.map(([n, campo, c]) => ({ label: n, data: ks.map(k => IND[k][campo]), backgroundColor: cor(c), borderRadius: 1 })) },
         options: opcoes({ indexAxis: "y", layout: { padding: { right: 48 } },
           plugins: { legend: legendaBaixo(), rotulos: { formatar: v => d1.format(v) + "%" }, tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
           scales: { x: { beginAtZero: true, max: 100, ticks: { callback: v => v + "%" } }, y: { grid: { display: false }, ticks: { color: cor("tinta") } } } })
@@ -153,7 +151,7 @@ export function graficosExplorar() {
   });
   cartao("economia", { titulo: "PIB por habitante", nota: "IBGE, série oficial 2010 a 2023 · Mondaí e cidades vizinhas" }, () => {
     const nomes = Object.keys(S.pib_pc), anos = Object.keys(S.pib_pc[nomes[0]]).sort();
-    const cores = ["c3", "c2", "c4", "c5", "c6"];
+    const cores = ["c2", "c4", "c6"];
     return {
       config: {
         type: "line",
@@ -171,7 +169,7 @@ export function graficosExplorar() {
   });
   cartao("economia", { titulo: "De onde vem a economia", nota: "2021, último ano com divisão por setor publicada pelo IBGE" }, () => {
     const ids = [P.mondai, ...VIZ];
-    const set = [["pct_agro", "Agropecuária", "c6"], ["pct_ind", "Indústria", "c1"], ["pct_serv", "Serviços", "c3"], ["pct_adm", "Adm. pública", "c4"]];
+    const set = [["pct_agro", "Agropecuária", "c3"], ["pct_ind", "Indústria", "c2"], ["pct_serv", "Serviços", "c4"], ["pct_adm", "Adm. pública", "c6"]];
     return {
       config: {
         type: "bar",
@@ -194,7 +192,7 @@ export function graficosExplorar() {
         data: { datasets: [
           { label: "Mondaí", data: [pontos(P.mondai)], backgroundColor: cor("c1"), pointRadius: 8, pointHoverRadius: 10, order: 0 },
           { label: "Vizinhas", data: VIZ.map(pontos), backgroundColor: cor("c2"), pointRadius: 5, order: 1 },
-          { label: "Outras cidades de SC", data: outros.map(pontos), backgroundColor: cor("c7") + "99", pointRadius: 3, order: 2 }] },
+          { label: "Outras cidades de SC", data: outros.map(pontos), backgroundColor: cor("c6") + "aa", pointRadius: 3, order: 2 }] },
         options: opcoes({
           plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.raw.nome + ": PIB/hab " + reais(c.raw.x) + ", salário " + reais(c.raw.y) } } },
           scales: {
@@ -216,7 +214,7 @@ export function graficosExplorar() {
     const rot = top.map(x => x.secao.length > 38 ? x.secao.slice(0, 36) + "…" : x.secao).concat(resto ? ["Outros setores"] : []);
     const val = top.map(x => x.pessoas).concat(resto ? [resto] : []);
     return {
-      config: barrasH(rot, val, val.map((_, i) => i === 0 ? cor("c1") : cor("c3")), v => int.format(v)),
+      config: barrasH(rot, val, val.map((_, i) => i === 0 ? cor("c1") : cor("c6")), v => int.format(v)),
       descricao: top.map(x => x.secao + ": " + int.format(x.pessoas)).join("; "),
       tabela: [["Setor", "Pessoas"], d.map(x => [x.secao, int.format(x.pessoas)])]
     };
@@ -227,7 +225,7 @@ export function graficosExplorar() {
       config: {
         type: "bar",
         data: { labels: d.map(x => x.ano), datasets: [
-          { type: "bar", label: "Pessoal ocupado", data: d.map(x => x.ocupados), backgroundColor: cor("c3"), yAxisID: "y", borderRadius: 4, semRotulo: true },
+          { type: "bar", label: "Pessoal ocupado", data: d.map(x => x.ocupados), backgroundColor: cor("c3"), yAxisID: "y", borderRadius: 1, semRotulo: true },
           { type: "line", label: "Empresas", data: d.map(x => x.empresas), borderColor: cor("c1"), backgroundColor: cor("c1"), yAxisID: "y1", pointRadius: 4, semRotulo: true }] },
         options: opcoes({ plugins: { legend: legendaBaixo() },
           scales: { x: { grid: { display: false } }, y: { beginAtZero: true, position: "left", ticks: { callback: v => int.format(v) } },
@@ -252,15 +250,15 @@ export function graficosExplorar() {
       tabela: [["Ano", "Cabeças"], anos.map(a => [a, int.format(d[a])])]
     };
   });
-  rebanho("Suínos", "c2");
-  rebanho("Galináceos", "c6");
-  rebanho("Bovinos", "c3");
+  rebanho("Suínos", "c1");
+  rebanho("Galináceos", "c1");
+  rebanho("Bovinos", "c1");
   cartao("campo", { titulo: "Produção de leite", nota: "Milhões de litros por ano, 2000 a 2025" }, () => {
     const anos = Object.keys(S.leite).sort();
     return {
       config: {
         type: "line",
-        data: { labels: anos, datasets: [{ data: anos.map(a => S.leite[a] / 1000), borderColor: cor("c3"), backgroundColor: cor("c3") + "33", fill: true, pointRadius: 0, tension: 0.2 }] },
+        data: { labels: anos, datasets: [{ data: anos.map(a => S.leite[a] / 1000), borderColor: cor("c1"), backgroundColor: cor("c1") + "33", fill: true, pointRadius: 0, tension: 0.2 }] },
         options: opcoes({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => d1.format(c.parsed.y) + " milhões de litros" } } },
           scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => d1.format(v) + " mi" } } } })
       },
@@ -280,11 +278,11 @@ export function graficosExplorar() {
   });
 
   // Saneamento
-  cartao("saneamento", { titulo: "Água", nota: "Censo 2022 · ligação à rede geral de distribuição", largura: "l4" }, () => composicao(S.agua, ["c3", "c5", "c7"]));
+  cartao("saneamento", { titulo: "Água", nota: "Censo 2022 · ligação à rede geral de distribuição", largura: "l4" }, () => composicao(S.agua, ["c3", "c5", "c4"]));
   cartao("saneamento", { titulo: "Esgoto", nota: "Censo 2022 · tipo de esgotamento sanitário, pelo critério do Plansab", largura: "l4" }, () =>
-    composicao(esgotoRotulado(), ["c3", "c5", "c2", "c7"]));
+    composicao(esgotoRotulado(), ["c3", "c5", "c2", "c4"]));
   cartao("saneamento", { titulo: "Lixo", nota: "Censo 2022 · destino do lixo", largura: "l4" }, () =>
-    composicao(S.lixo, ["c3", "c5", "c2", "c7"], { nome: "Outros destinos", itens: ["Enterrado na propriedade", "Terreno baldio ou área pública", "Outro destino"] }));
+    composicao(S.lixo, ["c3", "c5", "c2", "c4"], { nome: "Outros destinos", itens: ["Enterrado na propriedade", "Terreno baldio ou área pública", "Outro destino"] }));
 
   // Prefeitura
   const pf = P.prefeitura;
@@ -294,7 +292,7 @@ export function graficosExplorar() {
     const rot = top.map(x => x[0]).concat(resto ? ["Outras áreas"] : []);
     const val = top.map(x => x[1]).concat(resto ? [resto] : []);
     return {
-      config: barrasH(rot, val, val.map((_, i) => i < 2 ? cor("c1") : cor("c3")), reais),
+      config: barrasH(rot, val, val.map((_, i) => i < 2 ? cor("c1") : cor("c6")), reais),
       descricao: top.map(x => x[0] + ": " + reais(x[1])).join("; "),
       tabela: [["Área", "Despesa liquidada"], d.map(x => [x[0], reais(x[1])])]
     };
@@ -309,8 +307,8 @@ export function graficosExplorar() {
       config: {
         type: "bar",
         data: { labels: campos.map(c => c[1]), datasets: [
-          { label: "Mondaí", data: mond, backgroundColor: cor("c1"), borderRadius: 4 },
-          { label: "Mediana da região", data: med, backgroundColor: cor("c2"), borderRadius: 4 }] },
+          { label: "Mondaí", data: mond, backgroundColor: cor("c1"), borderRadius: 1 },
+          { label: "Mediana da região", data: med, backgroundColor: cor("c2"), borderRadius: 1 }] },
         options: opcoes({ plugins: { legend: legendaBaixo(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + reais(c.parsed.y) } } },
           scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: v => reais(v) } } } })
       },
@@ -331,7 +329,7 @@ export function graficosExplorar() {
     controle: '<label for="sel-ind">Indicador</label><select id="sel-ind">' + opcoesInd + "</select>", resumoTabela: "Ver o ranking das 295 cidades"
   }, () => {
     const k = document.getElementById("sel-ind").value, i = IND[k];
-    const itens = [P.mondai, ...VIZ].filter(id => MUN[id][k] !== null).map(id => ({ nome: nomeDe(id), v: MUN[id][k], c: id === P.mondai ? "c1" : "c7" }));
+    const itens = [P.mondai, ...VIZ].filter(id => MUN[id][k] !== null).map(id => ({ nome: nomeDe(id), v: MUN[id][k], c: id === P.mondai ? "c1" : "c6" }));
     itens.push({ nome: "Mediana da região", v: i.mediana_regiao, c: "c2" }, { nome: "Mediana de SC", v: i.mediana_sc, c: "c2" });
     itens.sort((a, b) => b.v - a.v);
     const ranking = Object.entries(MUN).filter(([, m]) => m[k] !== null).sort((a, b) => b[1][k] - a[1][k]);

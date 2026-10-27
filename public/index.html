@@ -6,34 +6,33 @@
 <title>Mondaí em Números</title>
 <meta name="description" content="O que os dados oficiais contam sobre Mondaí (SC), e como a sua cidade se compara. População, economia, trabalho, campo, saneamento e prefeitura, com dados do IBGE e do Tesouro Nacional.">
 <meta name="author" content="Luan Henrique Weber">
-<meta name="theme-color" content="#1b6b46">
+<meta name="theme-color" content="#0e0f0e">
 <!-- Prévia do link no WhatsApp, Instagram e LinkedIn. O texto vem dos dados de 26/10/2026. -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Mondaí em Números">
 <meta property="og:title" content="Mondaí em Números">
-<meta property="og:description" content="Mondaí produz mais riqueza por habitante que 287 das 295 cidades de SC. Veja o que mais os números oficiais contam, e como a sua cidade se compara.">
+<meta property="og:description" content="Mondaí é a 8ª cidade mais rica de SC por habitante. No salário, é a 191ª. Veja o que mais os números oficiais contam, e como a sua cidade se compara.">
 <meta property="og:url" content="https://mondai-em-numeros.pages.dev/">
 <meta property="og:image" content="https://mondai-em-numeros.pages.dev/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fontes/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Aplica o tema salvo antes de desenhar a página, para não piscar. O padrão é escuro.
+  try { if (localStorage.getItem("mondai-tema") === "claro") document.documentElement.dataset.tema = "claro"; } catch (e) {}
+</script>
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/painel.css">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="topo">
+<header class="topo sempre-escuro">
   <div class="largura">
-    <a class="marca" href="#">
-      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--c1)"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#fff"/><rect x="14" y="11" width="4" height="14" rx="1" fill="#fff"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#fff"/></svg>
-      Mondaí em Números
-    </a>
+    <a class="marca" href="#">Mondaí em Números</a>
     <nav aria-label="Seções">
       <a href="#sua-cidade">Sua cidade</a>
       <a href="#historias">Histórias</a>
@@ -43,31 +42,33 @@
     <div class="acess" role="group" aria-label="Acessibilidade">
       <button type="button" id="fonteMenos" aria-label="Diminuir letra">A−</button>
       <button type="button" id="fonteMais" aria-label="Aumentar letra">A+</button>
-      <button type="button" id="contraste" aria-pressed="false" aria-label="Alto contraste">◐</button>
+      <button type="button" id="contraste" aria-pressed="false">Contraste</button>
+      <button type="button" id="tema" aria-pressed="false">Tema claro</button>
     </div>
   </div>
 </header>
 
 <main id="conteudo">
-  <section class="abertura largura" aria-labelledby="manchete">
-    <p class="rotulo-secao">Mondaí, Santa Catarina · dados oficiais</p>
-    <h1 id="manchete"></h1>
-    <p class="lide" id="lide"></p>
-    <div class="numeros-topo" id="numerosTopo"></div>
-    <div class="chamadas">
-      <a class="botao principal" href="#sua-cidade" id="chamadaCidade">Comparar com a minha cidade</a>
-      <a class="botao leve" href="#historias">Ver as 6 histórias</a>
+  <section class="abertura sempre-escuro" aria-labelledby="manchete">
+    <div class="largura">
+      <h1 id="manchete"></h1>
+      <p class="lide" id="lide"></p>
+      <figure class="assinatura" id="faixaAbertura"></figure>
+      <dl class="ficha" id="numerosTopo"></dl>
+      <div class="chamadas">
+        <a class="botao principal" href="#sua-cidade" id="chamadaCidade">Comparar com a minha cidade</a>
+        <a class="botao leve" href="#historias">Ler as histórias</a>
+        <span class="contador" id="contador" role="status" hidden></span>
+      </div>
     </div>
-    <div><span class="contador" id="contador" role="status" hidden></span></div>
   </section>
 
   <section class="bloco" id="sua-cidade" aria-labelledby="t-cidade">
     <div class="largura">
-      <p class="rotulo-secao">Sua cidade</p>
       <div class="duelo-topo">
         <div>
           <h2 id="t-cidade">Mondaí × <span id="nomeOutra"></span></h2>
-          <p class="intro" id="introDuelo" style="margin-bottom:0"></p>
+          <p class="intro" id="introDuelo"></p>
         </div>
         <label>Comparar com
           <select id="selCidade"></select>
@@ -79,17 +80,15 @@
 
   <section class="bloco" id="historias" aria-labelledby="t-historias">
     <div class="largura">
-      <p class="rotulo-secao">Histórias</p>
-      <h2 id="t-historias">6 coisas que os números contam sobre Mondaí</h2>
+      <h2 id="t-historias">O que os números mostram</h2>
       <div id="capitulos"></div>
     </div>
   </section>
 
   <section class="bloco" id="explorar" aria-labelledby="t-explorar">
     <div class="largura">
-      <p class="rotulo-secao">Explorar</p>
-      <h2 id="t-explorar">Todos os dados, tema por tema</h2>
-      <p class="intro">O ponto mostra onde Mondaí fica entre as 295 cidades de Santa Catarina, do menor ao maior valor. O traço é a mediana do estado.</p>
+      <h2 id="t-explorar">Todos os indicadores</h2>
+      <p class="intro">Em cada indicador, as 295 cidades de Santa Catarina aparecem como traços, da maior para a menor. O traço em destaque é Mondaí; o tracejado, a mediana do estado.</p>
       <div class="kpis" id="kpis"></div>
       <div class="abas" role="tablist" aria-label="Temas" id="abas"></div>
       <div id="paineis"></div>
@@ -98,9 +97,8 @@
 
   <section class="bloco opiniao" id="opiniao" aria-labelledby="t-opiniao">
     <div class="largura">
-      <p class="rotulo-secao">Sua opinião</p>
       <h2 id="t-opiniao">O que achou do Mondaí em Números?</h2>
-      <p class="intro">Leva 10 segundos.</p>
+      <p class="intro">Uma nota de 1 a 5 e, se quiser, um comentário. As opiniões ajudam a avaliar o projeto.</p>
       <form id="opForm">
         <fieldset>
           <legend>Nota de 1 a 5</legend>
@@ -123,9 +121,8 @@
 
   <section class="bloco" id="sobre" aria-labelledby="t-sobre">
     <div class="largura">
-      <p class="rotulo-secao">Sobre os dados</p>
       <h2 id="t-sobre">De onde vêm os números</h2>
-      <div class="sobre-grade" style="margin-top:20px">
+      <div class="sobre-grade">
         <div>
           <ul class="fontes">
             <li><b>IBGE, Censo Demográfico 2022:</b> população, idade, situação urbana e rural, alfabetização, instrução, rendimento do trabalho e saneamento (tabelas SIDRA 4709, 4714, 9397, 9514, 9541, 9543, 9605, 9756, 9850, 9923, 10061 e 10289).</li>
@@ -156,8 +153,8 @@
 </footer>
 
 <div id="portao" class="portao" role="dialog" aria-modal="true" aria-labelledby="p-titulo" hidden>
-  <form class="portao-caixa" id="portaoForm">
-    <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1b6b46"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#fff"/><rect x="14" y="11" width="4" height="14" rx="1" fill="#fff"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#fff"/></svg>
+  <form class="portao-caixa sempre-escuro" id="portaoForm">
+    <p class="portao-marca">Mondaí em Números</p>
     <h2 id="p-titulo">Os números de Mondaí, comparados com a sua cidade</h2>
     <p>Diga quem é você e onde mora. Se você é de Mondaí, comparamos com a região; se é de outra cidade, com a sua.</p>
     <label for="p-nome">Seu nome</label>

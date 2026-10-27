@@ -3,10 +3,10 @@
 body { line-height: 1.45; }
 .largura { max-width: 1180px; padding: 24px 16px 40px; }
 h1 { font-size: 1.6rem; margin: 0 0 4px; }
-h2 { font-size: 1rem; margin: 0 0 10px; font-family: var(--sans); letter-spacing: 0; }
+h2 { font-size: 1.1rem; margin: 0 0 10px; font-stretch: 85%; }
 .sub { color: var(--suave); margin: 0 0 18px; font-size: 0.9rem; }
-.card { background: var(--card); border: 1px solid var(--linha); border-radius: var(--raio); padding: 16px; margin-bottom: 14px; }
-input[type=password] { font: inherit; font-size: 0.92rem; min-height: 44px; border-radius: 10px; border: 1.5px solid var(--linha); background: var(--card); color: var(--tinta); padding: 8px 14px; }
+.card { background: var(--card); border: 1px solid var(--linha); border-radius: 2px; padding: 16px; margin-bottom: 14px; }
+
 input:focus-visible { outline: 3px solid var(--c2); outline-offset: 2px; }
 select { width: auto; }
 button { border-color: var(--c1); color: var(--c1); font-weight: 600; }
@@ -16,7 +16,7 @@ button.principal { background: var(--c1); color: #fff; }
 .barra { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .acoes { display: flex; gap: 8px; flex-wrap: wrap; }
 .numeros { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 14px; }
-.num { background: var(--card); border: 1px solid var(--linha); border-radius: var(--raio); padding: 12px 14px; }
+.num { background: var(--card); border: 1px solid var(--linha); border-radius: 2px; padding: 12px 14px; }
 .num span { display: block; font-size: 0.78rem; color: var(--suave); }
 .num strong { font-size: 1.5rem; }
 .duas { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }

@@ -17,11 +17,12 @@ pipeline/            dados (Python, só biblioteca padrão)
 public/              site publicado
   index.html         painel
   admin.html         registros de acesso, protegidos por senha
-  css/               base.css (tokens e comuns), painel.css, admin.css
+  css/               base.css (tokens, temas e comuns), painel.css, admin.css
   js/painel/         módulos do painel: dados, formato, graficos, abertura, comparar,
-                     historias, explorar, registro, acessibilidade, main
+                     historias, explorar, ranking, registro, acessibilidade, main
   js/admin.js        página de registros
   vendor/            Chart.js 4.4.1, servido pelo próprio site
+  fontes/            Archivo (licença OFL), servida pelo próprio site
   dados/             saída do pipeline
 functions/api/       API (Cloudflare Pages Functions)
   registro.js        POST: grava acesso, retorno ou opinião
@@ -139,8 +140,8 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 | Princípio | Como foi atendido |
 |---|---|
 | Igualitário | Gratuito e funciona em qualquer navegador; a entrada pede só nome e cidade |
-| Adaptável | Letra A−/A+ e modo de alto contraste |
-| Intuitivo | Posições escritas como "8º maior de SC"; indicadores com um ponto numa régua do menor ao maior |
+| Adaptável | Letra A−/A+, tema escuro (padrão) ou claro e modo de alto contraste |
+| Intuitivo | Posições escritas como "8º maior de SC"; cada indicador mostra as 295 cidades em traços, com Mondaí em destaque |
 | Informação perceptível | Cada gráfico tem tabela equivalente e descrição para leitores de tela |
 | Tolerância ao erro | Indicadores sem dado aparecem como "sem dado"; o script para em vez de publicar dado errado |
 | Baixo esforço físico | Leitura, menu de seções, abas e listas de escolha; nada precisa ser digitado além da entrada |
@@ -176,7 +177,7 @@ Os dois rodam a cada push no GitHub Actions ([`ci.yml`](.github/workflows/ci.yml
 
 ## Tecnologias
 
-Python (coleta, validação e análise), HTML, CSS, JavaScript e Chart.js (visualização), Cloudflare Pages Functions e D1/SQLite (API e banco de registros), Cloudflare Pages (publicação).
+Python (coleta, validação e análise), HTML, CSS, JavaScript (módulos ES, sem build) e Chart.js (visualização), Cloudflare Pages Functions e D1/SQLite (API e banco de registros), Cloudflare Pages (publicação).
 
 ## Autor
 

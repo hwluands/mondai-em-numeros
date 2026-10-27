@@ -36,7 +36,7 @@ export function duelo(outra, intro) {
         : O.nome + " tem " + d1.format(1 / r) + "× o valor de Mondaí.";
     }
     return '<div class="card linha-duelo"><h3>' + I[k].rotulo + ' <span class="ano">· ' + I[k].ano + "</span></h3>" +
-      linha("Mondaí", a, "c1") + linha(O.nome, b, "c3") + '<p class="veredito">' + veredito + "</p></div>";
+      linha("Mondaí", a, "c1") + linha(O.nome, b, "c4") + '<p class="veredito">' + veredito + "</p></div>";
   }).join("");
   document.getElementById("chamadaCidade").textContent = "Ver Mondaí × " + O.nome;
 }

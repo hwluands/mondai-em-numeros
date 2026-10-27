@@ -28,7 +28,7 @@ const pluginRotulos = {
         const x = horizontal ? el.x + 6 : el.x, y = horizontal ? el.y : el.y - 4;
         const w = ctx.measureText(t).width;
         // Fundo da cor do cartão atrás do texto, para linhas de referência e grade não o encobrirem.
-        ctx.fillStyle = cor("card");
+        ctx.fillStyle = cor("papel");
         if (horizontal) ctx.fillRect(x - 3, y - 9, w + 6, 18);
         else ctx.fillRect(x - w / 2 - 3, y - 16, w + 6, 16);
         ctx.fillStyle = cor("tinta");
@@ -90,7 +90,7 @@ export function barrasH(rotulos, valores, cores, formatar, extra) {
   const estreito = window.innerWidth < 640;
   return {
     type: "bar",
-    data: { labels: estreito ? rotulos.map(r => quebrar(r, 16)) : rotulos, datasets: [{ data: valores, backgroundColor: cores, borderRadius: 4 }] },
+    data: { labels: estreito ? rotulos.map(r => quebrar(r, 16)) : rotulos, datasets: [{ data: valores, backgroundColor: cores, borderRadius: 1 }] },
     options: opcoes(Object.assign({
       indexAxis: "y",
       layout: { padding: { right: 64 } },
@@ -150,10 +150,19 @@ export function esgotoRotulado() {
 
 // Cada gráfico guarda a função que o monta; é redesenhado ao trocar o contraste.
 export const GRAFICOS = [];
+// montar() devolve { config } para o Chart.js ou { html } para figuras próprias, como os rankings.
 export function desenhar(g) {
   if (g.chart) g.chart.destroy();
   const r = g.montar();
-  g.chart = new Chart(g.canvas, r.config);
-  g.canvas.setAttribute("aria-label", r.descricao);
+  if (r.html) {
+    // O canvas sai do lugar na primeira vez; guarda o contêiner para os redesenhos (tema, contraste).
+    g.alvo = g.alvo || g.canvas.parentElement;
+    g.alvo.classList.add("livre");
+    g.alvo.innerHTML = r.html;
+    g.chart = { destroy() {}, resize() {} };
+  } else {
+    g.chart = new Chart(g.canvas, r.config);
+    g.canvas.setAttribute("aria-label", r.descricao);
+  }
   if (r.tabela && g.tabela) g.tabela.innerHTML = tabelaHtml(...r.tabela);
 }

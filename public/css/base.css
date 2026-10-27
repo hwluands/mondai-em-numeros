@@ -1,54 +1,101 @@
-/* Tokens e estilos comuns às páginas do Mondaí em Números. */
+/* Tokens e estilos comuns às páginas do Mondaí em Números.
+   Identidade: publicação estatística. Regra de cor: Mondaí (c1) é a única cor forte;
+   referências (SC, medianas, outras cidades) ficam em tons neutros.
+   Tema escuro é o padrão; html[data-tema="claro"] troca o fundo das áreas de leitura. */
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url(../fontes/archivo-latin-wdth-normal.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url(../fontes/archivo-latin-ext-wdth-normal.woff2) format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0;
+}
+
+/* Escuro (padrão) e blocos que são sempre escuros, como a abertura */
+:root, .sempre-escuro {
+  --papel: #0e0f0e;
+  --card: #161816;
+  --tinta: #f1f2ee;
+  --texto: #d4d6d0;
+  --suave: #9a9d96;
+  --linha: #2e312d;
+  --trilho: #222521;
+  /* c1 é sempre Mondaí. c3 e c5 são tons do mesmo verde para séries da própria cidade;
+     c2, c4, c6 e c7 são neutros, do mais forte ao mais fraco, para referências. */
+  --c1: #3fcf7e;
+  --c2: #b4b7af;
+  --c3: #2a8a56;
+  --c4: #7d817a;
+  --c5: #1d4a31;
+  --c6: #4f534c;
+  --c7: #363a34;
+  --sobre-c1: #0e0f0e;
+}
+html[data-tema="claro"] {
+  --papel: #fbfbf9;
+  --card: #ffffff;
+  --tinta: #0d0d0d;
+  --texto: #262626;
+  --suave: #5a5a57;
+  --linha: #d7d7d3;
+  --trilho: #ebebe7;
+  --c1: #16663a;
+  --c2: #55554f;
+  --c3: #5c9c76;
+  --c4: #8d8d88;
+  --c5: #b5d6c1;
+  --c6: #c4c5c0;
+  --c7: #dededa;
+  --sobre-c1: #ffffff;
+}
 :root {
-  --papel: #f7f4ee;
-  --card: #fffdf9;
-  --tinta: #16201a;
-  --suave: #5b635d;
-  --linha: #e3ded3;
-  --trilho: #ebe6dc;
-  /* Paleta dos gráficos: c1 é sempre Mondaí */
-  --c1: #1b6b46;
-  --c2: #c25e28;
-  --c3: #2f5b8c;
-  --c4: #6c5294;
-  --c5: #2a8a80;
-  --c6: #c4a043;
-  --c7: #a3a9a4;
-  --serif: "Fraunces", Georgia, "Times New Roman", serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fonte: "Archivo", "Arial Narrow", Arial, sans-serif;
   --base: 16px;
-  --raio: 14px;
 }
-body.contraste {
-  --papel: #000; --card: #000; --tinta: #fff; --suave: #fff; --linha: #fff; --trilho: #444;
-  --c1: #ffd400; --c2: #ff9e5e; --c3: #66b3ff; --c4: #d4a5ff; --c5: #5ef0dc; --c6: #f5e27a; --c7: #c8c8c8;
+body.contraste, body.contraste .sempre-escuro {
+  --papel: #000; --card: #000; --tinta: #fff; --texto: #fff; --suave: #fff; --linha: #fff; --trilho: #444;
+  --c1: #ffd400; --c2: #ffffff; --c3: #ffb000; --c4: #c8c8c8; --c5: #8a6d00; --c6: #888888; --c7: #555555; --sobre-c1: #000000;
 }
+
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { font-size: var(--base); scroll-behavior: smooth; }
+html { font-size: var(--base); scroll-behavior: smooth; color-scheme: dark; }
+html[data-tema="claro"] { color-scheme: light; }
 body {
-  margin: 0; background: var(--papel); color: var(--tinta);
-  font-family: var(--sans); line-height: 1.5; font-feature-settings: "tnum" 1;
-  -webkit-font-smoothing: antialiased;
+  margin: 0; background: var(--papel); color: var(--texto);
+  font-family: var(--fonte); font-stretch: 100%; line-height: 1.5;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
 }
-a { color: var(--c1); }
-.largura { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
-.pular { position: absolute; left: -999px; top: 8px; background: var(--card); padding: 8px 12px; border-radius: 8px; z-index: 30; }
+.sempre-escuro { background: var(--papel); color: var(--texto); }
+a { color: var(--c1); text-underline-offset: 0.15em; }
+.largura { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+.pular { position: absolute; left: -999px; top: 8px; background: var(--card); color: var(--tinta); padding: 8px 12px; z-index: 30; }
 .pular:focus { left: 8px; }
-button, select, input[type=text], textarea {
-  font: inherit; font-size: 0.92rem; min-height: 44px; border-radius: 10px;
-  border: 1.5px solid var(--linha); background: var(--card); color: var(--tinta); padding: 8px 14px;
+
+h1, h2, h3 { color: var(--tinta); font-weight: 800; font-stretch: 75%; letter-spacing: -0.005em; margin: 0; }
+
+button, select, input[type=text], input[type=password], textarea {
+  font: inherit; font-size: 0.92rem; min-height: 44px; border-radius: 2px;
+  border: 1px solid var(--linha); background: var(--card); color: var(--tinta); padding: 8px 14px;
 }
 textarea { width: 100%; min-height: 88px; }
 input[type=text] { width: 100%; }
 select { width: 100%; max-width: 420px; }
 button { cursor: pointer; }
-.botao { border-color: var(--tinta); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; color: var(--tinta); }
-.botao.principal { background: var(--c1); border-color: var(--c1); color: #fff; }
-body.contraste .botao.principal { color: #000; }
+.botao { border-color: var(--tinta); font-weight: 650; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; color: var(--tinta); background: transparent; }
+.botao.principal { background: var(--c1); border-color: var(--c1); color: var(--sobre-c1); }
 .botao.leve { border-color: var(--linha); }
 button:focus-visible, select:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [role=tab]:focus-visible {
-  outline: 3px solid var(--c2); outline-offset: 2px;
+  outline: 3px solid var(--c1); outline-offset: 2px;
 }
-h1, h2, h3 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.015em; margin: 0; }
-.rotulo-secao { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c2); margin: 0 0 8px; }
