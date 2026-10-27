@@ -39,5 +39,5 @@ jobs:
       - name: Deploy no Cloudflare Pages
         run: npx wrangler pages deploy public --project-name mondai-em-numeros --branch main --commit-hash "$GITHUB_SHA"
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_MONDAI_EM_NUMEROS }}
           CLOUDFLARE_ACCOUNT_ID: a233122b85a64f88ea7b98e267edc3c2
