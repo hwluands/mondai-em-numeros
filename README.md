@@ -21,6 +21,8 @@ public/              site publicado
   js/painel/         módulos do painel: dados, formato, graficos, abertura, comparar,
                      historias, explorar, ranking, registro, acessibilidade, main
   js/admin.js        página de registros
+  js/tema.js         aplica o tema salvo antes de desenhar a página
+  _headers           cabeçalhos de segurança (CSP, proibição de abrir em outro site)
   vendor/            Chart.js 4.4.1, servido pelo próprio site
   fontes/            Archivo (licença OFL), servida pelo próprio site
   dados/             saída do pipeline
@@ -44,7 +46,7 @@ Os dados públicos sobre o município existem, mas estão espalhados em dezenas 
 
 1. **Abertura:** a manchete e os números que mais chamam atenção, calculados a partir dos dados.
 2. **Sua cidade:** na entrada, a pessoa informa nome e cidade. O site compara Mondaí com a cidade dela em 8 indicadores, e ela pode trocar por qualquer outra cidade de SC. Fora a população, os indicadores são por habitante ou em porcentagem (porcentagens comparadas em pontos percentuais), para a comparação ser justa entre cidades de tamanhos diferentes.
-3. **6 histórias:** riqueza e salário, trabalho, campo, população, esgoto e prefeitura. Cada uma tem título, contexto, gráfico anotado e botão de compartilhar. Os números dos textos são calculados dos dados, nunca escritos à mão.
+3. **7 histórias:** riqueza e salário, trabalho, campo, população, esgoto, água e prefeitura. Cada uma tem título, contexto, gráfico anotado e botão de compartilhar. Os números dos textos são calculados dos dados, nunca escritos à mão.
 4. **Explorar:** 8 indicadores com a posição de Mondaí entre as 295 cidades e 25 gráficos em abas:
 
 | Aba | Gráficos | Ano mais recente publicado |
@@ -141,7 +143,7 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 3. Conferir automaticamente os códigos das fontes antes de cada atualização.
 4. Site estático e API sem servidor próprio, publicados no Cloudflare Pages a partir deste repositório.
 5. Acessibilidade: letra ajustável, alto contraste, tabela alternativa e descrição para leitores de tela em cada gráfico.
-6. A API recusa envios de outros sites, campos inválidos ou longos demais, e só mostra os registros com senha. Cinco senhas erradas pelo mesmo IP bloqueiam a página de registros por 15 minutos, e cada IP pode enviar até 60 registros a cada 10 minutos.
+6. A API recusa envios de outros sites, campos inválidos ou longos demais, e só mostra os registros com senha. Cinco senhas erradas pelo mesmo IP bloqueiam a página de registros por 15 minutos, e cada IP pode enviar até 60 registros a cada 10 minutos. As páginas só carregam scripts, fontes e dados do próprio site e não podem ser abertas dentro de outro site (`public/_headers`).
 
 ## Desenho universal
 

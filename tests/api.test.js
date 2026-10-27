@@ -66,6 +66,13 @@ test("recusa corpo que não é JSON", async () => {
   assert.equal(r.status, 415);
 });
 
+test("recusa corpo grande demais mesmo sem Content-Length", async () => {
+  const DB = bancoFalso();
+  const r = await onRequestPost({ request: post({ tipo: "acesso", visitante: VISITANTE, sobra: "x".repeat(5000) }), env: { DB } });
+  assert.equal(r.status, 413);
+  assert.equal(DB.gravados.length, 0);
+});
+
 test("validar: campos inválidos", () => {
   assert.throws(() => validar({ tipo: "outro", visitante: VISITANTE }), /tipo/);
   assert.throws(() => validar({ tipo: "acesso", visitante: "123" }), /visitante/);

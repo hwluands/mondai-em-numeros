@@ -61,9 +61,13 @@ export async function onRequestPost({ request, env }) {
     return resposta({ erro: "registro grande demais" }, 413);
   }
 
+  // O Content-Length pode faltar (envio em partes), então o tamanho é conferido de novo no texto lido.
+  const bruto = await request.text();
+  if (bruto.length > 4096) return resposta({ erro: "registro grande demais" }, 413);
+
   let registro;
   try {
-    registro = validar(await request.json());
+    registro = validar(JSON.parse(bruto));
   } catch (erro) {
     return resposta({ erro: erro.message }, 400);
   }

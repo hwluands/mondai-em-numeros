@@ -45,7 +45,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.ADMIN_TOKEN || !senha || !(await senhaConfere(senha, env.ADMIN_TOKEN))) {
     await contar(request, env, "admin");
     return new Response(JSON.stringify({ erro: "senha inválida" }), {
-      status: 401, headers: { "Content-Type": "application/json; charset=utf-8" },
+      status: 401, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
     });
   }
 
