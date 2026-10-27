@@ -1,5 +1,5 @@
-// As 6 histórias: título, texto e gráfico anotado. Os números dos textos vêm dos dados.
-import { P, IND as I, S, M, MUN, VIZ, nomeDe, esgM, esgSC, precario } from "./dados.js";
+// As histórias: título, texto e figura numerada. Os números dos textos vêm dos dados.
+import { P, IND as I, S, MUN, esgM, esgSC, precario } from "./dados.js";
 import { ranking } from "./ranking.js";
 import { int, d1, reais } from "./formato.js";
 import { cor, opcoes, barrasH, composicao, esgotoRotulado, GRAFICOS } from "./graficos.js";
@@ -86,48 +86,49 @@ export function historias() {
     };
   });
 
-  // 3. Campo
-  const vizMais = VIZ.filter(id => MUN[id].suinos_hab > M.suinos_hab).length;
-  const fraseViz = vizMais === VIZ.length ? "E as " + VIZ.length + " cidades vizinhas têm proporção ainda maior."
-    : vizMais ? vizMais + " das " + VIZ.length + " cidades vizinhas têm proporção ainda maior." : "Nenhuma das cidades vizinhas chega a essa proporção.";
+  // 3. Campo: rebanhos entre os maiores de SC, mas pouco peso na economia, onde a indústria domina
+  const su = I.suinos, le = I.leite, agro = I.pct_agro;
   capitulo(3, {
     tema: "Campo",
-    titulo: "São " + d1.format(I.suinos_hab.mondai) + " porcos para cada morador",
-    texto: "O rebanho de suínos de Mondaí chegou a " + int.format(Math.round(I.suinos.mondai / 1000)) + " mil cabeças em " + I.suinos.ano + ", o " + I.suinos.maior_sc +
-      "º maior de Santa Catarina. Na mediana das cidades catarinenses, há " + (I.suinos_hab.mediana_sc < 1 ? "menos de um porco" : d1.format(I.suinos_hab.mediana_sc) + " porcos") +
-      " por morador. " + fraseViz,
-    figura: "Suínos por habitante em " + I.suinos_hab.ano + ": Mondaí, as cidades vizinhas e a mediana de SC.",
-    fonte: "IBGE, Pesquisa da Pecuária Municipal e Estimativas de População"
-  }, () => {
-    const itens = [P.mondai, ...VIZ].map(id => ({ nome: nomeDe(id), v: MUN[id].suinos_hab, c: id === P.mondai ? "c1" : "c6" }));
-    itens.push({ nome: "Mediana de SC", v: I.suinos_hab.mediana_sc, c: "c2" });
-    itens.sort((a, b) => b.v - a.v);
-    return {
-      config: barrasH(itens.map(x => x.nome), itens.map(x => x.v), itens.map(x => cor(x.c)), v => d1.format(v)),
-      descricao: "Suínos por habitante: " + itens.map(x => x.nome + " " + d1.format(x.v)).join("; "),
-      tabela: [["Cidade", "Suínos por habitante"], itens.map(x => [x.nome, d1.format(x.v)])]
-    };
-  });
+    titulo: "Rebanhos e leite entre os maiores de SC, mas a economia gira na indústria",
+    texto: "Em " + su.ano + ", Mondaí tinha o " + su.maior_sc + "º maior rebanho de suínos de Santa Catarina (" + int.format(Math.round(su.mondai / 1000)) +
+      " mil cabeças) e a " + le.maior_sc + "ª maior produção de leite (" + d1.format(le.mondai / 1000) + " milhões de litros). Mesmo assim, a agropecuária respondia por " +
+      Math.round(agro.mondai) + "% do valor produzido em " + agro.ano + ", contra " + Math.round(agro.mediana_sc) + "% na mediana das cidades catarinenses e " +
+      Math.round(agro.mediana_regiao) + "% na da região. Na conta da economia, a indústria pesa mais.",
+    figura: "Mondaí entre as cidades de SC em três rankings, da maior para a menor.",
+    fonte: "IBGE, Pesquisa da Pecuária Municipal " + su.ano + " e PIB dos Municípios " + agro.ano
+  }, () => ({
+    html: '<p class="ranking-titulo"><b>Rebanho de suínos, ' + su.ano + "</b></p>" +
+      ranking("suinos", { altura: 70, rotulo: "Rebanho de suínos: Mondaí é a " + su.maior_sc + "ª de " + su.total_sc }) +
+      '<p class="ranking-titulo"><b>Produção de leite, ' + le.ano + "</b></p>" +
+      ranking("leite", { altura: 70, rotulo: "Produção de leite: Mondaí é a " + le.maior_sc + "ª de " + le.total_sc }) +
+      '<p class="ranking-titulo"><b>Peso da agropecuária na economia, ' + agro.ano + "</b></p>" +
+      ranking("pct_agro", { altura: 70, rotulo: "Peso da agropecuária: Mondaí é a " + agro.maior_sc + "ª de " + agro.total_sc }),
+    tabela: [["Indicador", "Mondaí", "Posição em SC", "Mediana de SC"], [
+      ["Rebanho de suínos (" + su.ano + ")", int.format(su.mondai) + " cabeças", su.maior_sc + "º", int.format(su.mediana_sc) + " cabeças"],
+      ["Produção de leite (" + le.ano + ")", d1.format(le.mondai / 1000) + " mi de litros", le.maior_sc + "º", d1.format(le.mediana_sc / 1000) + " mi de litros"],
+      ["Peso da agropecuária (" + agro.ano + ")", d1.format(agro.mondai) + "%", agro.maior_sc + "º", d1.format(agro.mediana_sc) + "%"]]]
+  }));
 
   // 4. População. Médias de 3 anos, porque um ano isolado com ~100 nascimentos oscila muito.
   const ini = S.vitais.slice(0, 3), fim = S.vitais.slice(-3);
-  const somaV = (a, k) => a.reduce((s, x) => s + x[k], 0);
+  const media = (a, k) => a.reduce((s, x) => s + x[k], 0) / a.length;
   const per = a => a[0].ano + " a " + a[a.length - 1].ano;
-  const razao = a => somaV(a, "nascimentos") / somaV(a, "obitos");
   const v0 = S.vitais[0], v1 = S.vitais[S.vitais.length - 1];
-  const censos = S.populacao.filter(x => x.tipo === "Censo");
   const estimativas = S.populacao.filter(x => x.tipo === "Estimativa");
+  const env = I.envelhecimento;
+  const nascemMais = media(fim, "nascimentos") > media(fim, "obitos");
   capitulo(4, {
     tema: "População",
-    titulo: "De " + per(ini) + ", nasciam " + d1.format(razao(ini)) + " bebês para cada morte. De " + per(fim) + ", " + d1.format(razao(fim)) + ".",
-    texto: "Os nascimentos ficaram estáveis, com média de " + int.format(somaV(ini, "nascimentos") / 3) + " e " + int.format(somaV(fim, "nascimentos") / 3) +
-      " por ano nos dois períodos. O que mudou foram os óbitos, que passaram de " + int.format(somaV(ini, "obitos") / 3) + " para " + int.format(somaV(fim, "obitos") / 3) +
-      " por ano. Entre os Censos de " + censos[0].ano + " e " + censos[censos.length - 1].ano + ", a população foi de " + int.format(censos[0].valor) + " para " +
-      int.format(censos[censos.length - 1].valor) + " pessoas. Depois do Censo, as estimativas do IBGE de " + estimativas[0].ano + " a " +
-      estimativas[estimativas.length - 1].ano + " ficam estáveis, entre " + int.format(Math.min(...estimativas.map(x => x.valor))) + " e " +
-      int.format(Math.max(...estimativas.map(x => x.valor))) + " moradores.",
+    titulo: nascemMais ? "Ainda nascem mais pessoas do que morrem, mas a diferença diminuiu" : "Hoje morrem mais pessoas do que nascem",
+    texto: "De " + per(fim) + ", foram em média " + int.format(media(fim, "nascimentos")) + " nascimentos e " + int.format(media(fim, "obitos")) +
+      " óbitos por ano. De " + per(ini) + ", eram " + int.format(media(ini, "nascimentos")) + " e " + int.format(media(ini, "obitos")) +
+      ": os nascimentos se mantiveram e os óbitos aumentaram. A cidade envelhece, mas menos que a região: no Censo de " + env.ano + ", havia " +
+      int.format(env.mondai) + " pessoas de 60 anos ou mais para cada 100 de até 14 anos, contra " + int.format(env.mediana_regiao) +
+      " na mediana da região e " + int.format(env.mediana_sc) + " na de SC. Depois do Censo, as estimativas do IBGE ficam estáveis, entre " +
+      int.format(Math.min(...estimativas.map(x => x.valor))) + " e " + int.format(Math.max(...estimativas.map(x => x.valor))) + " moradores.",
     figura: "Nascimentos e óbitos de moradores de Mondaí, por ano.",
-    fonte: "IBGE, Registro Civil e Censos Demográficos"
+    fonte: "IBGE, Registro Civil, Censo Demográfico 2022 e Estimativas de População"
   }, () => ({
     config: {
       type: "line",
