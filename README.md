@@ -18,6 +18,7 @@ functions/api/     API (Cloudflare Pages Functions)
   registros.js     GET com senha: lista os registros (JSON ou CSV)
   resumo.js        GET público: contador de pessoas e cidades, sem nomes
 coleta.py          coleta, conferência e análise dos dados oficiais
+auditoria.py       refaz os números por outro caminho e compara com o IBGE Cidades
 schema.sql         tabela do banco D1
 wrangler.toml      configuração do Cloudflare Pages e do banco
 ```
@@ -57,11 +58,16 @@ O script [`coleta.py`](coleta.py) faz todo o processo, só com a biblioteca padr
 5. **Análise:** posição de Mondaí em SC e na região, contando empates a favor, e mediana de cada indicador.
 6. **Saída:** [`public/dados/municipios_sc.csv`](public/dados/municipios_sc.csv) (tabela aberta) e `public/dados/painel.js` (dados do painel).
 
-Para atualizar:
+Para atualizar e auditar:
 
 ```
 python coleta.py
+python auditoria.py
 ```
+
+A [`auditoria.py`](auditoria.py) refaz cada porcentagem a partir das contagens absolutas do IBGE, confere se pirâmide, setores e despesas fecham com os totais, recalcula os indicadores por habitante e as posições no ranking e compara com os valores e posições publicados no IBGE Cidades. O resultado fica em [`public/dados/auditoria.txt`](public/dados/auditoria.txt), e o script termina com erro se algum item não conferir.
+
+Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plansab), adotado pelo IBGE na divulgação do Censo 2022: rede geral e fossa séptica, ligada ou não à rede.
 
 ## Fontes
 

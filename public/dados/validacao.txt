@@ -102,6 +102,15 @@ Tabela 9397 (Censo Demográfico): Moradores em domicílios particulares permanen
   Grupo de idade 95253: Total
   Cor ou raça 95251: Total
 
+Tabela 9397 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio e por tipo de esgotamento sanitário, segundo grupos de idade e cor ou raça
+  variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
+  período: 2022 (publicado 2022-2022)
+  Tipo de esgotamento sanitário 46290: Rede geral, rede pluvial ou fossa ligada à rede
+  Tipo de esgotamento sanitário 72112: Fossa séptica ou fossa filtro não ligada à rede
+  Existência de banheiro ou sanitário e número de banheiros de uso exclusivo do domicílio 72117: Total
+  Grupo de idade 95253: Total
+  Cor ou raça 95251: Total
+
 Tabela 9541 (Censo Demográfico): Moradores em domicílios particulares permanentes ocupados, por destino do lixo, segundo grupos de idade e cor ou raça
   variável 1000382: Moradores em domicílios particulares permanentes ocupados - percentual do total geral [%]
   período: 2022 (publicado 2022-2022)

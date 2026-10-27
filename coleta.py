@@ -243,6 +243,12 @@ INDICADORES = [
      consulta(9397, 1000382, "Moradores em domicílios particulares permanentes ocupados - percentual", 2022,
               (11558, {46290: "Rede geral, rede pluvial ou fossa ligada à rede"}, "esgotamento sanitário"),
               (458, {72117: "Total"}, "banheiro"), TOTAL_IDADE_58, TOTAL_COR)),
+    # Critério do Plano Nacional de Saneamento Básico: rede geral, fossa séptica ligada ou não ligada à rede.
+    ("esgoto_adequado", "Saneamento", "Moradores com esgoto adequado (Plansab)", "%", 2022, "IBGE, Censo Demográfico",
+     consulta(9397, 1000382, "Moradores em domicílios particulares permanentes ocupados - percentual", 2022,
+              (11558, {46290: "Rede geral, rede pluvial ou fossa ligada à rede",
+                       72112: "Fossa séptica ou fossa filtro não ligada à rede"}, "esgotamento sanitário"),
+              (458, {72117: "Total"}, "banheiro"), TOTAL_IDADE_58, TOTAL_COR, somar=True)),
     ("lixo_coletado", "Saneamento", "Moradores com lixo coletado", "%", 2022, "IBGE, Censo Demográfico",
      consulta(9541, 1000382, "Moradores em domicílios particulares permanentes ocupados - percentual", 2022,
               (67, {2520: "Coletado"}, "Destino do lixo"), TOTAL_IDADE_58, TOTAL_COR)),

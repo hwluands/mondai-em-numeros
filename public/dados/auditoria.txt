@@ -1,0 +1,114 @@
+Auditoria de 26/10/2026: 103 itens conferidos, 0 falha(s).
+
+## 1. Porcentagens refeitas a partir das contagens absolutas do Censo 2022
+[ok] Esgoto, Mondaí, Rede geral ou fossa ligada à rede: painel 2.06 | conferência 2.0591
+[ok] Esgoto, Mondaí, Fossa séptica não ligada à rede: painel 71.72 | conferência 71.7199
+[ok] Esgoto, Mondaí, Fossa rudimentar ou buraco: painel 26.18 | conferência 26.1812
+[ok] Esgoto, Mondaí, Vala: painel 0.02 | conferência 0.0199
+[ok] Esgoto, Mondaí, Rio, lago ou córrego: painel 0.0 | conferência 0.0
+[ok] Esgoto, Mondaí, Outra forma: painel 0.02 | conferência 0.0199
+[ok] Esgoto, Mondaí, Sem banheiro nem sanitário: painel 0.0 | conferência 0.0
+[ok] Indicador 'moradores ligados à rede de esgoto': painel 2.06 | conferência 2.0591
+[ok] Indicador 'esgoto adequado (Plansab)' = rede + fossa séptica: painel 73.78 | conferência 73.779
+[ok] Esgoto, Santa Catarina, Rede geral ou fossa ligada à rede: painel 53.54 | conferência 53.5428
+[ok] Esgoto, Santa Catarina, Fossa séptica não ligada à rede: painel 35.65 | conferência 35.6524
+[ok] Esgoto, Santa Catarina, Fossa rudimentar ou buraco: painel 9.29 | conferência 9.2854
+[ok] Esgoto, Santa Catarina, Vala: painel 0.6 | conferência 0.5977
+[ok] Esgoto, Santa Catarina, Rio, lago ou córrego: painel 0.65 | conferência 0.6549
+[ok] Esgoto, Santa Catarina, Outra forma: painel 0.24 | conferência 0.2412
+[ok] Esgoto, Santa Catarina, Sem banheiro nem sanitário: painel 0.03 | conferência 0.0257
+[ok] Água, Mondaí, Rede geral: painel 81.07 | conferência 81.0703
+[ok] Água, Mondaí, Rede geral, mas usa outra fonte: painel 10.02 | conferência 10.0169
+[ok] Água, Mondaí, Sem ligação à rede: painel 8.91 | conferência 8.9128
+[ok] Indicador 'moradores ligados à rede de água': painel 91.09 | conferência 91.0872
+[ok] Água, Santa Catarina, Rede geral: painel 83.82 | conferência 83.8216
+[ok] Água, Santa Catarina, Rede geral, mas usa outra fonte: painel 4.37 | conferência 4.3687
+[ok] Água, Santa Catarina, Sem ligação à rede: painel 11.81 | conferência 11.8097
+[ok] Lixo, Mondaí, Coletado na porta: painel 87.67 | conferência 87.6654
+[ok] Lixo, Mondaí, Caçamba de coleta: painel 0.62 | conferência 0.6167
+[ok] Lixo, Mondaí, Queimado na propriedade: painel 7.36 | conferência 7.361
+[ok] Lixo, Mondaí, Enterrado na propriedade: painel 1.3 | conferência 1.3031
+[ok] Lixo, Mondaí, Terreno baldio ou área pública: painel 0.0 | conferência 0.0
+[ok] Lixo, Mondaí, Outro destino: painel 3.05 | conferência 3.0538
+[ok] Indicador 'moradores com lixo coletado': painel 88.28 | conferência 88.2821
+[ok] Lixo, Santa Catarina, Coletado na porta: painel 89.63 | conferência 89.6283
+[ok] Lixo, Santa Catarina, Caçamba de coleta: painel 7.02 | conferência 7.0206
+[ok] Lixo, Santa Catarina, Queimado na propriedade: painel 2.57 | conferência 2.5688
+[ok] Lixo, Santa Catarina, Enterrado na propriedade: painel 0.38 | conferência 0.384
+[ok] Lixo, Santa Catarina, Terreno baldio ou área pública: painel 0.02 | conferência 0.0167
+[ok] Lixo, Santa Catarina, Outro destino: painel 0.38 | conferência 0.3816
+[ok] Instrução, Mondaí, Sem instrução ou fundamental incompleto: painel 35.75 | conferência 35.7461
+[ok] Instrução, Mondaí, Fundamental completo: painel 14.85 | conferência 14.8464
+[ok] Instrução, Mondaí, Médio completo: painel 35.2 | conferência 35.1982
+[ok] Instrução, Mondaí, Superior completo: painel 14.21 | conferência 14.2093
+[ok] Indicador 'adultos com ensino superior completo': painel 14.21 | conferência 14.2093
+[ok] Instrução, Santa Catarina, Sem instrução ou fundamental incompleto: painel 27.57 | conferência 27.574
+[ok] Instrução, Santa Catarina, Fundamental completo: painel 16.59 | conferência 16.589
+[ok] Instrução, Santa Catarina, Médio completo: painel 36.15 | conferência 36.1502
+[ok] Instrução, Santa Catarina, Superior completo: painel 19.69 | conferência 19.6868
+[ok] Alfabetização de Mondaí (alfabetizadas ÷ total): painel 96.61 | conferência 96.6067
+[ok] População urbana de Mondaí (urbana ÷ total): painel 68.6 | conferência 68.5973
+
+## 2. Somas que precisam fechar
+[ok] Pirâmide etária somada = população do Censo 2022: painel 10066.0 | conferência 10066.0
+[ok] Empregos por setor somados = pessoal ocupado 2024: painel 3695.0 | conferência 3695.0
+[ok] Despesas por área somadas = total liquidado 2025 (Siconfi): painel 80238812.74 | conferência 80238812.74
+[ok] Despesa total por habitante: painel 7861.93 | conferência 7861.9256
+[ok] Série de empresas 2024 = indicador de empresas: painel 653.0 | conferência 653.0
+
+## 3. Indicadores por habitante recalculados
+[ok] Suínos por habitante (suínos ÷ população 2025): painel 9.52 | conferência 9.5172
+[ok] Leite produzido por habitante (leite (mil litros × 1000) ÷ população 2025): painel 2699.88 | conferência 2699.8824
+[ok] Pessoal ocupado em empresas por 100 habitantes (pessoal ocupado ÷ população 2024 × 100): painel 36.17 | conferência 36.1688
+[ok] Peso da indústria + agro + serviços + adm. pública = 100%: painel 100 | conferência 100.0
+
+## 4. Posições no ranking recalculadas a partir dos 295 municípios
+[ok] População estimada (2026): posição do maior para o menor: painel 134 | conferência 134
+[ok] População no Censo (2022): posição do maior para o menor: painel 133 | conferência 133
+[ok] Área do município (2022): posição do maior para o menor: painel 169 | conferência 169
+[ok] Densidade demográfica (2022): posição do maior para o menor: painel 99 | conferência 99
+[ok] Crescimento da população por ano, 2010 a 2022 (2022): posição do maior para o menor: painel 233 | conferência 233
+[ok] População urbana (2022): posição do maior para o menor: painel 132 | conferência 132
+[ok] Idade mediana (2022): posição do maior para o menor: painel 121 | conferência 121
+[ok] Índice de envelhecimento (2022): posição do maior para o menor: painel 127 | conferência 127
+[ok] Alfabetização (15 anos ou mais) (2022): posição do maior para o menor: painel 119 | conferência 119
+[ok] Adultos com ensino superior completo (2022): posição do maior para o menor: painel 103 | conferência 103
+[ok] Rendimento médio do trabalho (2022): posição do maior para o menor: painel 151 | conferência 151
+[ok] Rendimento mediano do trabalho (2022): posição do maior para o menor: painel 95 | conferência 95
+[ok] Empresas e organizações ativas (2024): posição do maior para o menor: painel 130 | conferência 130
+[ok] Pessoal ocupado em empresas (2024): posição do maior para o menor: painel 121 | conferência 121
+[ok] Salário médio mensal (2024): posição do maior para o menor: painel 191 | conferência 191
+[ok] Salário médio mensal (2024): posição do maior para o menor: painel 191 | conferência 191
+[ok] PIB (2023): posição do maior para o menor: painel 71 | conferência 71
+[ok] Moradores ligados à rede de água (2022): posição do maior para o menor: painel 58 | conferência 58
+[ok] Moradores ligados à rede de esgoto (2022): posição do maior para o menor: painel 234 | conferência 234
+[ok] Moradores com esgoto adequado (Plansab) (2022): posição do maior para o menor: painel 184 | conferência 184
+[ok] Moradores com lixo coletado (2022): posição do maior para o menor: painel 193 | conferência 193
+[ok] Rebanho de suínos (2025): posição do maior para o menor: painel 31 | conferência 31
+[ok] Rebanho de bovinos (2025): posição do maior para o menor: painel 55 | conferência 55
+[ok] Rebanho de galináceos (2025): posição do maior para o menor: painel 48 | conferência 48
+[ok] Produção de leite (2025): posição do maior para o menor: painel 37 | conferência 37
+[ok] Valor da produção das lavouras (2025): posição do maior para o menor: painel 163 | conferência 163
+[ok] Nascimentos por mil habitantes (2024): posição do maior para o menor: painel 227 | conferência 227
+[ok] Óbitos por mil habitantes (2024): posição do maior para o menor: painel 87 | conferência 87
+[ok] Pessoal ocupado em empresas por 100 habitantes (2024): posição do maior para o menor: painel 112 | conferência 112
+[ok] Peso da indústria na economia (2021): posição do maior para o menor: painel 7 | conferência 7
+[ok] Peso da agropecuária na economia (2021): posição do maior para o menor: painel 219 | conferência 219
+[ok] Peso dos serviços na economia (2021): posição do maior para o menor: painel 192 | conferência 192
+[ok] Peso da administração pública na economia (2021): posição do maior para o menor: painel 291 | conferência 291
+[ok] Leite produzido por habitante (2025): posição do maior para o menor: painel 74 | conferência 74
+[ok] Suínos por habitante (2025): posição do maior para o menor: painel 55 | conferência 55
+[ok] PIB por habitante (2023): posição do maior para o menor: painel 8 | conferência 8
+
+## 5. Comparação com o IBGE Cidades (cidades.ibge.gov.br/brasil/sc/mondai/panorama, consultado em 26/10/2026)
+[ok] População no Censo 2022: painel 10066.0 | conferência 10066
+[ok] População: posição em SC: painel 133 | conferência 133
+[ok] Densidade demográfica 2022: painel 50.26 | conferência 50.26
+[ok] Densidade: posição em SC: painel 99 | conferência 99
+[ok] PIB per capita 2023: painel 124112.53 | conferência 124112.53
+[ok] PIB per capita: posição em SC: painel 8 | conferência 8
+[ok] Esgoto por rede geral ou fossa ligada à rede 2022 (%): painel 2.06 | conferência 2.06
+[ok] Esgoto: posição em SC: painel 234 | conferência 234
+[ok] Esgoto: posição na região: painel 18 | conferência 18
+[ok] Pessoal ocupado 2023: painel 3634.0 | conferência 3634
+[ok] Salário médio 2023 (salários mínimos): painel 2.1 | conferência 2.1

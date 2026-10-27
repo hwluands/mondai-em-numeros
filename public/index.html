@@ -326,7 +326,8 @@
           </ul>
         </div>
         <div>
-          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo.</p>
+          <p><b>Método.</b> Os dados são baixados das APIs oficiais por um script em Python, que antes de cada download confere nos metadados do IBGE se a tabela, a variável, as categorias e o ano são os esperados. Valores por habitante usam a estimativa de população do mesmo ano. "8º maior" quer dizer que só 7 cidades têm valor mais alto. A mediana é o valor do meio: metade das cidades fica acima e metade abaixo. Esgoto adequado segue o Plano Nacional de Saneamento Básico (Plansab): rede geral e fossa séptica, ligada ou não à rede.</p>
+          <p><b>Auditoria.</b> Um segundo script refaz cada porcentagem a partir das contagens absolutas do IBGE, confere somas, rankings e indicadores por habitante e compara com o IBGE Cidades. <a href="dados/auditoria.txt">Ver o resultado</a>.</p>
           <p><b>Privacidade.</b> O nome e a cidade informados na entrada ficam registrados com a data e a hora do acesso e servem apenas para medir o alcance do projeto. Nenhum outro dado é coletado.</p>
           <p><a href="dados/municipios_sc.csv" download>Baixar os dados das 295 cidades (CSV)</a><br><a href="dados/validacao.txt">Ver a conferência das fontes</a><span id="itemCodigo"><br><a href="#" id="linkCodigo">Código-fonte</a></span></p>
         </div>
@@ -345,8 +346,8 @@
 <div id="portao" class="portao" role="dialog" aria-modal="true" aria-labelledby="p-titulo" hidden>
   <form class="portao-caixa" id="portaoForm">
     <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1b6b46"/><rect x="7" y="17" width="4" height="8" rx="1" fill="#fff"/><rect x="14" y="11" width="4" height="14" rx="1" fill="#fff"/><rect x="21" y="7" width="4" height="18" rx="1" fill="#fff"/></svg>
-    <h2 id="p-titulo">Compare Mondaí com a sua cidade</h2>
-    <p>Diga quem é você e onde mora. Em seguida, mostramos como a sua cidade se compara com Mondaí.</p>
+    <h2 id="p-titulo">Os números de Mondaí, comparados com a sua cidade</h2>
+    <p>Diga quem é você e onde mora. Se você é de Mondaí, comparamos com a região; se é de outra cidade, com a sua.</p>
     <label for="p-nome">Seu nome</label>
     <input type="text" id="p-nome" autocomplete="name" maxlength="80" required>
     <label for="p-cidade">Cidade onde você mora</label>
@@ -545,6 +546,7 @@
         },
         options: opcoes({
           indexAxis: "y",
+          layout: { padding: { left: 6 } },
           plugins: { legend: { position: "bottom", labels: { boxWidth: 12, color: cor("tinta") } },
             tooltip: { callbacks: { label: c => c.dataset.label + ": " + d1.format(c.parsed.x) + "%" } } },
           scales: { x: { stacked: true, max: 100, ticks: { callback: v => v + "%" } }, y: { stacked: true, grid: { display: false }, ticks: { color: cor("tinta") } } }
@@ -553,6 +555,20 @@
       descricao: locais.map(l => l + ": " + categorias.map(c => c + " " + d1.format(valores[l][c]) + "%").join(", ")).join(". "),
       tabela: [["Categoria", ...locais], categorias.map(c => [c, ...locais.map(l => d1.format(valores[l][c]) + "%")])]
     };
+  }
+
+  // Esgoto agrupado pelo critério do Plansab, com a classificação escrita no próprio rótulo.
+  function esgotoRotulado() {
+    const r = {};
+    Object.entries(S.esgoto).forEach(([local, e]) => {
+      r[local] = {
+        "Rede geral ou fossa ligada à rede (adequado)": e["Rede geral ou fossa ligada à rede"],
+        "Fossa séptica (adequado)": e["Fossa séptica não ligada à rede"],
+        "Fossa rudimentar ou buraco (precário)": e["Fossa rudimentar ou buraco"],
+        "Outras formas (precário)": e["Vala"] + e["Rio, lago ou córrego"] + e["Outra forma"] + e["Sem banheiro nem sanitário"]
+      };
+    });
+    return r;
   }
 
   // Cada gráfico guarda a função que o monta; é redesenhado ao trocar o contraste.
@@ -567,15 +583,17 @@
 
   // ---------------------------------------------------------------- abertura
   const I = IND;
-  const esgotoSC = S.esgoto["Santa Catarina"]["Rede geral ou fossa ligada à rede"];
+  const esgM = S.esgoto["Mondaí"], esgSC = S.esgoto["Santa Catarina"];
+  // Critério do Plansab: rede geral e fossa séptica (ligada ou não à rede) são adequadas; o resto é precário.
+  const precario = e => 100 - e["Rede geral ou fossa ligada à rede"] - e["Fossa séptica não ligada à rede"];
 
   function abertura() {
     const pc = I.pib_pc;
     document.getElementById("manchete").innerHTML =
       "Mondaí produz mais riqueza por habitante que <em>" + int.format(pc.menor_sc - 1) + " das " + int.format(pc.total_sc) + "</em> cidades de Santa Catarina.";
     document.getElementById("lide").textContent =
-      "Mas só " + Math.round(I.esgoto_rede.mondai) + " em cada 100 moradores têm esgoto ligado à rede, contra " + Math.round(esgotoSC) +
-      " no estado. Veja o que mais os números oficiais contam sobre a cidade, e como a sua se compara.";
+      "Mas " + Math.round(esgM["Fossa rudimentar ou buraco"]) + " em cada 100 moradores ainda usam fossa rudimentar ou buraco para o esgoto, contra " +
+      Math.round(esgSC["Fossa rudimentar ou buraco"]) + " no estado. Veja o que mais os números oficiais contam sobre a cidade, e como a sua se compara.";
     const numeros = [
       [int.format(I.pop2026.mondai), "habitantes, estimativa oficial de " + I.pop2026.ano],
       [milReais(pc.mondai), "de PIB por habitante em " + pc.ano + ", o " + pc.maior_sc + "º de SC"],
@@ -586,7 +604,7 @@
   }
 
   // ---------------------------------------------------------------- sua cidade
-  const DUELO = ["pop2026", "pib_pc", "salario_rs", "empresas", "superior", "esgoto_rede", "idade_mediana", "suinos"];
+  const DUELO = ["pop2026", "pib_pc", "salario_rs", "empresas", "superior", "esgoto_adequado", "idade_mediana", "suinos"];
 
   function preencherCidades() {
     const opcoes = Object.entries(MUN).filter(([id]) => id !== P.mondai).sort((a, b) => a[1].nome.localeCompare(b[1].nome, "pt-BR"));
@@ -680,7 +698,7 @@
     const ind = setores.find(x => x.secao === "Indústrias de transformação");
     capitulo(2, {
       tema: "Trabalho",
-      titulo: "Quase metade de quem trabalha em empresas está na indústria",
+      titulo: Math.round(ind.pessoas / totalOc * 100) + " em cada 100 pessoas que trabalham em empresas estão na indústria",
       texto: "Em " + I.ocupados.ano + ", " + int.format(ind.pessoas) + " das " + int.format(totalOc) + " pessoas ocupadas em empresas e organizações de Mondaí estavam na indústria de transformação: " +
         Math.round(ind.pessoas / totalOc * 100) + " em cada 100. Na economia, a indústria respondia por " + Math.round(I.pct_ind.mondai) + "% do valor produzido em " +
         I.pct_ind.ano + ", o " + I.pct_ind.maior_sc + "º maior peso de Santa Catarina.",
@@ -719,14 +737,20 @@
       };
     });
 
-    // 4. População
+    // 4. População. Médias de 3 anos, porque um ano isolado com ~100 nascimentos oscila muito.
+    const ini = S.vitais.slice(0, 3), fim = S.vitais.slice(-3);
+    const somaV = (a, k) => a.reduce((s, x) => s + x[k], 0);
+    const per = a => a[0].ano + " a " + a[a.length - 1].ano;
+    const razao = a => somaV(a, "nascimentos") / somaV(a, "obitos");
     const v0 = S.vitais[0], v1 = S.vitais[S.vitais.length - 1];
     const censos = S.populacao.filter(x => x.tipo === "Censo");
     capitulo(4, {
       tema: "População",
-      titulo: "Em " + v0.ano + ", nasciam " + d1.format(v0.nascimentos / v0.obitos) + " bebês para cada morte. Em " + v1.ano + ", " + d1.format(v1.nascimentos / v1.obitos) + ".",
-      texto: "Entre os Censos de " + censos[0].ano + " e " + censos[censos.length - 1].ano + ", a população foi de " + int.format(censos[0].valor) + " para " +
-        int.format(censos[censos.length - 1].valor) + " pessoas. Com menos nascimentos e mais óbitos, a distância entre as duas linhas encolheu.",
+      titulo: "De " + per(ini) + ", nasciam " + d1.format(razao(ini)) + " bebês para cada morte. De " + per(fim) + ", " + d1.format(razao(fim)) + ".",
+      texto: "Os nascimentos ficaram estáveis, com média de " + int.format(somaV(ini, "nascimentos") / 3) + " e " + int.format(somaV(fim, "nascimentos") / 3) +
+        " por ano nos dois períodos. O que mudou foram os óbitos, que passaram de " + int.format(somaV(ini, "obitos") / 3) + " para " + int.format(somaV(fim, "obitos") / 3) +
+        " por ano. Entre os Censos de " + censos[0].ano + " e " + censos[censos.length - 1].ano + ", a população foi de " + int.format(censos[0].valor) + " para " +
+        int.format(censos[censos.length - 1].valor) + " pessoas.",
       fonte: "IBGE, Registro Civil e Censos Demográficos"
     }, () => ({
       config: {
@@ -748,16 +772,15 @@
       tabela: [["Ano", "Nascimentos", "Óbitos"], S.vitais.map(x => [x.ano, x.nascimentos, x.obitos])]
     }));
 
-    // 5. Esgoto
-    const e = S.esgoto["Mondaí"];
+    // 5. Esgoto, pelo critério do Plansab
     capitulo(5, {
       tema: "Saneamento",
-      titulo: "Só " + Math.round(I.esgoto_rede.mondai) + " em cada 100 moradores têm esgoto ligado à rede",
-      texto: "Em Santa Catarina, são " + Math.round(esgotoSC) + " em cada 100. Em Mondaí, " + Math.round(e["Fossa séptica não ligada à rede"]) +
-        "% dos moradores usam fossa séptica e " + Math.round(e["Fossa rudimentar ou buraco"]) + "%, fossa rudimentar ou buraco.",
-      fonte: "IBGE, Censo Demográfico 2022"
-    }, () => composicao(S.esgoto, ["c3", "c5", "c2", "c7"],
-      { nome: "Outras formas", itens: ["Vala", "Rio, lago ou córrego", "Outra forma", "Sem banheiro nem sanitário"] }));
+      titulo: Math.round(precario(esgM)) + " em cada 100 moradores usam fossa rudimentar ou outra solução precária para o esgoto",
+      texto: "Pelo Plano Nacional de Saneamento Básico, rede geral e fossa séptica são soluções adequadas. Em Mondaí, " + Math.round(I.esgoto_adequado.mondai) +
+        "% dos moradores estão nesse grupo, contra " + Math.round(100 - precario(esgSC)) + "% em Santa Catarina. Quase todos usam fossa séptica: só " +
+        Math.round(I.esgoto_rede.mondai) + "% estão ligados à rede geral, contra " + Math.round(esgSC["Rede geral ou fossa ligada à rede"]) + "% no estado.",
+      fonte: "IBGE, Censo Demográfico 2022; critério do Plansab"
+    }, () => composicao(esgotoRotulado(), ["c3", "c5", "c2", "c7"]));
 
     // 6. Prefeitura
     const pf = P.prefeitura;
@@ -1063,8 +1086,8 @@
 
     // Saneamento
     cartao("saneamento", { titulo: "Água", nota: "Censo 2022 · ligação à rede geral de distribuição", largura: "l4" }, () => composicao(S.agua, ["c3", "c5", "c7"]));
-    cartao("saneamento", { titulo: "Esgoto", nota: "Censo 2022 · tipo de esgotamento sanitário", largura: "l4" }, () =>
-      composicao(S.esgoto, ["c3", "c5", "c2", "c7"], { nome: "Outras formas", itens: ["Vala", "Rio, lago ou córrego", "Outra forma", "Sem banheiro nem sanitário"] }));
+    cartao("saneamento", { titulo: "Esgoto", nota: "Censo 2022 · tipo de esgotamento sanitário, pelo critério do Plansab", largura: "l4" }, () =>
+      composicao(esgotoRotulado(), ["c3", "c5", "c2", "c7"]));
     cartao("saneamento", { titulo: "Lixo", nota: "Censo 2022 · destino do lixo", largura: "l4" }, () =>
       composicao(S.lixo, ["c3", "c5", "c2", "c7"], { nome: "Outros destinos", itens: ["Enterrado na propriedade", "Terreno baldio ou área pública", "Outro destino"] }));
 
