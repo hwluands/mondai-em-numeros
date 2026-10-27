@@ -29,7 +29,7 @@ html[data-tema="escuro"] .icone-sol { display: block; }
 
 /* Abertura: manchete grande e o ranking das 295 cidades */
 .abertura { padding: 56px 0 44px; border-bottom: 1px solid var(--linha); }
-.abertura h1 { font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: 0.98; font-stretch: 72%; max-width: 17ch; }
+.abertura h1 { font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: 0.98; font-stretch: 72%; max-width: 24ch; text-wrap: balance; }
 .abertura h1 .m { color: var(--c1); }
 .lide { font-size: clamp(1.05rem, 1.7vw, 1.25rem); max-width: 58ch; margin: 20px 0 32px; }
 .assinatura { margin: 0 0 32px; }
@@ -112,10 +112,12 @@ section.bloco:first-of-type { border-top: 0; }
 .kpi .ano { flex: none; font-size: 0.75rem; }
 .kpi .valor { color: var(--tinta); font-weight: 750; font-stretch: 75%; font-size: 1.9rem; line-height: 1.05; margin: 2px 0 0; }
 .kpi .pos { font-size: 0.82rem; font-weight: 650; color: var(--c1); }
-.abas { display: flex; gap: 0; overflow-x: auto; margin-bottom: 24px; border-bottom: 1px solid var(--linha); scrollbar-width: thin; }
-.abas [role=tab] { white-space: nowrap; min-height: 42px; padding: 8px 14px; font-size: 0.9rem; background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--suave); margin-bottom: -1px; }
-.abas [role=tab]:hover { color: var(--tinta); }
-.abas [role=tab][aria-selected=true] { color: var(--tinta); font-weight: 650; border-bottom-color: var(--c1); }
+/* Temas como botões que quebram linha: todos à vista, sem rolagem escondida */
+.abas-rotulo { margin: 0 0 10px; font-size: 0.82rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.04em; color: var(--suave); }
+.abas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--linha); }
+.abas [role=tab] { white-space: nowrap; min-height: 42px; padding: 8px 16px; font-size: 0.92rem; font-weight: 600; background: var(--card); border: 1px solid var(--linha); color: var(--tinta); }
+.abas [role=tab]:hover { border-color: var(--c1); color: var(--c1); }
+.abas [role=tab][aria-selected=true] { background: var(--c1); border-color: var(--c1); color: var(--sobre-c1); }
 .grade { display: grid; column-gap: 40px; row-gap: 40px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
 .grade .card { grid-column: span 6; padding-top: 14px; border-top: 1px solid var(--tinta); }
 .grade .card.l4 { grid-column: span 4; }
@@ -183,6 +185,10 @@ body.travado { overflow: hidden; }
   .acess .rotulo { display: none; }
   .acess button { padding: 0 8px; }
   .segmento button { width: 32px; }
+  /* No celular os temas ficam numa linha que rola; o esmaecido na borda mostra que tem mais */
+  .abas { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -16px; padding-right: 32px;
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+  .abas::-webkit-scrollbar { display: none; }
   .abertura { padding: 36px 0 32px; }
   .ficha { grid-template-columns: 1fr; }
   .ficha div, .ficha div + div { padding: 12px 0; border-left: 0; }
