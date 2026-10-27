@@ -38,7 +38,6 @@ export function duelo(outra, intro) {
     return '<div class="card linha-duelo"><h3>' + I[k].rotulo + ' <span class="ano">· ' + I[k].ano + "</span></h3>" +
       linha("Mondaí", a, "c1") + linha(O.nome, b, "c4") + '<p class="veredito">' + veredito + "</p></div>";
   }).join("");
-  document.getElementById("chamadaCidade").textContent = "Ver Mondaí × " + O.nome;
 }
 
 // Redesenha com as cores atuais (ao trocar o contraste).

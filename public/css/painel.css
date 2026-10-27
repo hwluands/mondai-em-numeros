@@ -17,13 +17,12 @@
 .abertura h1 .m { color: var(--c1); }
 .lide { font-size: clamp(1.05rem, 1.7vw, 1.25rem); max-width: 58ch; margin: 20px 0 32px; }
 .assinatura { margin: 0 0 32px; }
-.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 28px; border-top: 1px solid var(--tinta); }
+.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--linha); }
 .ficha div { display: flex; flex-direction: column; padding: 14px 20px 16px 0; }
 .ficha div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
 .ficha dd { margin: 0; color: var(--tinta); font-weight: 750; font-stretch: 75%; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; }
 .ficha dt { order: 2; font-size: 0.85rem; color: var(--suave); }
-.chamadas { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
-.contador { font-size: 0.85rem; color: var(--suave); }
+.contador { font-size: 0.85rem; color: var(--suave); margin: 14px 0 0; }
 
 /* Ranking de 295 traços (js/painel/ranking.js) */
 .ranking-titulo { font-size: 0.85rem; color: var(--suave); margin: 0; }
