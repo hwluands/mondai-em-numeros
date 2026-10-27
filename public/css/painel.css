@@ -55,6 +55,7 @@ section.bloco:first-of-type { border-top: 0; }
 /* Sua cidade: lista de indicadores com fios, Mondaí na cor e a outra cidade em neutro */
 .duelo-topo { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: end; justify-content: space-between; margin-bottom: 8px; }
 .duelo-topo .intro { margin-bottom: 0; }
+#sua-cidade > .largura > .nota { margin-top: 14px; }
 .duelo-topo label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 4px; min-width: 240px; color: var(--tinta); }
 .duelo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; border-top: 1px solid var(--tinta); }
 .linha-duelo { padding: 16px 0 14px; border-bottom: 1px solid var(--linha); }
