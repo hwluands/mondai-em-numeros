@@ -1,0 +1,97 @@
+/* Protótipo da nova identidade: publicação estatística regional.
+   Regra de cor: Mondaí é a única cor forte; as outras cidades ficam em cinza. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url(../fontes/archivo-latin-wdth-normal.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url(../fontes/archivo-latin-ext-wdth-normal.woff2) format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0;
+}
+
+:root {
+  --fundo: #fcfcfa;
+  --tinta: #121212;
+  --suave: #5c5c58;
+  --fio: #d9d9d4;
+  --cidade: #c4c4bd;
+  --mondai: #cf3a1d;
+  --fonte: "Archivo", "Arial Narrow", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  margin: 0; background: var(--fundo); color: var(--tinta);
+  font-family: var(--fonte); font-stretch: 100%; line-height: 1.5;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
+}
+.largura { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+a { color: inherit; }
+
+/* Cabeçalho de publicação: fio grosso em cima, nome e edição */
+.cabecalho { border-top: 6px solid var(--tinta); border-bottom: 1px solid var(--tinta); }
+.cabecalho .largura { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 12px; padding-bottom: 10px; }
+.nome { font-weight: 800; font-stretch: 80%; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.01em; text-decoration: none; }
+.edicao { font-size: 0.82rem; color: var(--suave); text-align: right; }
+
+/* Abertura */
+.abertura { padding-top: 48px; }
+.abertura h1 {
+  font-weight: 800; font-stretch: 72%; font-size: clamp(2.4rem, 6.4vw, 4.6rem);
+  line-height: 0.98; letter-spacing: -0.01em; margin: 0; max-width: 17ch;
+}
+.abertura h1 .m { color: var(--mondai); }
+.lide { font-size: clamp(1.05rem, 1.7vw, 1.25rem); max-width: 58ch; margin: 20px 0 36px; color: #2b2b28; }
+
+/* Assinatura: as 295 cidades como 295 traços */
+.faixa-295 { margin: 0 0 28px; }
+.ranking { position: relative; height: var(--altura); margin-top: 28px; border-bottom: 1px solid var(--tinta); }
+.ranking svg { display: block; width: 100%; height: 100%; shape-rendering: crispEdges; }
+.marca-mediana, .marca-mondai { position: absolute; bottom: 0; width: 0; font-size: 0.75rem; white-space: nowrap; }
+.marca-mediana { top: -14px; border-left: 1px dashed var(--tinta); color: var(--suave); }
+.marca-mediana span { position: absolute; top: -4px; left: 5px; }
+.marca-mondai { top: -24px; bottom: calc(100% - var(--topo)); border-left: 2px solid var(--mondai); color: var(--mondai); font-weight: 700; font-size: 0.85rem; }
+.marca-mondai span { position: absolute; top: -4px; left: 6px; }
+.marca-mondai.esquerda span, .marca-mediana.esquerda span { left: auto; right: 5px; }
+.eixo { position: absolute; left: 0; right: 0; top: calc(100% + 4px); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--suave); }
+.faixa-titulo { font-size: 0.82rem; color: var(--suave); margin: 0 0 6px; }
+.faixa-titulo b { color: var(--tinta); font-weight: 650; }
+
+/* Ficha: números do topo separados por fios, sem cartões */
+.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 32px 0 0; border-top: 1px solid var(--tinta); }
+.ficha div { padding: 14px 20px 18px 0; }
+.ficha div + div { padding-left: 20px; border-left: 1px solid var(--fio); }
+.ficha dt { font-size: 0.82rem; color: var(--suave); order: 2; }
+.ficha dd { margin: 0; font-weight: 750; font-stretch: 75%; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; }
+
+/* História no formato de relatório: texto estreito, figura numerada com fonte */
+.historia { display: grid; grid-template-columns: 4fr 8fr; gap: 40px; padding-top: 56px; padding-bottom: 64px; margin-top: 56px; border-top: 1px solid var(--tinta); }
+.secao { font-size: 0.82rem; font-weight: 650; margin: 0 0 10px; color: var(--mondai); }
+.historia h2 { font-weight: 800; font-stretch: 75%; font-size: clamp(1.6rem, 2.8vw, 2.2rem); line-height: 1.05; margin: 0 0 16px; }
+.historia-texto p:not(.secao) { margin: 0; color: #2b2b28; }
+.figura { margin: 0; }
+.figura-titulo { font-size: 0.9rem; margin-bottom: 18px; max-width: 60ch; }
+.figura .linha-ranking + .linha-ranking { margin-top: 44px; }
+.fonte { font-size: 0.78rem; color: var(--suave); margin: 36px 0 0; padding-top: 8px; border-top: 1px solid var(--fio); }
+
+.rodape { border-top: 1px solid var(--tinta); padding: 18px 0 40px; font-size: 0.82rem; color: var(--suave); }
+
+@media (max-width: 860px) {
+  .historia { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 560px) {
+  .cabecalho .edicao { display: none; }
+  .ficha { grid-template-columns: 1fr; }
+  .ficha div, .ficha div + div { padding: 12px 0; border-left: 0; }
+  .ficha div + div { border-top: 1px solid var(--fio); }
+}
