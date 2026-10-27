@@ -52,7 +52,7 @@ Cada gráfico tem uma tabela equivalente ("Ver em tabela"). O link tem prévia p
 O script [`coleta.py`](coleta.py) faz todo o processo, só com a biblioteca padrão do Python:
 
 1. **Conferência:** antes de baixar, consulta os metadados oficiais do IBGE e confirma se a tabela tem dado por município, se o ano foi publicado e se a variável e cada categoria têm o nome esperado. Se algo não bater, para com erro. O registro fica em [`public/dados/validacao.txt`](public/dados/validacao.txt).
-2. **Coleta:** baixa 34 séries dos 295 municípios pela API do SIDRA, o PIB per capita oficial do IBGE Cidades e as despesas das prefeituras da região no Siconfi.
+2. **Coleta:** baixa 35 séries dos 295 municípios pela API do SIDRA, o PIB per capita oficial do IBGE Cidades e as despesas das prefeituras da região no Siconfi.
 3. **Limpeza:** trata os símbolos do IBGE (`-` é zero; `...` e `X` ficam sem valor).
 4. **Indicadores derivados:** nascimentos, óbitos, pessoal ocupado e produção por habitante, usando a estimativa de população do mesmo ano; peso de cada setor na economia.
 5. **Análise:** posição de Mondaí em SC e na região, contando empates a favor, e mediana de cada indicador.
