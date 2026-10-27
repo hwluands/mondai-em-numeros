@@ -1,0 +1,173 @@
+/* Painel público (index.html). */
+
+/* Barra do topo: fio de cor em cima, nome, seções e controles */
+.topo { position: sticky; top: 0; z-index: 10; border-top: 4px solid var(--c1); border-bottom: 1px solid var(--linha); }
+.topo .largura { display: flex; align-items: center; gap: 20px; min-height: 52px; }
+.marca { font-weight: 800; font-stretch: 80%; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.01em; color: var(--tinta); text-decoration: none; white-space: nowrap; }
+.topo nav { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+.topo nav a { color: var(--suave); text-decoration: none; font-size: 0.88rem; padding: 6px 10px; white-space: nowrap; }
+.topo nav a:hover { color: var(--tinta); }
+.acess { display: flex; gap: 4px; }
+.acess button { min-height: 34px; padding: 4px 10px; font-size: 0.8rem; background: transparent; border-color: var(--linha); color: var(--tinta); }
+.acess button[aria-pressed=true] { border-color: var(--c1); color: var(--c1); }
+
+/* Abertura: sempre escura, manchete grande e o ranking das 295 cidades */
+.abertura { padding: 56px 0 44px; border-bottom: 1px solid var(--linha); }
+.abertura h1 { font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: 0.98; font-stretch: 72%; max-width: 17ch; }
+.abertura h1 .m { color: var(--c1); }
+.lide { font-size: clamp(1.05rem, 1.7vw, 1.25rem); max-width: 58ch; margin: 20px 0 32px; }
+.assinatura { margin: 0 0 32px; }
+.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 28px; border-top: 1px solid var(--tinta); }
+.ficha div { display: flex; flex-direction: column; padding: 14px 20px 16px 0; }
+.ficha div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
+.ficha dd { margin: 0; color: var(--tinta); font-weight: 750; font-stretch: 75%; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; }
+.ficha dt { order: 2; font-size: 0.85rem; color: var(--suave); }
+.chamadas { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.contador { font-size: 0.85rem; color: var(--suave); }
+
+/* Ranking de 295 traços (js/painel/ranking.js) */
+.ranking-titulo { font-size: 0.85rem; color: var(--suave); margin: 0; }
+.ranking-titulo b { color: var(--tinta); font-weight: 650; }
+.ranking { position: relative; height: var(--altura); margin-top: 30px; margin-bottom: 22px; border-bottom: 1px solid var(--tinta); }
+.ranking.mini { margin-top: 22px; margin-bottom: 20px; }
+.ranking svg { display: block; width: 100%; height: 100%; shape-rendering: crispEdges; }
+.ranking .barra-cidade { fill: var(--c6); }
+.ranking .barra-mondai { fill: var(--c1); }
+.ranking .corte { fill: var(--papel); }
+.marca-mediana, .marca-mondai { position: absolute; bottom: 0; width: 0; font-size: 0.75rem; white-space: nowrap; }
+.marca-mediana { top: -14px; border-left: 1px dashed var(--tinta); color: var(--suave); }
+.marca-mediana span { position: absolute; top: -4px; left: 5px; }
+.marca-mondai { top: -24px; bottom: calc(100% - var(--topo)); border-left: 2px solid var(--c1); color: var(--c1); font-weight: 700; font-size: 0.85rem; }
+.marca-mondai span { position: absolute; top: -4px; left: 6px; }
+.marca-mondai.esquerda span, .marca-mediana.esquerda span { left: auto; right: 5px; }
+.ranking.mini .marca-mediana span, .ranking.mini .marca-mondai span { display: none; }
+.ranking.mini .marca-mondai { top: -8px; }
+.ranking.mini .marca-mediana { top: -4px; }
+.eixo { position: absolute; left: 0; right: 0; top: calc(100% + 4px); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--suave); }
+
+/* Seções */
+section.bloco { padding: 56px 0; border-top: 1px solid var(--linha); scroll-margin-top: 60px; }
+section.bloco:first-of-type { border-top: 0; }
+.bloco h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.02; max-width: 28ch; }
+.bloco .intro { max-width: 62ch; margin: 12px 0 28px; }
+.card { min-width: 0; }
+.nota { font-size: 0.8rem; color: var(--suave); margin: 2px 0 12px; }
+
+/* Sua cidade: lista de indicadores com fios, Mondaí na cor e a outra cidade em neutro */
+.duelo-topo { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: end; justify-content: space-between; margin-bottom: 8px; }
+.duelo-topo .intro { margin-bottom: 0; }
+.duelo-topo label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 4px; min-width: 240px; color: var(--tinta); }
+.duelo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; border-top: 1px solid var(--tinta); }
+.linha-duelo { padding: 16px 0 14px; border-bottom: 1px solid var(--linha); }
+.linha-duelo h3 { font-size: 1.02rem; font-stretch: 85%; font-weight: 700; margin-bottom: 4px; }
+.linha-duelo .ano { font-size: 0.8rem; color: var(--suave); font-weight: 400; font-stretch: 100%; }
+.par { display: grid; grid-template-columns: 110px 1fr auto; gap: 10px; align-items: center; margin-top: 6px; font-size: 0.88rem; }
+.par .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--suave); }
+.par .barra { height: 8px; background: var(--trilho); }
+.par .barra i { display: block; height: 100%; }
+.par b { font-weight: 650; white-space: nowrap; color: var(--tinta); }
+.veredito { font-size: 0.82rem; color: var(--suave); margin: 8px 0 0; }
+
+/* Histórias: texto estreito à esquerda, figura numerada à direita, sempre na mesma ordem */
+.capitulo { display: grid; grid-template-columns: 4fr 8fr; gap: 48px; align-items: start; padding: 48px 0; scroll-margin-top: 60px; }
+.capitulo + .capitulo { border-top: 1px solid var(--linha); }
+.capitulo .num { display: block; font-size: 0.85rem; font-weight: 650; color: var(--c1); }
+.capitulo h3 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.04; margin: 8px 0 14px; }
+.capitulo .texto p { margin: 0 0 16px; max-width: 52ch; }
+.compartilhar { font-size: 0.85rem; padding: 8px 14px; min-height: 38px; }
+.figura { margin: 0; min-width: 0; }
+.figura-titulo { font-size: 0.9rem; margin: 0 0 14px; max-width: 64ch; }
+.figura-titulo b { color: var(--tinta); }
+.fonte { font-size: 0.78rem; color: var(--suave); margin: 14px 0 0; padding-top: 8px; border-top: 1px solid var(--linha); }
+.grafico { position: relative; height: 300px; }
+.grafico.alto { height: 400px; }
+.grafico.baixo { height: 220px; }
+.grafico.livre { height: auto; }
+.grafico.livre .ranking-titulo { margin-top: 36px; }
+.grafico.livre .ranking-titulo:first-child { margin-top: 4px; }
+
+/* Explorar: indicadores em ficha com mini ranking */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 40px; border-top: 1px solid var(--tinta); }
+.kpi { padding: 14px 18px 16px 0; border-bottom: 1px solid var(--linha); }
+.kpi:not(:nth-child(4n+1)) { padding-left: 18px; border-left: 1px solid var(--linha); }
+.kpi .rotulo { font-size: 0.82rem; color: var(--suave); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; min-height: 2.5em; }
+.kpi .ano { flex: none; font-size: 0.75rem; }
+.kpi .valor { color: var(--tinta); font-weight: 750; font-stretch: 75%; font-size: 1.9rem; line-height: 1.05; margin: 2px 0 0; }
+.kpi .pos { font-size: 0.82rem; font-weight: 650; color: var(--c1); }
+.abas { display: flex; gap: 0; overflow-x: auto; margin-bottom: 24px; border-bottom: 1px solid var(--linha); scrollbar-width: thin; }
+.abas [role=tab] { white-space: nowrap; min-height: 42px; padding: 8px 14px; font-size: 0.9rem; background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--suave); margin-bottom: -1px; }
+.abas [role=tab]:hover { color: var(--tinta); }
+.abas [role=tab][aria-selected=true] { color: var(--tinta); font-weight: 650; border-bottom-color: var(--c1); }
+.grade { display: grid; column-gap: 40px; row-gap: 40px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.grade .card { grid-column: span 6; padding-top: 14px; border-top: 1px solid var(--tinta); }
+.grade .card.l4 { grid-column: span 4; }
+.grade .card.l8 { grid-column: span 8; }
+.grade .card.l12 { grid-column: span 12; }
+.grade h3 { font-size: 1.15rem; font-stretch: 85%; font-weight: 700; }
+.controle { display: grid; gap: 4px; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600; color: var(--tinta); }
+details { margin-top: 10px; }
+summary { cursor: pointer; color: var(--c1); font-size: 0.85rem; }
+.tabela-rolagem { overflow: auto; max-height: 360px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { text-align: left; padding: 6px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+th { position: sticky; top: 0; background: var(--papel); color: var(--tinta); font-weight: 650; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+tr.destaque td { font-weight: 700; color: var(--c1); }
+
+/* Opinião */
+.opiniao form { display: grid; gap: 12px; max-width: 560px; }
+.opiniao fieldset { border: 0; padding: 0; margin: 0; }
+.opiniao legend, .opiniao label[for] { font-weight: 600; font-size: 0.9rem; color: var(--tinta); }
+.notas { display: flex; gap: 6px; margin-top: 8px; }
+.notas label { position: relative; }
+.notas input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.notas span { display: grid; place-items: center; width: 48px; height: 48px; cursor: pointer; border: 1px solid var(--linha); background: var(--card); color: var(--tinta); font-weight: 700; font-size: 1.05rem; }
+.notas input:checked + span { background: var(--c1); color: var(--sobre-c1); border-color: var(--c1); }
+.notas input:focus-visible + span { outline: 3px solid var(--c1); outline-offset: 2px; }
+#op-ok { color: var(--c1); font-weight: 650; }
+
+/* Sobre */
+.sobre-grade { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 24px; }
+.fontes { padding-left: 18px; margin: 0; }
+.fontes li { margin-bottom: 8px; font-size: 0.92rem; }
+.fontes b, .sobre-grade p b { color: var(--tinta); }
+.sobre-grade p { font-size: 0.92rem; margin: 0 0 14px; }
+footer { border-top: 1px solid var(--tinta); padding: 20px 0 40px; font-size: 0.85rem; color: var(--suave); }
+footer .largura { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer b { color: var(--tinta); }
+
+/* Entrada */
+body.travado { overflow: hidden; }
+.portao { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 16px; background: rgba(0, 0, 0, 0.72); }
+.portao-caixa { width: 100%; max-width: 460px; border-top: 4px solid var(--c1); padding: 28px; display: grid; gap: 12px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
+.portao-marca { margin: 0; font-weight: 800; font-stretch: 80%; text-transform: uppercase; font-size: 0.9rem; color: var(--tinta); }
+.portao-caixa h2 { font-size: 1.8rem; line-height: 1.02; }
+.portao-caixa p { margin: 0; }
+.portao-caixa label { font-weight: 600; font-size: 0.88rem; color: var(--tinta); }
+.portao-caixa .privacidade { font-size: 0.8rem; color: var(--suave); }
+.portao-caixa .botao { justify-content: center; margin-top: 4px; }
+
+@media (max-width: 960px) {
+  .capitulo { grid-template-columns: 1fr; gap: 20px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi:not(:nth-child(4n+1)) { padding-left: 0; border-left: 0; }
+  .kpi:nth-child(2n) { padding-left: 18px; border-left: 1px solid var(--linha); }
+  .grade { grid-template-columns: minmax(0, 1fr); }
+  .grade .card, .grade .card.l4, .grade .card.l8, .grade .card.l12 { grid-column: auto; }
+  .duelo { grid-template-columns: 1fr; }
+  .sobre-grade { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .topo nav { display: none; }
+  .topo .largura { justify-content: space-between; gap: 8px; }
+  .marca { font-size: 0.85rem; }
+  .acess { gap: 3px; }
+  .acess button { padding: 3px 7px; font-size: 0.74rem; }
+  .abertura { padding: 36px 0 32px; }
+  .ficha { grid-template-columns: 1fr; }
+  .ficha div, .ficha div + div { padding: 12px 0; border-left: 0; }
+  .ficha div + div { border-top: 1px solid var(--linha); }
+  .par { grid-template-columns: 84px 1fr auto; }
+  .grafico { height: 270px; }
+  .grafico.alto { height: 360px; }
+}

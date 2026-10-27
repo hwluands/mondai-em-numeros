@@ -1,5 +1,7 @@
 # Mondaí em Números
 
+[![CI](https://github.com/hwluands/mondai-em-numeros/actions/workflows/ci.yml/badge.svg)](https://github.com/hwluands/mondai-em-numeros/actions/workflows/ci.yml)
+
 O que os dados oficiais contam sobre **Mondaí (SC)**, e como a sua cidade se compara. Dados do IBGE e do Tesouro Nacional, comparados com as 295 cidades de Santa Catarina e com a região imediata de Chapecó.
 
 **Acessar:** https://mondai-em-numeros.pages.dev
@@ -9,19 +11,29 @@ Projeto de Luan Henrique Weber.
 ## Estrutura
 
 ```
-public/            site publicado (painel, página admin e dados gerados)
-  index.html       painel
-  admin.html       registros de acesso, protegidos por senha
-  dados/           saída do coleta.py
-functions/api/     API (Cloudflare Pages Functions)
-  registro.js      POST: grava acesso, retorno ou opinião
-  registros.js     GET com senha: lista os registros (JSON ou CSV)
-  resumo.js        GET público: contador de pessoas e cidades, sem nomes
-coleta.py          coleta, conferência e análise dos dados oficiais
-auditoria.py       refaz os números por outro caminho e compara com o IBGE Cidades
-schema.sql         tabela do banco D1
-wrangler.toml      configuração do Cloudflare Pages e do banco
+pipeline/            dados (Python, só biblioteca padrão)
+  coleta.py          coleta, conferência e análise dos dados oficiais
+  auditoria.py       refaz os números por outro caminho e compara com o IBGE Cidades
+public/              site publicado
+  index.html         painel
+  admin.html         registros de acesso, protegidos por senha
+  css/               base.css (tokens, temas e comuns), painel.css, admin.css
+  js/painel/         módulos do painel: dados, formato, graficos, abertura, comparar,
+                     historias, explorar, ranking, registro, acessibilidade, main
+  js/admin.js        página de registros
+  vendor/            Chart.js 4.4.1, servido pelo próprio site
+  fontes/            Archivo (licença OFL), servida pelo próprio site
+  dados/             saída do pipeline
+functions/api/       API (Cloudflare Pages Functions)
+  registro.js        POST: grava acesso, retorno ou opinião
+  registros.js       GET com senha: lista os registros (JSON ou CSV)
+  resumo.js          GET público: contador de pessoas e cidades, sem nomes
+tests/               testes da API e do painel (node --test)
+schema.sql           tabela do banco D1
+wrangler.toml        configuração do Cloudflare Pages e do banco
 ```
+
+O site não tem etapa de build: o navegador carrega os módulos ES direto de `public/js/`.
 
 ## Problema
 
@@ -49,7 +61,7 @@ Cada gráfico tem uma tabela equivalente ("Ver em tabela"). O link tem prévia p
 
 ## Como os dados são tratados
 
-O script [`coleta.py`](coleta.py) faz todo o processo, só com a biblioteca padrão do Python:
+O script [`pipeline/coleta.py`](pipeline/coleta.py) faz todo o processo, só com a biblioteca padrão do Python:
 
 1. **Conferência:** antes de baixar, consulta os metadados oficiais do IBGE e confirma se a tabela tem dado por município, se o ano foi publicado e se a variável e cada categoria têm o nome esperado. Se algo não bater, para com erro. O registro fica em [`public/dados/validacao.txt`](public/dados/validacao.txt).
 2. **Coleta:** baixa 35 séries dos 295 municípios pela API do SIDRA, o PIB per capita oficial do IBGE Cidades e as despesas das prefeituras da região no Siconfi.
@@ -61,11 +73,11 @@ O script [`coleta.py`](coleta.py) faz todo o processo, só com a biblioteca padr
 Para atualizar e auditar:
 
 ```
-python coleta.py
-python auditoria.py
+python pipeline/coleta.py
+python pipeline/auditoria.py
 ```
 
-A [`auditoria.py`](auditoria.py) refaz cada porcentagem a partir das contagens absolutas do IBGE, confere se pirâmide, setores e despesas fecham com os totais, recalcula os indicadores por habitante e as posições no ranking e compara com os valores e posições publicados no IBGE Cidades. O resultado fica em [`public/dados/auditoria.txt`](public/dados/auditoria.txt), e o script termina com erro se algum item não conferir.
+A [`auditoria.py`](pipeline/auditoria.py) refaz cada porcentagem a partir das contagens absolutas do IBGE, confere se pirâmide, setores e despesas fecham com os totais, recalcula os indicadores por habitante e as posições no ranking e compara com os valores e posições publicados no IBGE Cidades. O resultado fica em [`public/dados/auditoria.txt`](public/dados/auditoria.txt), e o script termina com erro se algum item não conferir. Ela também roda sozinha uma vez por mês no GitHub Actions ([`auditoria.yml`](.github/workflows/auditoria.yml)).
 
 Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plansab), adotado pelo IBGE na divulgação do Censo 2022: rede geral e fossa séptica, ligada ou não à rede.
 
@@ -128,8 +140,8 @@ Esgoto adequado segue o critério do Plano Nacional de Saneamento Básico (Plans
 | Princípio | Como foi atendido |
 |---|---|
 | Igualitário | Gratuito e funciona em qualquer navegador; a entrada pede só nome e cidade |
-| Adaptável | Letra A−/A+ e modo de alto contraste |
-| Intuitivo | Posições escritas como "8º maior de SC"; indicadores com um ponto numa régua do menor ao maior |
+| Adaptável | Letra A−/A+, tema escuro (padrão) ou claro e modo de alto contraste |
+| Intuitivo | Posições escritas como "8º maior de SC"; cada indicador mostra as 295 cidades em traços, com Mondaí em destaque |
 | Informação perceptível | Cada gráfico tem tabela equivalente e descrição para leitores de tela |
 | Tolerância ao erro | Indicadores sem dado aparecem como "sem dado"; o script para em vez de publicar dado errado |
 | Baixo esforço físico | Leitura, menu de seções, abas e listas de escolha; nada precisa ser digitado além da entrada |
@@ -154,9 +166,18 @@ ADMIN_TOKEN=uma-senha-longa
 
 E rode `npm run dev`. O painel fica em `http://localhost:8788` e a página de registros em `http://localhost:8788/admin`.
 
+## Testes
+
+```
+npm test                   # API (validação, origem, senha, CSV) e painel (formatação, integridade dos dados)
+pipx run ruff check pipeline/
+```
+
+Os dois rodam a cada push no GitHub Actions ([`ci.yml`](.github/workflows/ci.yml)).
+
 ## Tecnologias
 
-Python (coleta, validação e análise), HTML, CSS, JavaScript e Chart.js (visualização), Cloudflare Pages Functions e D1/SQLite (API e banco de registros), Cloudflare Pages (publicação).
+Python (coleta, validação e análise), HTML, CSS, JavaScript (módulos ES, sem build) e Chart.js (visualização), Cloudflare Pages Functions e D1/SQLite (API e banco de registros), Cloudflare Pages (publicação).
 
 ## Autor
 

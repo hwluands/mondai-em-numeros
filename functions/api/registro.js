@@ -18,7 +18,11 @@ function texto(valor, maximo) {
   return limpo || null;
 }
 
-function validar(corpo) {
+function mesmoSite(origem, url) {
+  try { return new URL(origem).host === new URL(url).host; } catch { return false; }
+}
+
+export function validar(corpo) {
   if (!corpo || typeof corpo !== "object") throw new Error("corpo vazio");
   if (!TIPOS.has(corpo.tipo)) throw new Error("tipo inválido");
   if (typeof corpo.visitante !== "string" || !UUID.test(corpo.visitante)) throw new Error("visitante inválido");
@@ -38,9 +42,9 @@ function validar(corpo) {
 }
 
 export async function onRequestPost({ request, env }) {
-  // Só aceita envios feitos pelo próprio site.
-  const origem = request.headers.get("Origin");
-  if (origem && new URL(origem).host !== new URL(request.url).host) {
+  // Só aceita envios feitos pelo próprio site. Navegadores sempre mandam Origin num POST com fetch.
+  // Não impede quem forja o cabeçalho de propósito, mas barra robôs e envios casuais de fora do site.
+  if (!mesmoSite(request.headers.get("Origin"), request.url)) {
     return resposta({ erro: "origem não permitida" }, 403);
   }
   if (!(request.headers.get("Content-Type") || "").includes("application/json")) {

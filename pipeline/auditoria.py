@@ -7,7 +7,7 @@ Refaz, por um caminho independente, os números que aparecem no site:
   4. posições no ranking recalculadas a partir dos 295 municípios;
   5. comparação com os valores e posições publicados no IBGE Cidades.
 
-Uso: python auditoria.py   (depois do coleta.py)
+Uso: python pipeline/auditoria.py   (depois do coleta.py)
 Saída: public/dados/auditoria.txt. Termina com erro se algum item não conferir.
 """
 
@@ -18,7 +18,7 @@ from pathlib import Path
 
 from coleta import MONDAI, SICONFI, TOTAL_COR, TOTAL_IDADE_58, TOTAL_SEXO, UF, baixar, consulta, ler
 
-PASTA = Path(__file__).parent / "public" / "dados"
+PASTA = Path(__file__).resolve().parent.parent / "public" / "dados"
 texto = (PASTA / "painel.js").read_text(encoding="utf-8")
 DADOS = json.loads(texto[texto.index("=") + 1:].strip().rstrip(";"))
 I, MUN, S = DADOS["indicadores"], DADOS["municipios"], DADOS["series"]
@@ -43,7 +43,8 @@ def confere(descricao, painel, independente, tolerancia=0.01):
     global falhas
     ok = painel is not None and independente is not None and abs(painel - independente) <= tolerancia
     falhas += not ok
-    saida.append(f"[{'ok' if ok else 'FALHA'}] {descricao}: painel {painel} | conferência {round(independente, 4) if independente is not None else None}")
+    conferencia = round(independente, 4) if independente is not None else None
+    saida.append(f"[{'ok' if ok else 'FALHA'}] {descricao}: painel {painel} | conferência {conferencia}")
 
 
 def contagens(c, local, classe):
@@ -87,7 +88,8 @@ for nome, local in LOCAIS.items():
     for rotulo, valor in p.items():
         confere(f"Água, {nome}, {rotulo}", S["agua"][nome][rotulo], valor)
     if nome == "Mondaí":
-        confere("Indicador 'moradores ligados à rede de água'", I["agua_rede"]["mondai"], p["Rede geral"] + p["Rede geral, mas usa outra fonte"], 0.02)
+        confere("Indicador 'moradores ligados à rede de água'", I["agua_rede"]["mondai"],
+                p["Rede geral"] + p["Rede geral, mas usa outra fonte"], 0.02)
 
 lixo = {72120: "Coletado na porta", 72121: "Caçamba de coleta", 72122: "Queimado na propriedade",
         72123: "Enterrado na propriedade", 72124: "Terreno baldio ou área pública", 1091: "Outro destino"}
@@ -100,7 +102,8 @@ for nome, local in LOCAIS.items():
     for rotulo, valor in p.items():
         confere(f"Lixo, {nome}, {rotulo}", S["lixo"][nome][rotulo], valor)
     if nome == "Mondaí":
-        confere("Indicador 'moradores com lixo coletado'", I["lixo_coletado"]["mondai"], p["Coletado na porta"] + p["Caçamba de coleta"], 0.02)
+        confere("Indicador 'moradores com lixo coletado'", I["lixo_coletado"]["mondai"],
+                p["Coletado na porta"] + p["Caçamba de coleta"], 0.02)
 
 niveis = {9493: "Sem instrução ou fundamental incompleto", 9494: "Fundamental completo",
           9495: "Médio completo", 99713: "Superior completo"}

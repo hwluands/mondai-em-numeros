@@ -15,7 +15,7 @@ Saídas (em public/dados/):
   painel.js          tudo o que a página usa
   validacao.txt      o que foi conferido em cada fonte
 
-Uso: python coleta.py   (só biblioteca padrão do Python)
+Uso: python pipeline/coleta.py   (só biblioteca padrão do Python)
 """
 
 import csv
@@ -39,7 +39,7 @@ UF = "n3/42"            # o estado de Santa Catarina
 MONDAI = "4211009"
 VIZINHOS = ["Caibi", "Iporã do Oeste", "Itapiranga", "Palmitos", "Riqueza"]
 
-PASTA = Path(__file__).parent / "public" / "dados"
+PASTA = Path(__file__).resolve().parent.parent / "public" / "dados"
 registro = []
 
 
@@ -61,7 +61,7 @@ def baixar(url, tentativas=4):
                 return json.loads(r.stdout)
             except Exception as erro:
                 if i == tentativas - 1:
-                    raise RuntimeError(f"Não consegui baixar {url}: {erro}")
+                    raise RuntimeError(f"Não consegui baixar {url}: {erro}") from erro
                 time.sleep(3 * (i + 1))
 
 
@@ -400,8 +400,8 @@ def coletar_series(municipios):
                      [{"ano": int(a), "valor": v, "tipo": "Estimativa"} for a, v in sorted(estimativas.items())]
 
     print("  nascimentos e óbitos")
-    nasc = AUXILIARES["nascidos"].copy(); nasc["periodo"] = "all"
-    obit = AUXILIARES["obitos"].copy(); obit["periodo"] = "all"
+    nasc = {**AUXILIARES["nascidos"], "periodo": "all"}
+    obit = {**AUXILIARES["obitos"], "periodo": "all"}
     n, o = serie(nasc), serie(obit)
     s["vitais"] = [{"ano": int(a), "nascimentos": n[a], "obitos": o.get(a)} for a in sorted(n)]
 

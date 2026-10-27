@@ -16,14 +16,20 @@ const brasilia = new Intl.DateTimeFormat("pt-BR", {
   hour: "2-digit", minute: "2-digit", second: "2-digit",
 });
 
-function csv(linhas) {
+// Texto digitado por visitantes que começa com =, +, - ou @ viraria fórmula ao abrir no Excel.
+// O apóstrofo na frente faz a planilha mostrar o texto como texto.
+const neutralizarFormula = t => /^[=+\-@\t\r]/.test(t) ? "'" + t : t;
+
+export function csv(linhas) {
   const colunas = ["id", "data_hora_brasilia", "tipo", "nome", "cidade", "nota", "comentario", "visitante"];
-  const celula = v => {
-    const t = v === null || v === undefined ? "" : String(v);
+  const livres = new Set(["nome", "cidade", "comentario"]);
+  const celula = (v, coluna) => {
+    let t = v === null || v === undefined ? "" : String(v);
+    if (livres.has(coluna)) t = neutralizarFormula(t);
     return /[";\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
   };
   const corpo = linhas.map(l => colunas.map(c =>
-    celula(c === "data_hora_brasilia" ? brasilia.format(new Date(l.criado_em)).replace(", ", " ") : l[c])).join(";"));
+    celula(c === "data_hora_brasilia" ? brasilia.format(new Date(l.criado_em)).replace(", ", " ") : l[c], c)).join(";"));
   return "﻿" + [colunas.join(";"), ...corpo].join("\n") + "\n";
 }
 
